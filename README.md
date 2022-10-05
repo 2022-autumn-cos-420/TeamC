@@ -6,6 +6,9 @@
 -**Evan Hamer**: Dev  
 -**Mohammed Fazli**: Designer  
 
+## Project Kanban:
+https://app.zenhub.com/workspaces/my-team-workspace-6339852e55d090670d68f6ec/board
+
 ## Mission Statement:
 "Tackling the challenges in student learning"
 

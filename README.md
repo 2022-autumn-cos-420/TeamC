@@ -1,4 +1,5 @@
 # Team-CompEdu
+# Memento Flashcard Application
 
 ## Team Members:  
 -**Josh Andle**: PM  
@@ -7,7 +8,7 @@
 -**Mohammed Fazli**: Designer  
 
 ## Project Kanban:
-https://app.zenhub.com/workspaces/my-team-workspace-6339852e55d090670d68f6ec/board
+https://app.zenhub.com/workspaces/cos420-fall-2022-correct-workspace-6323624757d9ee0018e39895/board?invite=3KeJ43BhbrTh5tbxA8ixqkyS
 
 ## Mission Statement:
 "Tackling the challenges in student learning"

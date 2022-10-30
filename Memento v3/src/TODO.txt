@@ -1,0 +1,6 @@
+To Do:
+-Place code within the onsuccess
+-Add Cards
+-getListOfDecks() - bolt on to the library viewer
+-Write out getCardsInDeck("DeckName") - Should probably return an array
+

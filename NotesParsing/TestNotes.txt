@@ -10,13 +10,13 @@ Seismology: Study of EQs, ‘seismos’ is Greek for ‘shocks’
 * Most EQs are caused by built-up stress along faults, which propagates energy through the crust when the stress is released
 
 
-Fault: Fracture on which one rock slides past another
+{Fault: Fracture on which one rock slides past another}
 
 
-Hypocenter (focus): Actual location of the EQ
+{Hypocenter (focus): Actual location of the EQ}
 
 
-Epicenter: Point on the Earth’s surface directly above the hypocenter
+{Epicenter: Point on the Earth’s surface directly above the hypocenter}
   
   
 
@@ -25,14 +25,14 @@ Epicenter: Point on the Earth’s surface directly above the hypocenter
 Types of Faults
 
 
-Normal Fault: A fault where the hanging wall moves down
+{Normal Fault: A fault where the hanging wall moves down}
 
 
-Reverse/Thrust Fault: A fault where the Hanging wall moves up
+{Reverse/Thrust Fault: A fault where the Hanging wall moves up}
 
 
-Strike-slip Fault: No up or down movement, just horizontal   
-(fault is near vertical)  
+{Strike-slip Fault: No up or down movement, just horizontal   
+(fault is near vertical)  }
 
 
 
@@ -55,9 +55,6 @@ Strike-slip Fault: No up or down movement, just horizontal
 
 
 
-
-
-
 The hanging wall is on the left/higher up (in pic)
 
 
@@ -75,12 +72,23 @@ Gas line ruptures, a cause for fires
 * Alaska 1964 EQ
 
 
-Tsunami: Caused by a displacement of water
+{Tsunami: Caused by a displacement of water}
 
 
-Landslides: potentially damming rivers or breaking dams
+{Landslides: potentially damming rivers or breaking dams}
 * Steep slopes and weak bedrock are most likely to fail
 
 
-Liquefaction: Eruption of wet fine sediment from shallow underground to the surface
+{Liquefaction: Eruption of wet fine sediment from shallow underground to the surface}
+
+sdadfadf
+Test custom delimeters below.
+
+aasdfj % Term$ def
+{{}}:
+
+This is a paragraph. This is a paragraph. This is a paragraph. {TERM: DEFINITION}. This is a paragraph. This is a paragraph.
+
+
+
 

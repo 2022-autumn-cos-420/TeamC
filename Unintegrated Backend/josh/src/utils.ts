@@ -37,4 +37,3 @@ export function deckEquality(deckOne: Card[], deckTwo: Card[]): boolean {
     });
     return isEqual;
 }
-

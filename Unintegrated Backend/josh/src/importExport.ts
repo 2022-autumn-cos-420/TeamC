@@ -2,7 +2,6 @@ import { urlToHttpOptions } from "url";
 import { Card } from "./interfaces/card";
 import * as fs from "fs";
 import * as path from "path";
-import * as json from "json5";
 import { equal } from "assert";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
 
@@ -26,27 +25,21 @@ export function exportCards(
     if (cards.length === 0) {
         return false;
     }
-    // let cardArray: string[] = [];
-    // cards.map((card: Card): string[] => 
-    //     cardArray = [...cardArray, ("{ " + card.front + ", " + card.back + ", " + card.decks + " ], " + String(card.accuracy) + " }")]
-    //     );
+    let cardString: string = "";
+    let cardArray: string[] = [];
+    cards.map((card: Card): string[] => 
+        // Results in growing string[] array where each string represents an array containing the data for one card object
+        // There are separate delimiters from join() between the properties of a given card (<|>) and between each card (<|||>)
+        // This way an array-of-arrays can be retrieved by a 2-step split() call and subsequently mapped over to recreate the cards.
+        cardArray = [...cardArray, [("[ " + card.front) , card.back , ("[ " + card.decks.join(",") + " ]"), (String(card.accuracy) + " ]")].join("<|>")],
+        );
 
-    // const cardString: string = "[ " + cardArray.join(", ") + " ]";
-    // console.log("cardString is: " + cardString + "\n");
+    cardString = ("[ " + cardArray.join("<|||>") + " ]")
+    console.log("cardString is: " + cardString + "\n");
 
-    // fs.writeFileSync((exportPath + fileName), cardString);
-    const data = JSON.stringify(cards)
-
-    if (fs.existsSync((exportPath + fileName + ".json")) !== true) {
-        // write JSON string to a file
-        fs.writeFile((exportPath + fileName + ".json"), data, err => {
-            if (err) {
-                throw err
-            }
-            console.log('JSON data is saved.')
-        });
-    }
-    // fs.writeFileSync((exportPath + "copyFile.txt"), cardString);
+    fs.writeFileSync((exportPath + fileName), cardString);
+ 
+    fs.writeFileSync((exportPath + "copyFile2.txt"), cardString);
     // fs.unlinkSync((exportPath + "mytext.txt"));
     return true;
 }

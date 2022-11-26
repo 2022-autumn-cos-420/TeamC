@@ -14,7 +14,6 @@ class FlashCard extends Component {
             flipState: false
         }
         this.flipCard = this.flipCard.bind(this);
-
     }
 
     flipCard = (event) => {
@@ -68,22 +67,22 @@ class FlashCard extends Component {
                         <top>
                             <ul>
                                 <li><span className="Dot"></span></li>
-                                <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.state.localCardHint}></input></li>
-                                <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.state.localCardDecks}></input></li>
+                                <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint}></input></li>
+                                <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </top>
-                        <input type="CardFrontText" placeholder="Write" onChange = {this.handleFrontChange} value={this.state.localCardFront}></input>
+                        <input type="CardFrontText" placeholder="Write" onChange = {this.handleFrontChange} value={this.props.frontText}></input>
                         <button className="FlipCardButton" onClick={this.flipCard}></button>
                     </div>
                     <div className="FlashCardBack">
                         <top>
                             <ul>
                                 <li><span className="Dot"></span></li>
-                                <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.state.localCardHint}></input></li>
-                                <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.state.localCardDecks}></input></li>
+                                <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint}></input></li>
+                                <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </top>
-                        <input type="CardFrontText" placeholder="Write Back" onChange = {this.handleBackChange} value={this.state.localCardBack}></input>
+                        <input type="CardFrontText" placeholder="Write Back" onChange = {this.handleBackChange} value={this.props.backText}></input>
                         <button className="FlipCardButton" onClick={this.flipCard}></button>
                     </div>
                 </div>

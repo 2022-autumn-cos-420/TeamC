@@ -56,8 +56,8 @@ class CollectPage extends Component {
             <p className = "title">Collection</p>
             <div className = "collectionWindow">
                 <div>
-                    {this.state.cardArray.map((card, index) => (
-                        <CollTab key={card.frontText+card.backText+card.cardHint} frontText = {card.frontText} backText = {card.backText} cardHint = {card.cardHint} cardDecks = {card.cardDecks} deleted = {this.deleteHandler} updated = {this.updateHandler}></CollTab>
+                    {this.state.cardArray.map((card) => (
+                        <CollTab key={card.id} frontText = {card.frontText} backText = {card.backText} cardHint = {card.cardHint} cardDecks = {card.cardDecks} deleted = {this.deleteHandler} updated = {this.updateHandler}></CollTab>
                     ))}
                 </div>
             </div>

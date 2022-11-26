@@ -27,7 +27,12 @@ class HomePage extends Component {
                         cardDecks: newDecks});
     }
 
-    addCardHandler = () => {
+    addCardHandler = (event) => {
+        this.setState({frontText: "",
+                        backText: "",
+                        cardHint: "",
+                        cardDecks: ""}, () => {console.log("New HomePage state frontText: ", this.state.frontText)});
+                    
         //Now we have to call the page above, to app.js
         console.log("Trying to add Card! in HomePage, got: ", this.state.frontText, "Back: ", this.state.backText);
         let newDecksArray = [this.state.cardDecks];

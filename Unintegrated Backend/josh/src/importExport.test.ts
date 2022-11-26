@@ -3,13 +3,20 @@ import { exportCards, importCards} from "./importExport";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
 import * as fs from "fs";
 import * as path from "path";
+import * as json from "json5";
 import testCardData from "./data/cards.json";
+import copyCardData from "../user.json";
 // import backupQuestionData from "./data/questions.json";
 
 const { TEST_CARDS }: Record<string, Card[]> =
     // Typecast the test data that we imported to be a record matching
     //  strings to the question list
     testCardData as Record<string, Card[]>;
+
+const COPY_CARDS: Card[] =
+    // Typecast the test data that we imported to be a record matching
+    //  strings to the question list
+    copyCardData as Card[];
 
 const NEW_CARDS: Card[] = [
     {
@@ -68,7 +75,8 @@ const DECKS_THREE: string[] = [
 ]
 
 
-const testFile: string = "testFile.txt"
+const testFile: string = "testFile"
+const testFileJson: string = "testFile.json"
 ////////////////////////////////////////////
 // Actual tests
 
@@ -78,24 +86,27 @@ describe("Testing the exportCards() functions", () => {
     // exportCards
 
     beforeEach(() => {
-        if (fs.existsSync((exportPath + testFile))) {
-            fs.unlinkSync((exportPath + testFile))
+        if (fs.existsSync((exportPath + testFileJson))) {
+            fs.unlinkSync((exportPath + testFileJson));
+            console.log("Deleted testFile.json");
         }
     });
 
     test("Testing that TEST_CARDS loaded from /data/cards.json properly", () => {
-        expect(NEW_CARDS === TEST_CARDS).toEqual(true);
+        expect(deckEquality(NEW_CARDS, TEST_CARDS)).toEqual(true);
+        expect(deckEquality(NEW_CARDS, COPY_CARDS)).toEqual(true);
     });
 
     test("Testing that exportCards() creates the expected file", () => {
         expect(exportCards(NEW_CARDS, testFile)).toEqual(true);
-        expect(fs.existsSync((exportPath + testFile))).toEqual(true);
+        expect(fs.existsSync((exportPath + testFileJson))).toEqual(true);
     });
     
     test("Testing that exportCards() fails to export empty files", () => {
-        expect(exportCards(NEW_CARDS, testFile, "nonExistentDeck")).toEqual(false);
-        expect(fs.existsSync((exportPath + testFile))).toEqual(false);
+        expect(exportCards([], testFile, "nonExistentDeck")).toEqual(false);
+        expect(fs.existsSync((exportPath + testFileJson))).toEqual(false);
     });
+     
     
     // afterEach(() => {
     //     expect(NEW_CARDS).toEqual(BACKUP_BLANK_QUESTIONS);

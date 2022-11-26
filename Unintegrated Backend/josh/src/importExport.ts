@@ -2,6 +2,7 @@ import { urlToHttpOptions } from "url";
 import { Card } from "./interfaces/card";
 import * as fs from "fs";
 import * as path from "path";
+import * as json from "json5";
 import { equal } from "assert";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
 
@@ -22,16 +23,30 @@ export function exportCards(
     if (!fs.existsSync(exportPath)){
         fs.mkdirSync(exportPath);
     }
-    let cardArray: string[] = [];
-    cards.map((card: Card): string[] => 
-        cardArray = [...cardArray, ("{" + card.front + ", " + card.back + ", " + card.decks + ", " + String(card.accuracy) + " }")]
-        );
+    if (cards.length === 0) {
+        return false;
+    }
+    // let cardArray: string[] = [];
+    // cards.map((card: Card): string[] => 
+    //     cardArray = [...cardArray, ("{ " + card.front + ", " + card.back + ", " + card.decks + " ], " + String(card.accuracy) + " }")]
+    //     );
 
-    const cardString: string = "[ " + cardArray.join(", ") + " ]";
-    console.log("cardString is: " + cardString + "\n");
+    // const cardString: string = "[ " + cardArray.join(", ") + " ]";
+    // console.log("cardString is: " + cardString + "\n");
 
-    fs.writeFileSync((exportPath + fileName), cardString);
-    fs.writeFileSync((exportPath + "copyFile.txt"), cardString);
+    // fs.writeFileSync((exportPath + fileName), cardString);
+    const data = JSON.stringify(cards)
+
+    if (fs.existsSync((exportPath + fileName + ".json")) !== true) {
+        // write JSON string to a file
+        fs.writeFile((exportPath + fileName + ".json"), data, err => {
+            if (err) {
+                throw err
+            }
+            console.log('JSON data is saved.')
+        });
+    }
+    // fs.writeFileSync((exportPath + "copyFile.txt"), cardString);
     // fs.unlinkSync((exportPath + "mytext.txt"));
     return true;
 }

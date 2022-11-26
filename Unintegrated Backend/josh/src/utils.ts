@@ -37,3 +37,15 @@ export function deckEquality(deckOne: Card[], deckTwo: Card[]): boolean {
     });
     return isEqual;
 }
+
+
+export function stringToCard(string: string): Card {
+    const cardArray: string[] = string.split("<|>")
+    const card: Card = {
+        front: cardArray[0],
+        back: cardArray[1],
+        decks: cardArray[2].split(","),
+        accuracy: Number(cardArray[3])
+    }
+    return card;
+}

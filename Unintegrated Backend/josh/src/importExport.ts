@@ -3,7 +3,7 @@ import { Card } from "./interfaces/card";
 import * as fs from "fs";
 import * as path from "path";
 import { equal } from "assert";
-import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
+import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "./utils";
 
 
 
@@ -31,15 +31,15 @@ export function exportCards(
         // Results in growing string[] array where each string represents an array containing the data for one card object
         // There are separate delimiters from join() between the properties of a given card (<|>) and between each card (<|||>)
         // This way an array-of-arrays can be retrieved by a 2-step split() call and subsequently mapped over to recreate the cards.
-        cardArray = [...cardArray, [("[ " + card.front) , card.back , ("[ " + card.decks.join(",") + " ]"), (String(card.accuracy) + " ]")].join("<|>")],
+        cardArray = [...cardArray, [card.front , card.back , card.decks.join(","), String(card.accuracy)].join("<|>")],
         );
 
-    cardString = ("[ " + cardArray.join("<|||>") + " ]")
-    console.log("cardString is: " + cardString + "\n");
+    cardString = cardArray.join("<|||>")
+    // console.log("cardString is: " + cardString + "\n");
 
     fs.writeFileSync((exportPath + fileName), cardString);
  
-    fs.writeFileSync((exportPath + "copyFile2.txt"), cardString);
+    // fs.writeFileSync((exportPath + "copyFile2.txt"), cardString);
     // fs.unlinkSync((exportPath + "mytext.txt"));
     return true;
 }
@@ -52,7 +52,12 @@ export function exportCards(
     filePath: string,
     deckName: string = ""
 ): Card[] {
-    let importedCards: Card[] = [];
+    const textFileString: string = fs.readFileSync(filePath).toString();
+    const importedIntermediateData: string[] = textFileString.split("<|||>")
+    const importedCards: Card[] = importedIntermediateData.map((cardString: string): Card =>
+        stringToCard(cardString)
+    )
+
     return importedCards;
 }
 

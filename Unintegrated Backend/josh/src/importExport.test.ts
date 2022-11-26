@@ -88,7 +88,6 @@ describe("Testing the exportCards() functions", () => {
     beforeEach(() => {
         if (fs.existsSync((exportPath + testFileTxt))) {
             fs.unlinkSync((exportPath + testFileTxt));
-            console.log("Deleted testFile.txt");
         }
     });
 
@@ -133,10 +132,11 @@ describe("Testing the importCards() functions", () => {
     // getPublishedQuestions
 
 
-
-    test("Testing the importCard function", () => {
-        expect(fs.existsSync((exportPath + "mytext2.txt"))).toEqual(true);
-        expect(deckEquality(importCards((exportPath + "mytext2.txt")), NEW_CARDS)).toEqual(true);
+    // copyFile2.txt is a file generated from exportCards(), this test ensures import() can properly parse this format of text
+    test("Testing the importCard() function on previously exported version of NEW_CARDS", () => {
+        expect(fs.existsSync((exportPath + "exportedNewCards.txt"))).toEqual(true);
+        console.log(importCards((exportPath + "exportedNewCards.txt")));
+        expect(deckEquality(importCards((exportPath + "exportedNewCards.txt")), NEW_CARDS)).toEqual(true);
     });
 
     // afterEach(() => {

@@ -63,7 +63,6 @@ export function exportCards(
     const importedCards: Card[] = importedIntermediateData.map((cardString: string): Card =>
         stringToCard(cardString)
     )
-
     return importedCards;
 }
 
@@ -76,8 +75,23 @@ export function exportCards(
     collection: Card[],
     deckName: string = ""
 ): Card[] {
-    const importedCards: Card[] = loadCardsFromTxt()
-
-    return importedCards;
+    const importedCards: Card[] = loadCardsFromTxt(filePath, deckName)
+    importedCards.map((card: Card): void => {
+        let duplicate: boolean = false;
+        if ( collection.length !== 0 ){
+            collection.map((collectionCard: Card): void => {
+                if (cardEquality(collectionCard, card)) {
+                    duplicate = true;
+                }
+            })
+            if (duplicate === false){
+                collection = [...collection, { front: card.front, back: card.back, decks: card.decks, accuracy: card.accuracy }]
+            }
+        }
+        else {
+            collection = [{ front: card.front, back: card.back, decks: card.decks, accuracy: card.accuracy }]
+        }
+    })
+    return collection;
 }
 

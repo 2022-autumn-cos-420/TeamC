@@ -30,11 +30,16 @@ export function cardEquality(cardOne: Card, cardTwo: Card): boolean {
 
 export function deckEquality(deckOne: Card[], deckTwo: Card[]): boolean {
     let isEqual: boolean = true;
-    deckOne.map((card: Card, index: number): void => {
-        if (cardEquality(card, deckTwo[index]) !== true) {
-            isEqual = false;
-        }
-    });
+    if (deckOne.length === 0 || deckOne.length !== deckTwo.length){
+        isEqual = false;
+    }
+    else {
+        deckOne.map((card: Card, index: number): void => {
+            if (cardEquality(card, deckTwo[index]) !== true) {
+                isEqual = false;
+            }
+        });
+    }
     return isEqual;
 }
 

@@ -155,6 +155,12 @@ describe("Testing the importCards() functions", () => {
         console.log(USER_COLLECTION.length);
     });
 
+        // copyFile2.txt is a file generated from exportCards(), this test ensures import() can properly parse this format of text
+        test("Testing that importing duplicate cards not found in the collection only adds one copy of that card", () => {
+            expect(fs.existsSync((exportPath + "exportedDuplicateCards.txt"))).toEqual(true);
+            expect(importCards((exportPath + "exportedDuplicateCards.txt"), []).length === 1).toEqual(true);
+        });
+    
     // afterEach(() => {
     //     expect(BLANK_QUESTIONS).toEqual(BACKUP_BLANK_QUESTIONS);
     // });

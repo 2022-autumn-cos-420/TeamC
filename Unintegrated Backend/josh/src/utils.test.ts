@@ -82,12 +82,12 @@ describe("Testing the utils equality functions", () => {
     //Confirm cardEquality() function by comparing two known identical arrays of Card objects.
     test("Testing that helper cardEquality function properly works", () => {
         NEW_CARDS.map((card: Card, index: number): void =>
-            console.log(expect(cardEquality(card, TEST_CARDS[index])).toEqual(true))
+            expect(cardEquality(card, TEST_CARDS[index])).toEqual(true)
         );
         // Every card in OTHER_CARDS has a single attribute that differs slightly from the TEST_CARDS
         // If the function fails to catch the differences in any of those properties then this test will fail since it's mapped for each card
         OTHER_CARDS.map((card: Card, index: number): void =>
-            console.log(expect(cardEquality(card, TEST_CARDS[index])).toEqual(false))
+            expect(cardEquality(card, TEST_CARDS[index])).toEqual(false)
         );        
     });
 

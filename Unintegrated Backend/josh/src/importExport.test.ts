@@ -68,17 +68,33 @@ const DECKS_THREE: string[] = [
 ]
 
 
+const testFile: string = "testFile.txt"
 ////////////////////////////////////////////
 // Actual tests
+
 
 describe("Testing the exportCards() functions", () => {
     //////////////////////////////////
     // exportCards
 
-    test("Testing the getPublishedQuestions function", () => {
+    beforeEach(() => {
+        if (fs.existsSync((exportPath + testFile))) {
+            fs.unlinkSync((exportPath + testFile))
+        }
+    });
+
+    test("Testing that TEST_CARDS loaded from /data/cards.json properly", () => {
         expect(NEW_CARDS === TEST_CARDS).toEqual(true);
-        expect(exportCards(NEW_CARDS, "filename", "deck1")).toEqual(true);
-        expect(fs.existsSync((exportPath + "mytext2.txt"))).toEqual(true);
+    });
+
+    test("Testing that exportCards() creates the expected file", () => {
+        expect(exportCards(NEW_CARDS, testFile)).toEqual(true);
+        expect(fs.existsSync((exportPath + testFile))).toEqual(true);
+    });
+    
+    test("Testing that exportCards() fails to export empty files", () => {
+        expect(exportCards(NEW_CARDS, testFile, "nonExistentDeck")).toEqual(false);
+        expect(fs.existsSync((exportPath + testFile))).toEqual(false);
     });
     
     // afterEach(() => {

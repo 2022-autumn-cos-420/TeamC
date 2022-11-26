@@ -17,15 +17,22 @@ Returns true on success and false on a failure
 export function exportCards(
     cards: Card[],
     fileName: string,
-    deckID = ""
+    deckID: string = ""
 ): boolean {
     if (!fs.existsSync(exportPath)){
         fs.mkdirSync(exportPath);
     }
-    fs.writeFileSync((exportPath + "mytext.txt"), "hello world 3000!");
-    fs.writeFileSync((exportPath + "mytext2.txt"), "hello world 3000!");
-    fs.unlinkSync((exportPath + "mytext.txt"));
+    let cardArray: string[] = [];
+    cards.map((card: Card): string[] => 
+        cardArray = [...cardArray, ("{" + card.front + ", " + card.back + ", " + card.decks + ", " + String(card.accuracy) + " }")]
+        );
 
+    const cardString: string = "[ " + cardArray.join(", ") + " ]";
+    console.log("cardString is: " + cardString + "\n");
+
+    fs.writeFileSync((exportPath + fileName), cardString);
+    fs.writeFileSync((exportPath + "copyFile.txt"), cardString);
+    // fs.unlinkSync((exportPath + "mytext.txt"));
     return true;
 }
 

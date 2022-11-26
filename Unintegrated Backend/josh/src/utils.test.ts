@@ -1,8 +1,6 @@
 import { Card } from "./interfaces/card";
-import { exportCards} from "./export";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
-import * as fs from "fs";
-import * as path from "path";
+
 import testCardData from "./data/cards.json";
 // import backupQuestionData from "./data/questions.json";
 
@@ -71,17 +69,35 @@ const DECKS_THREE: string[] = [
 ////////////////////////////////////////////
 // Actual tests
 
-describe("Testing the exportCards functions", () => {
+describe("Testing the utils equality functions", () => {
     //////////////////////////////////
     // exportCards
 
-    test("Testing the getPublishedQuestions function", () => {
-        expect(NEW_CARDS === TEST_CARDS).toEqual(true);
-        expect(exportCards(NEW_CARDS, "filename", "deck1")).toEqual(true);
-        expect(fs.existsSync((exportPath + "mytext2.txt"))).toEqual(true);
+    //Confirm arrayEquality() function by comparing two known identical arrays of strings.
+    test("Testing that helper arrayEquality function properly works", () => {
+        expect(arrayEquality(DECKS_ONE, DECKS_TWO)).toEqual(true)
+        expect(arrayEquality(DECKS_ONE, DECKS_THREE)).toEqual(false)
     });
-    
-    // afterEach(() => {
-    //     expect(NEW_CARDS).toEqual(BACKUP_BLANK_QUESTIONS);
-    // });
+
+    //Confirm cardEquality() function by comparing two known identical arrays of Card objects.
+    test("Testing that helper cardEquality function properly works", () => {
+        NEW_CARDS.map((card: Card, index: number): void =>
+            console.log(expect(cardEquality(card, TEST_CARDS[index])).toEqual(true))
+        );
+        // Every card in OTHER_CARDS has a single attribute that differs slightly from the TEST_CARDS
+        // If the function fails to catch the differences in any of those properties then this test will fail since it's mapped for each card
+        OTHER_CARDS.map((card: Card, index: number): void =>
+            console.log(expect(cardEquality(card, TEST_CARDS[index])).toEqual(false))
+        );        
+    });
+
+
+    //Confirm cardEquality() function by comparing two known identical arrays of Card objects.
+    test("Testing that helper deckEquality function properly works", () => {
+        expect(deckEquality(NEW_CARDS, NEW_CARDS)).toEqual(true);
+        expect(deckEquality(NEW_CARDS, TEST_CARDS)).toEqual(true);
+        expect(deckEquality(TEST_CARDS, NEW_CARDS)).toEqual(true);
+        expect(deckEquality(OTHER_CARDS, NEW_CARDS)).toEqual(false);
+    });
+
 });

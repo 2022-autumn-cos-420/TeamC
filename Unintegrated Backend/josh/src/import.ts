@@ -1,32 +1,17 @@
-import { urlToHttpOptions } from "url";
-import { Answer } from "./interfaces/answer";
-import { Question, QuestionType } from "./interfaces/question";
+import { Card } from "./interfaces/card";
+import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
 
+import testCardData from "./data/cards.json";
+// import backupQuestionData from "./data/questions.json";
 
 /***
- * Consumes an array of Questions and produces a new array of Questions, where all
- * the Questions are the same EXCEPT for the one with the given `targetId`. That
- * Question should be the same EXCEPT that its name should now be `newName`.
+ * import cards from a given txt file path, returns the array of imported cards.
+ * If deckName is specified, cards will only be added to the specified deck
  */
-export function renameQuestionById(
-    questions: Question[],
-    targetId: number,
-    newName: string
-): Question[] {
-    // const newQuestions: Question[] = [...questions];
-    const newQuestions = questions.map(
-        (question: Question): Question => ({ ...question })
-    );
-
-    const index = newQuestions.find(
-        (question: Question): boolean => question.id === targetId
-    );
-    if (index !== undefined) {
-        // newQuestions[index].name = newName;
-        index.name = newName;
-    }
-    // console.log(targetId);
-    // console.log(questions);
-    // console.log(newQuestions);
-    return newQuestions;
+export function importCards(
+    filePath: string,
+    deckName: string = ""
+): Card[] {
+    let importedCards: Card[] = [];
+    return importedCards;
 }

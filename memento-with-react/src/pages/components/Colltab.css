@@ -1,0 +1,45 @@
+/* Taken from https://www.w3schools.com/howto/howto_js_collapsible.asp */
+.collapsible {
+    background-color: rgba(223, 223, 223, 0);
+    color: white;
+    cursor: pointer;
+    padding: 15px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 20px;
+    /*border-bottom: 2px solid white;*/
+}
+
+.collapsible:after {
+    content: "";
+    display: block;
+    margin: 0 0;
+    padding-top: 5px;
+    width: 100%;
+    border-bottom: 1px solid white;
+}
+
+.content {
+    padding: 0 18px;
+    overflow: hidden;
+    background-color: #f1f1f1;
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+}
+
+.active, .collapsible:hover {
+  background-color: rgb(76, 143, 68);
+}
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

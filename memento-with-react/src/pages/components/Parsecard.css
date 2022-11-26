@@ -1,0 +1,58 @@
+.ParseCard {
+    display: flex;
+    width: 50%;
+    aspect-ratio: 5/3;
+    margin: 0 auto;
+    align-items: center;
+    background: white;
+    border-radius: 20px;
+}
+
+.ParseCardInner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+}
+
+.ParseCardInner textarea{
+    display: block;
+    margin: 0 auto;
+    overflow-y: scroll;
+    width: 90%;
+    height: 80%;
+    resize: none; /* Remove this if you want the user to resize the textarea */
+    border: none;
+    background: none;
+    font-size: 15px;
+    outline: none;
+}
+
+
+top ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 18px 10px;
+}
+
+input[type=CardHint]{
+    border: none;
+    outline: none;
+    color: #4e4e4d;
+}
+
+input[type=CardDeck] {
+    border:none;
+    outline: none;
+}
+
+.CardDeck {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    position:absolute;
+    right: 20px;
+    top: 22px;
+    color: #4e4e4d;
+    text-align: right;
+}

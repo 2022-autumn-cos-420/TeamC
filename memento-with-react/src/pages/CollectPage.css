@@ -1,0 +1,20 @@
+.collectionContainer {
+    margin: auto;
+    height: 80%;
+    width: 70%;
+}
+
+.title {
+    font: inherit;
+    color: white;
+    font-size: 35px;
+}
+
+.collectionWindow {
+    margin: auto;
+    border-radius: 20px;
+    background-color: rgba(223, 223, 223, 0.4);
+    height: 90%;
+    width: 100%;
+    overflow: auto;
+}

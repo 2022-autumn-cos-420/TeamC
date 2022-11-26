@@ -68,7 +68,8 @@ export function exportCards(
 
 /***
  * import cards from a given txt file path, returns the array of imported cards.
- * If deckName is specified, cards will only be added to the specified deck
+ * Missing Functionality: Once integrated with React UI:
+ *       If deckName is specified, cards will be added to the specified deck
  */
  export function importCards(
     filePath: string,

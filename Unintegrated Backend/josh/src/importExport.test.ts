@@ -1,5 +1,5 @@
 import { Card } from "./interfaces/card";
-import { exportCards, importCards} from "./importExport";
+import { exportCards, importCards, loadCardsFromTxt} from "./importExport";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
 import * as fs from "fs";
 import * as path from "path";
@@ -57,23 +57,39 @@ const OTHER_CARDS: Card[] = [
         accuracy: 10
     }];
     
+
+const USER_COLLECTION: Card[] = [
+    {
+        front: "Card One",
+        back: "The first card",
+        decks: ["deck1", "deck2", "deck3"],
+        accuracy: 20
+    },
+    {
+        front: "Card Four",
+        back: "The fourth card",
+        decks: ["deck2", "deck3", "deck4"],
+        accuracy: 45
+    },
+    {
+        front: "Card 10",
+        back: "\n10th\n Card\n with worst accuracy",
+        decks: ["deck1", "deck2", "deck4"],
+        accuracy: 2
+    },
+    {
+        front: "Card 11",
+        back: "\n11th\n Card\n with worst accuracy",
+        decks: [],
+        accuracy: 0
+    }];
+
+
 const DECKS_ONE: string[] = [
     "deck1",
     "deck2",
     "deck4"
 ]
-const DECKS_TWO: string[] = [
-    "deck1",
-    "deck2",
-    "deck4"
-]
-const DECKS_THREE: string[] = [
-    "deck1",
-    "deck3",
-    "deck4"
-]
-
-
 const testFile: string = "testFile";
 const testFileTxt: string = "testFile.txt";
 const testFileJson: string = "testFile.json";
@@ -112,18 +128,7 @@ describe("Testing the exportCards() functions", () => {
         expect(fs.existsSync((exportPath + testFileTxt))).toEqual(false);
     });
 
-    // test("Testing that exportCards() properly filters when given a deck with non-zero matching cards", () => {
-    //     expect(exportCards(NEW_CARDS, testFile, "deck2")).toEqual(true);
-    //     expect(fs.existsSync((exportPath + testFileJson))).toEqual(true);
-    //     const COPY_CARDS: Card[] = jsonLoadCards((exportPath + testFileJson));
-    //     expect(COPY_CARDS.length === 2).toEqual(true);
-    // });
 
-    
-    
-    // afterEach(() => {
-    //     expect(NEW_CARDS).toEqual(BACKUP_BLANK_QUESTIONS);
-    // });
 });
 
 
@@ -131,15 +136,37 @@ describe("Testing the importCards() functions", () => {
     //////////////////////////////////
     // getPublishedQuestions
 
-
     // copyFile2.txt is a file generated from exportCards(), this test ensures import() can properly parse this format of text
     test("Testing the importCard() function on previously exported version of NEW_CARDS", () => {
         expect(fs.existsSync((exportPath + "exportedNewCards.txt"))).toEqual(true);
-        console.log(importCards((exportPath + "exportedNewCards.txt")));
-        expect(deckEquality(importCards((exportPath + "exportedNewCards.txt")), NEW_CARDS)).toEqual(true);
+        expect(deckEquality(importCards((exportPath + "exportedNewCards.txt"), []), NEW_CARDS)).toEqual(true);
+    });
+
+    // copyFile2.txt is a file generated from exportCards(), this test ensures import() can properly parse this format of text
+    test("Testing that importCard() function on previously exported version of NEW_CARDS", () => {
+        expect(fs.existsSync((exportPath + "exportedNewCards.txt"))).toEqual(true);
+        //Should be false, since it adds the imported copy of NEW_CARDS to the current USER_COLLETION
+        // would be true if it erroneously only returns the newly imported cards while ignoring the current collection
+        expect(deckEquality(importCards((exportPath + "exportedNewCards.txt"), USER_COLLECTION), NEW_CARDS)).toEqual(false);
+        // Imports 3 cards, 1 of which should be ignored as it's a duplicate of USER_COLLECTION[0], so only 2 cards should be added to the collection
+        expect(importCards((exportPath + "exportedNewCards.txt"), USER_COLLECTION).length === 6).toEqual(true);
+        // Imports 3 cards, all of which should be ignored as they're identical to NEW_CARDS
+        expect(importCards((exportPath + "exportedNewCards.txt"), NEW_CARDS).length === 3).toEqual(true);
+        console.log(USER_COLLECTION.length);
     });
 
     // afterEach(() => {
     //     expect(BLANK_QUESTIONS).toEqual(BACKUP_BLANK_QUESTIONS);
     // });
+});
+
+
+describe("Integration tests of export and import running together", () => {
+
+test("Testing that exportCards() properly filters when given a deck with non-zero matching cards", () => {
+    expect(exportCards(NEW_CARDS, testFileTxt, "deck2")).toEqual(true);
+    expect(fs.existsSync((exportPath + testFileTxt))).toEqual(true);
+    const COPY_CARDS: Card[] = loadCardsFromTxt((exportPath + testFileTxt));
+    expect(COPY_CARDS.length === 2).toEqual(true);
+});
 });

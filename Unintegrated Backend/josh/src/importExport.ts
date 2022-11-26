@@ -25,6 +25,12 @@ export function exportCards(
     if (cards.length === 0) {
         return false;
     }
+    else if (deckID !== ""){
+        cards = cards.filter((card: Card): boolean => card.decks.includes(deckID))
+        if (cards.length === 0) {
+            return false;
+        }    
+    }
     let cardString: string = "";
     let cardArray: string[] = [];
     cards.map((card: Card): string[] => 
@@ -48,7 +54,7 @@ export function exportCards(
  * import cards from a given txt file path, returns the array of imported cards.
  * If deckName is specified, cards will only be added to the specified deck
  */
- export function importCards(
+ export function loadCardsFromTxt(
     filePath: string,
     deckName: string = ""
 ): Card[] {
@@ -57,6 +63,20 @@ export function exportCards(
     const importedCards: Card[] = importedIntermediateData.map((cardString: string): Card =>
         stringToCard(cardString)
     )
+
+    return importedCards;
+}
+
+/***
+ * import cards from a given txt file path, returns the array of imported cards.
+ * If deckName is specified, cards will only be added to the specified deck
+ */
+ export function importCards(
+    filePath: string,
+    collection: Card[],
+    deckName: string = ""
+): Card[] {
+    const importedCards: Card[] = loadCardsFromTxt()
 
     return importedCards;
 }

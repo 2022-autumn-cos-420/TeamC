@@ -76,24 +76,24 @@ class FlashCard extends Component {
             <div className="FlashCard">
                 <div className="FlashCardInner" style={{transform: this.state.flipState ? "rotateX(180deg)": ""}}>
                     <div className="FlashCardFront">
-                        <top>
+                        <div>
                             <ul>
                                 <li><span className="Dot"></span></li>
                                 <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint} style={{opacity: this.props.type === "Quiz" ? "0": "1"}}></input></li>
                                 <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
-                        </top>
+                        </div>
                         <input type="CardFrontText" placeholder="Write" onChange = {this.handleFrontChange} value={this.props.frontText}></input>
                         <button className="FlipCardButton" onClick={this.flipCard}></button>
                     </div>
                     <div className="FlashCardBack">
-                        <top>
+                        <div>
                             <ul>
                                 <li><span className="Dot"></span></li>
                                 <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint}></input></li>
                                 <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
-                        </top>
+                        </div>
                         <input type="CardFrontText" placeholder="Write Back" onChange = {this.handleBackChange} value={this.props.backText}></input>
                         <button className="FlipCardButton" onClick={this.flipCard}></button>
                     </div>

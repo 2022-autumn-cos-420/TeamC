@@ -85,12 +85,12 @@ function App() {
       <div className="navbar">
             <nav>
                 <ul>
-                    <a href="#" class="logobtn" onClick={() => setCurrentPage("HomePage")} id="goHomeButton">momento</a>
+                    <a href="#" className="logobtn" onClick={() => setCurrentPage("HomePage")} id="goHomeButton">momento</a>
                     <li><a href = "#" onClick={() => setCurrentPage("LibraryPage")} id="goLibraryButton">Library</a></li>
                     <li><a href = "#" onClick={() => setCurrentPage("QuizPage")} id="goQuizButton">Quiz</a></li>
                     <li><a href = "#" id="goCollectionButton" onClick={() => setCurrentPage("CollectionPage")}>Collection</a></li>
                     <li><a href="#" onClick={() => setCurrentPage("ImportPage")}>Import</a></li>
-                    <a href="" class="signupbtn">Sign Up</a>
+                    <a href="" className="signupbtn">Sign Up</a>
                 </ul>
             </nav>
         </div>

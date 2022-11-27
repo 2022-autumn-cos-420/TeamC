@@ -23,7 +23,7 @@ class QuizPage extends Component {
     render() {
         return (
             <div>
-                <FlashCard type={"Quiz"} frontText={this.state.frontText} backText={this.state.backText} cardHint={this.state.cardHint} cardDecks={this.state.cardDecks}></FlashCard>
+                <FlashCard type={"Quiz"} frontText={"DefaultFront"} backText={"DefaultBack"} cardHint={"Default Hint"} cardDecks={"Default Deck"}></FlashCard>
             </div>
         )
     }

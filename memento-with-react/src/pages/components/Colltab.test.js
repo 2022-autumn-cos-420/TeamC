@@ -17,3 +17,4 @@ it("CollTab renders the appropriate values given to it", () => {
     expect(screen.getByTestId("CollTabCardDecks")).toHaveTextContent("Deck 1Deck 2");
     expect(screen.getByTestId("CollTabCardHint")).toHaveTextContent("This is the hint");
 });
+

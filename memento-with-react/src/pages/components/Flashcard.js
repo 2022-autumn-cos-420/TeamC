@@ -35,9 +35,9 @@ class FlashCard extends Component {
         }
         console.log("Changing the front!");
         let newFront = event.target.value;
-        this.setState({localCardFront: newFront});
         console.log("NewState for front: ", newFront);
         this.props.update(newFront, this.state.localCardBack, this.state.localCardHint, this.state.localCardDecks);
+        this.setState({localCardFront: newFront});
 
     }
 
@@ -70,6 +70,9 @@ class FlashCard extends Component {
         this.props.update(this.state.localCardFront, this.state.localCardBack, this.state.localCardHint, newDecks);
     }
 
+    doNothing = (event) => {
+
+    }
 
     render() {
         return (
@@ -83,7 +86,7 @@ class FlashCard extends Component {
                                 <li><input type="CardDeck" data-testid="FlashCardFrontDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </div>
-                        <input type="CardFrontText" data-testid="FlashCardFrontText" placeholder="Write" onChange = {this.handleFrontChange} value={this.state.localCardFront}></input>
+                        <input type="CardFrontText" data-testid="FlashCardFrontText" placeholder="Write" onChange = {this.props.type === "Normal" ? this.handleFrontChange : this.doNothing} value={this.props.frontText}></input>
                         <button className="FlipCardButton" onClick={this.flipCard}></button>
                     </div>
                     <div className="FlashCardBack">
@@ -94,7 +97,7 @@ class FlashCard extends Component {
                                 <li><input type="CardDeck" data-testid="FlashCardBackDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </div>
-                        <input type="CardFrontText" data-testid="FlashCardBackText" placeholder="Write Back" onChange = {this.handleBackChange} value={this.state.localCardBack}></input>
+                        <input type="CardFrontText" data-testid="FlashCardBackText" placeholder="Write Back" onChange = {this.handleBackChange} value={this.props.backText}></input>
                         <button className="FlipCardButton" onClick={this.flipCard}></button>
                     </div>
                 </div>

@@ -30,6 +30,9 @@ class FlashCard extends Component {
     }
 
     handleFrontChange = (event) => {
+        if (this.props.type !== "Normal") {
+            return;
+        }
         console.log("Changing the front!");
         let newFront = event.target.value;
         this.setState({localCardFront: newFront});
@@ -39,6 +42,9 @@ class FlashCard extends Component {
     }
 
     handleBackChange = (event) => {
+        if (this.props.type !== "Normal") {
+            return;
+        }
         let newBack = event.target.value;
         this.setState({localCardBack: newBack});
         this.props.update(this.state.localCardFront, newBack, this.state.localCardHint, this.state.localCardDecks);
@@ -46,6 +52,9 @@ class FlashCard extends Component {
     }
 
     handleHintChange = (event) => {
+        if (this.props.type !== "Normal") {
+            return;
+        }
         let newHint = event.target.value;
         this.setState({localCardHint: newHint});
         this.props.update(this.state.localCardFront, this.state.localCardBack, newHint, this.state.localCardDecks);
@@ -53,6 +62,9 @@ class FlashCard extends Component {
     }
 
     handleDecksChange = (event) => {
+        if (this.props.type !== "Normal") {
+            return;
+        }
         let newDecks = event.target.value;
         this.setState({localCardDecks: newDecks});
         this.props.update(this.state.localCardFront, this.state.localCardBack, this.state.localCardHint, newDecks);
@@ -67,7 +79,7 @@ class FlashCard extends Component {
                         <top>
                             <ul>
                                 <li><span className="Dot"></span></li>
-                                <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint}></input></li>
+                                <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint} style={{opacity: this.props.type === "Quiz" ? "0": "1"}}></input></li>
                                 <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </top>

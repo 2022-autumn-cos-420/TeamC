@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import HomePage from "./pages/HomePage.js";
 import CollectPage from "./pages/CollectPage.js";
+import QuizPage from "./pages/QuizPage.js";
 import React, {useState} from 'react';
 
 
@@ -88,6 +89,7 @@ function App() {
         </div>
         {page === "HomePage" && <HomePage cardType="FlashCard" addCard = {addCard}></HomePage>}
         {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard}></CollectPage>}
+        {page === "QuizPage" && <QuizPage cardArray={cardArray}></QuizPage>}
       </div>
       </div>
   );

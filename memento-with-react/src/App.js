@@ -3,6 +3,7 @@ import './App.css';
 import HomePage from "./pages/HomePage.js";
 import CollectPage from "./pages/CollectPage.js";
 import QuizPage from "./pages/QuizPage.js";
+import ImportPage from "./pages/ImportPage.js";
 import React, {useState} from 'react';
 
 
@@ -30,7 +31,13 @@ let cardArray =  [
 //Remember to always add an id, just use the last id in the cardArray
 function addCard(cFrontText, cBackText, cCardHint, cCardDecks) {
   console.log("Adding card in App.js. Got", cFrontText, " as front text");
-  let newId = cardArray[cardArray.length - 1].id + 1;
+  let newId = 0;
+  if (cardArray.length === 0) { //Dont want to try to find the -1th element of cardArray
+    newId = 0;
+  }
+  else {
+    newId = cardArray[cardArray.length - 1].id + 1;
+  }
   console.log("New Id is: ", newId);
   let newCard = {id: newId, cardColor: "Red", frontText: cFrontText, backText: cBackText, cardHint: cCardHint, cardDecks: cCardDecks};
   cardArray.push(newCard);
@@ -82,7 +89,7 @@ function App() {
                     <li><a href = "#" onClick={() => setCurrentPage("LibraryPage")} id="goLibraryButton">Library</a></li>
                     <li><a href = "#" onClick={() => setCurrentPage("QuizPage")} id="goQuizButton">Quiz</a></li>
                     <li><a href = "#" id="goCollectionButton" onClick={() => setCurrentPage("CollectionPage")}>Collection</a></li>
-                    <li><a href="#">Import</a></li>
+                    <li><a href="#" onClick={() => setCurrentPage("ImportPage")}>Import</a></li>
                     <a href="" class="signupbtn">Sign Up</a>
                 </ul>
             </nav>
@@ -90,6 +97,7 @@ function App() {
         {page === "HomePage" && <HomePage cardType="FlashCard" addCard = {addCard}></HomePage>}
         {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard}></CollectPage>}
         {page === "QuizPage" && <QuizPage cardArray={cardArray}></QuizPage>}
+        {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>
       </div>
   );

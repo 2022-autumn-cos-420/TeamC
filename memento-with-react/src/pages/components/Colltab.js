@@ -53,14 +53,14 @@ class CollTab extends Component{    //Still need to figure out how to pass chang
                 style={{maxHeight: this.state.render ? '400px': '0px'}}>
                 <div className="row">
                     <div className="column">
-                        <h>Current Card Values:</h>
-                        <p>Front Text: {this.props.frontText}</p>
-                        <p>Back Text: {this.props.backText}</p>
-                        <p>Card Hint: {this.props.cardHint} </p>
-                        <p>Card Decks: {this.props.cardDecks}</p>
+                        <p>Current Card Values:</p>
+                        <p data-testid="CollTabFrontText">Front Text: {this.props.frontText}</p>
+                        <p data-testid="CollTabBackText">Back Text: {this.props.backText}</p>
+                        <p data-testid="CollTabCardHint">Card Hint: {this.props.cardHint} </p>
+                        <p data-testid="CollTabCardDecks">Card Decks: {this.props.cardDecks}</p>
                     </div>
                     <div className="column">
-                        <h>Please enter new values:</h>
+                        <p>Please enter new values:</p>
                         <p><input type="text" onChange={this.handleFrontChange} value={this.state.localFrontText}></input></p>
                         <p><input type="text" onChange={this.handleBackChange} value={this.state.localBackText}></input></p>
                         <p><input type="text" onChange={this.handleHintChange} value={this.state.localCardHint}></input></p>

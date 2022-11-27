@@ -73,28 +73,28 @@ class FlashCard extends Component {
 
     render() {
         return (
-            <div className="FlashCard">
-                <div className="FlashCardInner" style={{transform: this.state.flipState ? "rotateX(180deg)": ""}}>
+            <div className="FlashCard" data-testid="FlashCard">
+                <div className="FlashCardInner" data-testid="FlashCardInner" style={{transform: this.state.flipState ? "rotateX(180deg)": ""}}>
                     <div className="FlashCardFront">
                         <div>
                             <ul>
                                 <li><span className="Dot"></span></li>
-                                <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint} style={{opacity: this.props.type === "Quiz" ? "0": "1"}}></input></li>
-                                <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
+                                <li><input type="CardHint" data-testid="FlashCardFrontHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint} style={{opacity: this.props.type === "Quiz" ? "0": "1"}}></input></li>
+                                <li><input type="CardDeck" data-testid="FlashCardFrontDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </div>
-                        <input type="CardFrontText" placeholder="Write" onChange = {this.handleFrontChange} value={this.props.frontText}></input>
+                        <input type="CardFrontText" data-testid="FlashCardFrontText" placeholder="Write" onChange = {this.handleFrontChange} value={this.state.localCardFront}></input>
                         <button className="FlipCardButton" onClick={this.flipCard}></button>
                     </div>
                     <div className="FlashCardBack">
                         <div>
                             <ul>
                                 <li><span className="Dot"></span></li>
-                                <li><input type="CardHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint}></input></li>
-                                <li><input type="CardDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
+                                <li><input type="CardHint" data-testid="FlashCardBackHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint}></input></li>
+                                <li><input type="CardDeck" data-testid="FlashCardBackDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </div>
-                        <input type="CardFrontText" placeholder="Write Back" onChange = {this.handleBackChange} value={this.props.backText}></input>
+                        <input type="CardFrontText" data-testid="FlashCardBackText" placeholder="Write Back" onChange = {this.handleBackChange} value={this.state.localCardBack}></input>
                         <button className="FlipCardButton" onClick={this.flipCard}></button>
                     </div>
                 </div>

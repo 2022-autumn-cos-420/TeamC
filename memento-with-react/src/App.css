@@ -1,0 +1,62 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: newdefaultfont;
+  src: url(AnjaliOldLipi.ttf)
+}
+
+.container{
+  height: 100vh;
+  width: 100%;
+  background-image: linear-gradient(154deg, #78ca80 0%, #4293a4 149%);
+  background-position: center;
+  background-size: cover;
+  padding-left: 2%;
+  padding-right: 2%;
+  font-family: newdefaultfont;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.navbar{
+  width: 100%;
+  height: 15vh;
+  margin: auto;
+  font-family: newdefaultfont;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .logobtn {
+  font-size: 40px;
+  text-decoration: none;
+  color: #FFFFFF;
+  padding-right: 15px;
+}
+
+.navbar .signupbtn {
+  font-size: 20px;
+  text-decoration: none;
+  color: #FFFFFF;
+  float: right;
+  margin: 20px 20px;
+}
+
+nav{
+  flex: 1;
+  padding-left: 0px;
+}
+
+nav ul li{
+  display: inline-block;
+  list-style: none;
+  margin: 5px 20px;
+}
+
+nav ul li a{
+  text-decoration: none;
+  color: #FFFFFF
+}

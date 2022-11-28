@@ -24,6 +24,8 @@ export function cardEquality(cardOne: Card, cardTwo: Card): boolean {
         cardOne.frontText === cardTwo.frontText &&
         cardOne.backText === cardTwo.backText &&
         arrayEquality(cardOne.cardDecks, cardTwo.cardDecks) &&
+        cardOne.cardHint === cardTwo.cardHint &&
+        cardOne.cardColor === cardTwo.cardColor &&
         cardOne.accuracy === cardTwo.accuracy;
     return isEqual;
 }
@@ -47,13 +49,14 @@ export function deckEquality(deckOne: Card[], deckTwo: Card[]): boolean {
 export function stringToCard(string: string): Card {
     const cardArray: string[] = string.split("<|>")
     const card: Card = {
-        id: 0,
-        cardColor: "Red",
-        frontText: cardArray[0],
-        backText: cardArray[1],
-        cardHint: cardArray[2],
-        cardDecks: cardArray[3].split(","),
-        accuracy: Number(cardArray[4])
+        // The ID of imported cards needs to be assigned at the time of import based on the collection
+        id: -1,
+        cardColor: cardArray[0],
+        frontText: cardArray[1],
+        backText: cardArray[2],
+        cardHint: cardArray[3],
+        cardDecks: cardArray[4].split(","),
+        accuracy: Number(cardArray[5])
     }
     return card;
 }  

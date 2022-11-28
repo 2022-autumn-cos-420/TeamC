@@ -57,7 +57,7 @@ class CollectPage extends Component<Props, State> {
     exportHandler() {
         console.log("Time to export!");
         // let fileName = prompt("Please Enter a file name to export to: ", "");
-        exportCards(this.state.cardArray, "testJestFile.txt");
+        exportCards(this.state.cardArray, "jestTestFile.txt");
     }
 
     updateHandler = (oldCard: Card, newFront: string, newBack: string, newHint:string, newDecks: string[]) => {

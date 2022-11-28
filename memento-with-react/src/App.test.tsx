@@ -48,6 +48,6 @@ test('can export collection', () => {
   //Ideally this should be changed to reflect that prompt() was triggered, but for now I skip prompt() and hardcode a path
   act(()=>{exportElement.click()});
   expect(fs.existsSync(("./exportedCards/jestTestFile.txt"))).toEqual(true);
-  expect(deckEquality(importCards(("./exportedCards/exportedNewCards.txt"), []), cardArray)).toEqual(true);
+  expect(deckEquality(importCards(("./exportedCards/jestTestFile.txt"), []), cardArray)).toEqual(true);
   fs.unlinkSync((("./exportedCards/jestTestFile.txt")))
 });

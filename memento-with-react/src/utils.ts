@@ -21,9 +21,9 @@ export function arrayEquality(arrayOne: string[], arrayTwo: string[]): boolean {
 
 export function cardEquality(cardOne: Card, cardTwo: Card): boolean {
     const isEqual: boolean =
-        cardOne.front === cardTwo.front &&
-        cardOne.back === cardTwo.back &&
-        arrayEquality(cardOne.decks, cardTwo.decks) &&
+        cardOne.frontText === cardTwo.frontText &&
+        cardOne.backText === cardTwo.backText &&
+        arrayEquality(cardOne.cardDecks, cardTwo.cardDecks) &&
         cardOne.accuracy === cardTwo.accuracy;
     return isEqual;
 }
@@ -47,10 +47,13 @@ export function deckEquality(deckOne: Card[], deckTwo: Card[]): boolean {
 export function stringToCard(string: string): Card {
     const cardArray: string[] = string.split("<|>")
     const card: Card = {
-        front: cardArray[0],
-        back: cardArray[1],
-        decks: cardArray[2].split(","),
-        accuracy: Number(cardArray[3])
+        id: 0,
+        cardColor: "Red",
+        frontText: cardArray[0],
+        backText: cardArray[1],
+        cardHint: cardArray[2],
+        cardDecks: cardArray[3].split(","),
+        accuracy: Number(cardArray[4])
     }
     return card;
-}
+}  

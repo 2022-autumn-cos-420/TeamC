@@ -12,7 +12,7 @@ function addCard(front, back, hint, deck) {
 
 
 let cardArray1 =  [
-    {id: 0, cardColor: "Red", frontText: "front On2e!", backText: "back Onsdae!", cardHint: "cardHint One!", cardDecks: ["Apples...", "Bananas"]},
+    {id: 0, cardColor: "Red", frontText: "First One", backText: "First One Back", cardHint: "cardHint One!", cardDecks: ["Apples...", "Bananas"]},
     {id: 1, cardColor: "Red", frontText: "front TW4o!", backText: "back TWo!", cardHint: "cardHint TWO!", cardDecks: ["Apples..."]},
     {id: 2, cardColor: "Red", frontText: "front TH3REE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."]},
     {id: 3, cardColor: "Red", frontText: "front On6e!", backText: "back One!", cardHint: "cardHint One!", cardDecks: ["Apples..."]},
@@ -26,7 +26,7 @@ let cardArray1 =  [
     {id: 11, cardColor: "Red", frontText: "front ThHREE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."]},
     {id: 12, cardColor: "Red", frontText: "front Oane!", backText: "back One!", cardHint: "cardHint One!", cardDecks: ["Apples..."]},
     {id: 13, cardColor: "Red", frontText: "front TbWo!", backText: "back TWo!", cardHint: "cardHint TWO!", cardDecks: ["Apples..."]},
-    {id: 14, cardColor: "Red", frontText: "front THeREE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."]}
+    {id: 14, cardColor: "Red", frontText: "Last One!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."]}
   ]
   
 
@@ -34,21 +34,19 @@ let cardArray1 =  [
 
 it("Flashcard Quiz cannot be edited by the user", () => {
     const {queryByTestId} = render(<QuizPage
-                                    frontText={"defaultFront"}
-                                    backText={"defaultBack"}
-                                    cardHint={"defaultHint"}
-                                    cardDecks={"defaultDeck"}
-                                    addCard={addCard()}>
+                                    addCard={addCard()}
+                                    cardArray={cardArray1}>
                                 </QuizPage>);
     //Now we want to try to change the values in these boxes.
     const frontTextInput = screen.queryByTestId("FlashCardFrontText");
     const backTextInput = screen.queryByTestId("FlashCardBackText");
     userEvent.type(frontTextInput, "This is a changed front");
-    expect(frontTextInput.value).toBe("DefaultFront");
+    expect(frontTextInput.value).toBe("First One");
 
     userEvent.type(backTextInput, "This is a changed back");
-    expect(backTextInput.value).toBe("DefaultBack");
+    expect(backTextInput.value).toBe("First One Back");
 });
+
 
 it ("QuizPage can succesfully go to the next card", () => {
     const {queryByTestId} = render(<QuizPage cardArray={cardArray1}>

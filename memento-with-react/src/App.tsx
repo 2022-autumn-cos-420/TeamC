@@ -8,6 +8,7 @@ import React, {useState} from 'react';
 import { Card } from "./interfaces/card";
 import { equal } from "assert";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "./utils";
+import { exportCards, importCards, loadCardsFromTxt} from "./importExport";
 
 
 //Just here for testing purposes. Each should have a different front from all the others
@@ -89,7 +90,7 @@ function App() {
             </nav>
         </div>
         {page === "HomePage" && <HomePage cardType = "FlashCard" addCard = {addCard}></HomePage>}
-        {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard}></CollectPage>}
+        {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} importCards = {importCards} exportCards = {exportCards}></CollectPage>}
         {page === "QuizPage" && <QuizPage cardArray={cardArray}></QuizPage>}
         {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>

@@ -4,7 +4,7 @@ import { Card } from "./interfaces/card";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
 import * as fs from "fs";
 import * as path from "path";
-import testCardData from "./data/cards.json";
+// import testCardData from "./data/cards.json";
 // import backupQuestionData from "./data/questions.json";
 
 // const { TEST_CARDS }: Record<string, Card[]> =

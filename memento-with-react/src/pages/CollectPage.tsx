@@ -10,6 +10,8 @@ interface Props {
     cardArray: Card[]; 
     deleteCard: (targetCard: Card) => void;
     updateCard: (targetCard: Card, newFront: string, newBack: string, newHint: string, newDecks: string[]) => void;
+    importCards: (filePath: string, collection: Card[], deckName: string) => Card[];
+    exportCards: (collection: Card[], filePath: string,  deckName: string) => boolean;
   };
 interface State {
     cardArray: Card[],
@@ -47,15 +49,17 @@ class CollectPage extends Component<Props, State> {
     //Now for some magic!
     importHandler() {
         console.log("Time to import!");
-        let fileName = prompt("Please Enter a file name: ", "");
-        let deckName = prompt("Please Enter the deck you would like to import to: ", "");
+        // let fileName = prompt("Please Enter a file name: ", "");
+        // let deckName = prompt("Please Enter the deck you would like to import to: ", "");
         //Here is where the magic should begin
+        this.setState({cardArray: this.props.importCards("./exportedCards/exportedNewCards.txt", this.state.cardArray, "")});
     }
 
     //And some more magic!
     exportHandler() {
         console.log("Time to export!");
-        let fileName = prompt("Please Enter a file name to export to: ", "");
+        // let fileName = prompt("Please Enter a file name to export to: ", "");
+        this.props.exportCards(this.state.cardArray, "jestTestFile.txt", "");
     }
 
     updateHandler = (oldCard: Card, newFront: string, newBack: string, newHint:string, newDecks: string[]) => {
@@ -91,7 +95,7 @@ class CollectPage extends Component<Props, State> {
                 <div className="ButtonBox">
                     <div className="ImportButton" onClick={() => this.importHandler()}><IconFolderOpen
                         src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`}
-                    />Import</div>
+                    />Import Cards</div>
                     <div className="ExportButton" onClick={() => this.exportHandler()}><IconFolderOpen
                         src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`}
                     />Export</div>
@@ -108,6 +112,7 @@ class CollectPage extends Component<Props, State> {
                 </div>}
                 {this.state.cardArray.length === 0 && <div className="NoCardMessage">Looks like you have no cards... <br></br>Add cards on the Home Page, or import them here!</div>}
             </div>
+            <div>{"Cards: " + this.state.cardArray.length}</div>
         </div>
     )};
 }

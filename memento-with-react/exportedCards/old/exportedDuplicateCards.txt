@@ -1,0 +1,1 @@
+Card One<|>The first card<|>deck1,deck2,deck3<|>20<|||>Card One<|>The first card<|>deck1,deck2,deck3<|>20<|||>Card One<|>The first card<|>deck1,deck2,deck3<|>20

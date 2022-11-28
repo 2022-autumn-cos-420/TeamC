@@ -4,6 +4,7 @@ import CollTab from './components/Colltab'
 import styled from 'styled-components';
 import { Card } from "../interfaces/card";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "../utils";
+import { exportCards } from "../importExport";
 
 
 interface Props {
@@ -47,15 +48,16 @@ class CollectPage extends Component<Props, State> {
     //Now for some magic!
     importHandler() {
         console.log("Time to import!");
-        let fileName = prompt("Please Enter a file name: ", "");
-        let deckName = prompt("Please Enter the deck you would like to import to: ", "");
+        // let fileName = prompt("Please Enter a file name: ", "");
+        // let deckName = prompt("Please Enter the deck you would like to import to: ", "");
         //Here is where the magic should begin
     }
 
     //And some more magic!
     exportHandler() {
         console.log("Time to export!");
-        let fileName = prompt("Please Enter a file name to export to: ", "");
+        // let fileName = prompt("Please Enter a file name to export to: ", "");
+        exportCards(this.state.cardArray, "testJestFile.txt");
     }
 
     updateHandler = (oldCard: Card, newFront: string, newBack: string, newHint:string, newDecks: string[]) => {
@@ -86,7 +88,7 @@ class CollectPage extends Component<Props, State> {
     render() {
     return (
         <div className= "collectionContainer">
-            <p className = "title">
+            <div className = "title">
                 <p>Collection</p>
                 <div className="ButtonBox">
                     <div className="ImportButton" onClick={() => this.importHandler()}><IconFolderOpen
@@ -99,11 +101,11 @@ class CollectPage extends Component<Props, State> {
                         src={`https://file.rendit.io/n/AWXeYQKewibNjaYdcviF.svg`}
                     />Delete All</div>
                 </div>
-            </p>
+            </div>
             <div className = "collectionWindow">
                 {this.state.cardArray.length > 0 && <div>
                     {this.state.cardArray.map((mapCard: Card) => (
-                        <CollTab card = {mapCard} deleted = {this.deleteHandler} updated = {this.updateHandler}></CollTab>
+                        <CollTab key = {mapCard.id} card = {mapCard} deleted = {this.deleteHandler} updated = {this.updateHandler}></CollTab>
                     ))}
                 </div>}
                 {this.state.cardArray.length === 0 && <div className="NoCardMessage">Looks like you have no cards... <br></br>Add cards on the Home Page, or import them here!</div>}

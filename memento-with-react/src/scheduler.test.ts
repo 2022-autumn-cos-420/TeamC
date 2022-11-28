@@ -4,7 +4,6 @@ import { Card } from "./interfaces/card";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
 import * as fs from "fs";
 import * as path from "path";
-import testCardData from "./data/cards.json";
 // import backupQuestionData from "./data/questions.json";
 
 // const { TEST_CARDS }: Record<string, Card[]> =
@@ -82,17 +81,17 @@ import testCardData from "./data/cards.json";
 // ////////////////////////////////////////////
 // // Actual tests
 
-// describe("Testing the Question[] functions", () => {
-//     //////////////////////////////////
-//     // getPublishedQuestions
+describe("Testing the Question[] functions", () => {
+    //////////////////////////////////
+    // getPublishedQuestions
 
-//     test("Testing the sortAccuracy() function", () => {
-//         expect(deckEquality(sortAccuracy(SORTED_CARDS), SORTED_CARDS)).toEqual(true);
-//         expect(deckEquality(sortAccuracy(NEW_CARDS), SORTED_CARDS)).toEqual(true);
-//         expect(deckEquality(sortAccuracy(OTHER_CARDS), SORTED_CARDS)).toEqual(false);
-//     });
+    test("Testing the sortAccuracy() function", () => {
+        // expect(deckEquality(sortAccuracy(SORTED_CARDS), SORTED_CARDS)).toEqual(true);
+        // expect(deckEquality(sortAccuracy(NEW_CARDS), SORTED_CARDS)).toEqual(true);
+        // expect(deckEquality(sortAccuracy(OTHER_CARDS), SORTED_CARDS)).toEqual(false);
+    });
 
-//     // afterEach(() => {
-//     //     expect(BLANK_QUESTIONS).toEqual(BACKUP_BLANK_QUESTIONS);
-//     // });
-// });
+    // afterEach(() => {
+    //     expect(BLANK_QUESTIONS).toEqual(BACKUP_BLANK_QUESTIONS);
+    // });
+});

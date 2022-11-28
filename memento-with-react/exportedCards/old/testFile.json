@@ -1,1 +1,0 @@
-[{"front":"Card One","back":"The first card","decks":["deck1","deck2","deck3"],"accuracy":20},{"front":"Card2","back":"The second card w/ highest accuracy","decks":["deck1","deck3","deck4"],"accuracy":50},{"front":"Card\n 3","back":"3rd Card with worst accuracy","decks":["deck1","deck2","deck4"],"accuracy":10}]

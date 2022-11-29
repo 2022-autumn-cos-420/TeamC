@@ -40,6 +40,7 @@ class QuizPage extends Component {
         //Otherwise we want to flip the card over and THEN change the card values
         this.setState({flipState: false,
                         showHint: false});
+        //Now we want to reset the animation so it actually plays it again for us
         setTimeout(() => {
             this.nextCardHandler(rightOrWrong)
         }, 500);

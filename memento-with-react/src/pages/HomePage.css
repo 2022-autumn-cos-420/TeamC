@@ -27,11 +27,12 @@
     border: none;
     font-size: 45px;
     text-align: center;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+
 }
 
 
 .AddCardButton:active {
-    box-shadow: 0 5px black;
     transform: translateY(4px);
 }
 
@@ -150,3 +151,10 @@ input:checked + .slider {
 }
 
 
+@keyframes horizontal-shaking {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(5px) }
+    50% { transform: translateX(-5px) }
+    75% { transform: translateX(5px) }
+    100% { transform: translateX(0) }
+}

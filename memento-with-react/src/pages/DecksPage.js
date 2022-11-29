@@ -38,7 +38,7 @@ class DeckPage extends Component {
             let newPage = this.state.page + 1;
             console.log("newPage should be: ", newPage);
             //I HAVE NO IDEA WHY THIS DOES NOT WORK
-            this.setState = ({
+            this.setState({
                 deckOne: this.newDeckOne,
                 deckTwo: this.newDeckTwo,
                 deckThree: this.newDeckThree,

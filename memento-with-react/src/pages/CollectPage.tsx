@@ -7,6 +7,7 @@ import { Card } from "../interfaces/card";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "../utils";
 // import { exportCards } from "../importExport";
 import ImportCard from './components/Importcard';
+import ExportCard from './components/Exportcard';
 
 
 interface Props {
@@ -16,10 +17,13 @@ interface Props {
     exportCards: ( cards: Card[], fileName: string, deckID: string ) => boolean;
     parseInputs: (filePath: string, collection: Card[], deckName: string ) => Card[];
     updateCollection: (childCollection: Card[]) => void;
-  };
+    parseCardsToString: ( cards: Card[], deckID: string) => string;
+};
 interface State {
     cardArray: Card[],
-    importShow: boolean
+    importShow: boolean,
+    exportShow: boolean,
+    exportSuccess: boolean
 };
 
 class CollectPage extends Component<Props, State> {
@@ -28,7 +32,9 @@ class CollectPage extends Component<Props, State> {
         super(props)
         this.state = {
             cardArray: this.props.cardArray,
-            importShow: false
+            importShow: false,
+            exportShow: false,
+            exportSuccess: false
         }
     }
 
@@ -52,27 +58,42 @@ class CollectPage extends Component<Props, State> {
         this.setState({cardArray: []});
     }
 
-    //I really gotta rethink how I am dealing with props and state, but for now I am deleting stuff in state AND deleting stuff in app.js's cardArray
     importToggle() {
-        this.setState({importShow: !this.state.importShow});
+        this.setState({importShow: !this.state.importShow}, () =>{
+            this.setState({exportShow: !this.state.importShow});
+        });
+    }
+    exportToggle() {
+        this.setState({exportShow: !this.state.exportShow}, () => {
+            this.setState({importShow: !this.state.exportShow});
+        });
     }
     //Now for some magic!
     importHandler = (passedCollection: Card[]) => {
         // console.log("Time to import!");
         // console.log(passedCollection[0].frontText);
         this.setState({cardArray: passedCollection}, () => {
-            console.log(passedCollection.length);
             this.props.updateCollection(passedCollection)
         });
     }
 
     //And some more magic!
-    exportHandler() {
-        console.log("Time to export!");
-        // let fileName = prompt("Please Enter a file name to export to: ", "");
-        this.props.exportCards(this.state.cardArray, "jestTestFile.txt", "");
-    }
-
+    downloadCollection = (fileName: string) => {
+        console.log(fileName);
+        console.log(this.state.cardArray);
+        const element = document.createElement("a");
+        const collectionString: string = this.props.parseCardsToString(this.state.cardArray,"");
+        console.log(collectionString.length);
+        const file = new Blob([collectionString], {
+          type: "text/plain"
+        });
+        element.href = URL.createObjectURL(file);
+        element.download = fileName;
+        document.body.appendChild(element);
+        element.click();
+        this.setState({exportSuccess: true});
+    };
+    
     updateHandler = (oldCard: Card, newFront: string, newBack: string, newHint:string, newDecks: string[]) => {
         this.props.updateCard(oldCard, newFront, newBack, newHint, newDecks);
         console.log("Finding and upating card from CollectPage.js: oldFront: ", oldCard.frontText, " oldBack: ", oldCard.backText, " oldHint: ", oldCard.cardHint);
@@ -105,12 +126,14 @@ class CollectPage extends Component<Props, State> {
                 <div>
                     Collection
                     {this.state.importShow && <ImportCard collection={this.state.cardArray} parseInputs={this.props.parseInputs} updateCollection={this.importHandler} />}
+                    {this.state.exportShow && <ExportCard downloadCollection={this.downloadCollection} />}
+                    {this.state.exportSuccess && <div>Exported Successfully</div>}
                 </div>
                 <div className="ButtonBox">
                     <div className="ImportButton" onClick={() => this.importToggle()}> <IconFolderOpen 
                     src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`} 
                     />Import Cards</div>
-                    <div className="ExportButton" onClick={() => this.exportHandler()}><IconFolderOpen
+                    <div className="ExportButton" onClick={() => this.exportToggle()}><IconFolderOpen
                         src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`}
                     />Export Collection</div>
                     <div className="DeleteButton" onClick={() => this.deleteAllHandler()}><IconTrash

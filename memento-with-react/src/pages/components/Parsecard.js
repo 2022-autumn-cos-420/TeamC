@@ -10,6 +10,31 @@ class ParseCard extends Component {
         }
     }
 
+
+
+
+
+    handleStartDelimiterChange = (event) => {
+        console.log("Changing the start delimiter!");
+
+    }
+
+    handleSeparatorChange = (event) => {
+        console.log("Changing the separator!");
+    }
+
+    handleEndDelimiterChange = (event) => {
+        console.log("Changing the end delimiter!");
+    }
+
+    handleDeckChange = (event) => {
+        console.log("Changing the deck!");
+    }
+
+    handleParseCardTextAreaChange = (event) => {
+        console.log("Changing the ParseCardTextArea")
+    }
+
     render() {
         return (
             <div className="ParseCard">
@@ -17,11 +42,13 @@ class ParseCard extends Component {
                     <top>
                         <ul>
                             <li><span className="Dot"></span></li>
-                            <li><input type="CardHint" value="Notes/Hints"></input></li>
-                            <li><input type="CardDeck" className="CardDeck" value="Deck"></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardStartDelimiter" onChange={this.handleStartDelimiterChange} placeholder="Start Delimiter"></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardSeparator" onChange={this.handleSeparatorChange} placeholder="Separator"></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardEndDelimiter" onChange={this.handleEndDelimiterChange} placeholder="End Delimiter"></input></li>
+                            <li><input type="CardDeck" data-testid="ParseCardDeck" onChange={this.handleDeckChange} className="CardDeck" placeholder="Deck"></input></li>
                         </ul>
                     </top>
-                    <textarea>Please Type Here:</textarea>
+                    <textarea data-testid="ParseCardTextArea" onChange={this.handleParseCardTextAreaChange} placeholder={"Please Type Here:"}></textarea>
                 </div>
             </div>
         );

@@ -11,31 +11,22 @@ class FlashCard extends Component {
             localCardBack: this.props.backText,
             localCardDecks: this.props.cardDecks,
             localCardHint: this.props.cardHint,
-            flipState: false
+            flipState: this.props.flipState,
+            showHint: this.props.showHint
         }
-        this.flipCard = this.flipCard.bind(this);
     }
 
-    flipCard = (event) => {
-        console.log("Flipping from: ", this.state.side);
-        this.setState({flipState: !this.state.flipState});
-        if (this.state.side === "front") {
-            this.setState({side: "back"});
-        }
-        else {
-            this.setState({side: "front"});
-        }
-        console.log("flipState:", this.state.flipState);
-        console.log(this.state.localCardFront);
+
+    flipCardHandler = (event) => {
+        console.log("Trying flipCardHandler");
+        this.props.flipCard();
     }
 
     handleFrontChange = (event) => {
         if (this.props.type !== "Normal") {
             return;
         }
-        console.log("Changing the front!");
         let newFront = event.target.value;
-        console.log("NewState for front: ", newFront);
         this.props.update(newFront, this.state.localCardBack, this.state.localCardHint, this.state.localCardDecks);
         this.setState({localCardFront: newFront});
 
@@ -61,6 +52,15 @@ class FlashCard extends Component {
 
     }
 
+    toggleShowHint = (event) => {
+        if (this.state.showHint === true) {
+            this.setState({showHint: false})
+
+        } else {
+            this.setState({showHint: true})
+        }
+    }
+
     handleDecksChange = (event) => {
         if (this.props.type !== "Normal") {
             return;
@@ -74,20 +74,49 @@ class FlashCard extends Component {
 
     }
 
-    render() {
+    toggleShowHintHandler = (event) => {
+        this.props.showHintToggler();
+    }
+
+
+    render() 
+        {
+        
+        const hintHiddenStyle = {
+            animation: 'fadeout .8s forwards'
+        }
+        const hintShownStyle = {
+            animation: 'fadein .8s forwards'
+        }
+
+        const hintAlwaysShow = {
+            animation: 'none'
+        }
+
+        const neverShow = {
+            animation: 'none',
+            opacity: 0
+        }
+
+        const flashCardFlyOut = {
+            animation: 'flyout 1s forwards'
+        }
+        const flashCardFlyIn = {
+            animation: 'flyin 1s forwards'
+        }
         return (
             <div className="FlashCard" data-testid="FlashCard">
-                <div className="FlashCardInner" data-testid="FlashCardInner" style={{transform: this.state.flipState ? "rotateX(180deg)": ""}}>
+                <div className="FlashCardInner" data-testid="FlashCardInner" style={{transform: this.props.flipState ? "rotateX(180deg)": ""}}>
                     <div className="FlashCardFront">
                         <div>
                             <ul>
-                                <li><span className="Dot"></span></li>
-                                <li><input type="CardHint" data-testid="FlashCardFrontHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint} style={{opacity: this.props.type === "Quiz" ? "0": "1"}}></input></li>
+                                <li><span className="Dot" onClick={this.toggleShowHintHandler}></span></li>
+                                <li><input type="CardHint" data-testid="FlashCardFrontHint" placeholder="Notes/Hints" onChange={this.handleHintChange} value={this.props.cardHint} style={this.props.type === "Quiz" ? (this.props.showHint === false ? hintHiddenStyle : hintShownStyle) : hintAlwaysShow}></input></li>
                                 <li><input type="CardDeck" data-testid="FlashCardFrontDeck" placeholder="Deck" onChange={this.handleDecksChange} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </div>
                         <input type="CardFrontText" data-testid="FlashCardFrontText" placeholder="Write" onChange = {this.props.type === "Normal" ? this.handleFrontChange : this.doNothing} value={this.props.frontText}></input>
-                        <button className="FlipCardButton" onClick={this.flipCard}></button>
+                        <button className="FlipCardButton" onClick={this.props.flipCard}></button>
                     </div>
                     <div className="FlashCardBack">
                         <div>
@@ -98,7 +127,7 @@ class FlashCard extends Component {
                             </ul>
                         </div>
                         <input type="CardFrontText" data-testid="FlashCardBackText" placeholder="Write Back" onChange = {this.handleBackChange} value={this.props.backText}></input>
-                        <button className="FlipCardButton" onClick={this.flipCard}></button>
+                        <button className="FlipCardButton" onClick={this.props.flipCard}></button>
                     </div>
                 </div>
             </div>

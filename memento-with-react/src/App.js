@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage.js";
 import CollectPage from "./pages/CollectPage.js";
 import QuizPage from "./pages/QuizPage.js";
 import ImportPage from "./pages/ImportPage.js";
+import DecksPage from "./pages/DecksPage.js";
 import React, {useState} from 'react';
 
 
@@ -12,11 +13,11 @@ import React, {useState} from 'react';
 let cardArray =  [
   {id: 0, cardColor: "Red", frontText: "First One!", backText: "back Onsdae!", cardHint: "cardHint One!", cardDecks: ["Apples...", "Bananas"]},
   {id: 1, cardColor: "Red", frontText: "front TW4o!", backText: "back TWo!", cardHint: "cardHint TWO!", cardDecks: ["Apples..."]},
-  {id: 2, cardColor: "Red", frontText: "front TH3REE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."]},
-  {id: 3, cardColor: "Red", frontText: "front On6e!", backText: "back One!", cardHint: "cardHint One!", cardDecks: ["Apples..."]},
+  {id: 2, cardColor: "Red", frontText: "front TH3REE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Pears"]},
+  {id: 3, cardColor: "Red", frontText: "front On6e!", backText: "back One!", cardHint: "cardHint One!", cardDecks: ["Pineapples"]},
   {id: 4, cardColor: "Red", frontText: "front TW5o!", backText: "back TWo!", cardHint: "cardHint TWO!", cardDecks: ["Apples..."]},
   {id: 5, cardColor: "Red", frontText: "front THR7EE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."]},
-  {id: 6, cardColor: "Red", frontText: "front On9e!", backText: "back One!", cardHint: "cardHint One!", cardDecks: ["Apples..."]},
+  {id: 6, cardColor: "Red", frontText: "front On9e!", backText: "back One!", cardHint: "cardHint One!", cardDecks: ["Grapes"]},
   {id: 7, cardColor: "Red", frontText: "front TW8o!", backText: "back TWo!", cardHint: "cardHint TWO!", cardDecks: ["Apples..."]},
   {id: 8, cardColor: "Red", frontText: "front TH0REE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."]},
   {id: 9, cardColor: "Red", frontText: "front On-e!", backText: "back One!", cardHint: "cardHint One!", cardDecks: ["Apples..."]},
@@ -27,6 +28,21 @@ let cardArray =  [
   {id: 14, cardColor: "Red", frontText: "Last One!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."]}
 ]
 
+let tempDecksList = ["Apples", "Bananas", "Pears", "Pineabpples", "Grapes", "Cherries"];
+
+function getDeckList() {
+  for (let i = 0; i < cardArray; i++) {
+    for (let j = 0; j < cardArray[i].cardDecks.length; j++) {
+        if (!tempDecksList.includes(cardArray[i].cardDecks[j])) {
+            tempDecksList.push(cardArray[i].cardDecks[j].slice())
+        }
+    }
+}
+}
+
+function downloadDeck(deckName) {
+  console.log("Trying to download from app.js!");
+}
 
 //Remember to always add an id, just use the last id in the cardArray
 function addCard(cFrontText, cBackText, cCardHint, cCardDecks) {
@@ -75,7 +91,6 @@ function App() {
 
   const [page, setCurrentPage] = useState("HomePage");
 
-
   
 
 
@@ -86,7 +101,7 @@ function App() {
             <nav>
                 <ul>
                     <a href="#" className="logobtn" onClick={() => setCurrentPage("HomePage")} id="goHomeButton">momento</a>
-                    <li><a href = "#" onClick={() => setCurrentPage("LibraryPage")} id="goLibraryButton">Library</a></li>
+                    <li><a href = "#" onClick={() => setCurrentPage("DecksPage")} id="goDecksButton">Decks</a></li>
                     <li><a href = "#" onClick={() => setCurrentPage("QuizPage")} id="goQuizButton">Quiz</a></li>
                     <li><a href = "#" id="goCollectionButton" onClick={() => setCurrentPage("CollectionPage")}>Collection</a></li>
                     <li><a href="#" onClick={() => setCurrentPage("ImportPage")}>Import</a></li>
@@ -95,7 +110,8 @@ function App() {
             </nav>
         </div>
         {page === "HomePage" && <HomePage cardType="FlashCard" addCard = {addCard}></HomePage>}
-        {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard}></CollectPage>}
+        {page === "DecksPage" && <DecksPage cardArray={cardArray} decksList={tempDecksList} downloadDeck={downloadDeck}></DecksPage>}
+        {page === "CollectionPage" && <CollectPage cardArray={cardArray} deleteCard={deleteCard} updateCard = {updateCard}></CollectPage>}
         {page === "QuizPage" && <QuizPage cardArray={cardArray}></QuizPage>}
         {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>

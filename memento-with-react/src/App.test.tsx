@@ -1,4 +1,4 @@
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import App from './App';
 import * as fs from "fs";
@@ -54,22 +54,35 @@ let cardArray: Card[] =  [
 
 
 
-// test('can import collection', () => {
-//   render(<App />);
-//   const collectionElement = screen.getByText(/Collection/i);
-//   expect(collectionElement).toBeInTheDocument();
-//   act(()=>{collectionElement.click()});
-//   // console.log(screen);
+test('can import collection', async () => {
+  render(<App />);
+  const collectionElement = screen.getByText(/Collection/i);
+  expect(collectionElement).toBeInTheDocument();
+  act(()=>{collectionElement.click()});
+  // console.log(screen);
 
-//   const initialCardCountElement = screen.getByText(/Cards: 15/i);
-//   expect(initialCardCountElement).toBeInTheDocument();
+  const initialCardCountElement = screen.getByText(/Cards: 15/i);
+  expect(initialCardCountElement).toBeInTheDocument();
 
-//   const importElement = screen.getByText(/Import/i);
-//   expect(importElement).toBeInTheDocument();
-//   expect(fs.existsSync(("./exportedCards/jestTestFile.txt"))).toEqual(false);
-//   //Ideally this should be changed to reflect that prompt() was triggered, but for now I skip prompt() and hardcode a path
-//   act(()=>{exportElement.click()});
-//   expect(fs.existsSync(("./exportedCards/jestTestFile.txt"))).toEqual(true);
-//   expect(deckEquality(importCards(("./exportedCards/jestTestFile.txt"), []), cardArray)).toEqual(true);
-//   fs.unlinkSync((("./exportedCards/jestTestFile.txt")))
-// });
+  const importElement = screen.getByText(/Import Cards/i);
+  expect(importElement).toBeInTheDocument();
+  //Ideally this should be changed to reflect that prompt() was triggered, but for now I skip prompt() and hardcode a path
+  act(()=>{importElement.click()});
+
+  const fakeFile = new File(["Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20"], 'newMockCards.txt', { type: 'txt' });
+  const fakeFile2 = new File(
+    ["Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20<|||>Red<|>Card2<|>The second card w/ highest accuracy<|>Hint Two<|>deck1,deck3,deck4<|>50<|||>Red<|>Card 3<|>3rd Card with worst accuracy<|>Hint Three<|>deck1,deck2,deck4<|>10"], 
+    'newMockCards.txt', { type: 'txt' }
+    );
+
+  const uploadElement = screen.getByTestId(/fileUpload/i);
+      // simulate ulpoad event and wait until finish
+    await waitFor(() =>
+    // eslint-disable-next-line testing-library/no-wait-for-side-effects
+    fireEvent.change(uploadElement, {
+      target: { files: [fakeFile] },
+    })
+  );
+  const postCardCountElement = screen.getByText(/Cards: 18/i);
+  expect(postCardCountElement).toBeInTheDocument();
+});

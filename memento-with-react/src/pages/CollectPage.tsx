@@ -1,16 +1,19 @@
 import React, {useState, Component} from "react";
 import './CollectPage.css';
+// import * as fs from "fs";
 import CollTab from './components/Colltab'
 import styled from 'styled-components';
 import { Card } from "../interfaces/card";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "../utils";
-import { exportCards } from "../importExport";
+// import { exportCards } from "../importExport";
 
 
 interface Props {
     cardArray: Card[]; 
     deleteCard: (targetCard: Card) => void;
     updateCard: (targetCard: Card, newFront: string, newBack: string, newHint: string, newDecks: string[]) => void;
+    exportCards: ( cards: Card[], fileName: string, deckID: string ) => boolean;
+    importCards: (filePath: string, collection: Card[], deckName: string ) => Card[];
   };
 interface State {
     cardArray: Card[],
@@ -57,7 +60,7 @@ class CollectPage extends Component<Props, State> {
     exportHandler() {
         console.log("Time to export!");
         // let fileName = prompt("Please Enter a file name to export to: ", "");
-        exportCards(this.state.cardArray, "jestTestFile.txt");
+        this.props.exportCards(this.state.cardArray, "jestTestFile.txt", "");
     }
 
     updateHandler = (oldCard: Card, newFront: string, newBack: string, newHint:string, newDecks: string[]) => {
@@ -103,13 +106,15 @@ class CollectPage extends Component<Props, State> {
                 </div>
             </div>
             <div className = "collectionWindow">
-                {this.state.cardArray.length > 0 && <div>
-                    {this.state.cardArray.map((mapCard: Card) => (
-                        <CollTab key = {mapCard.id} card = {mapCard} deleted = {this.deleteHandler} updated = {this.updateHandler}></CollTab>
-                    ))}
-                </div>}
+                {this.state.cardArray.length > 0 &&
+                    <div>
+                        {this.state.cardArray.map((mapCard: Card) => (
+                            <CollTab key = {mapCard.id} card = {mapCard} deleted = {this.deleteHandler} updated = {this.updateHandler}></CollTab>
+                        ))}
+                    </div>}
                 {this.state.cardArray.length === 0 && <div className="NoCardMessage">Looks like you have no cards... <br></br>Add cards on the Home Page, or import them here!</div>}
             </div>
+            <div> {"Cards: " + this.state.cardArray.length} </div>
         </div>
     )};
 }

@@ -1,9 +1,9 @@
 import { urlToHttpOptions } from "url";
 import { Card } from "./interfaces/card";
-import * as fs from "fs";
 import * as path from "path";
 import { equal } from "assert";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "./utils";
+const fs = require('fs');
 
 
 

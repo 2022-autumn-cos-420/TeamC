@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Colltab.css';
+import * as fs from "fs";
 import { Card } from "../../interfaces/card";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "../../utils";
 

@@ -51,3 +51,21 @@ test('can export collection', () => {
   expect(deckEquality(importCards(("./exportedCards/jestTestFile.txt"), []), cardArray)).toEqual(true);
   fs.unlinkSync((("./exportedCards/jestTestFile.txt")))
 });
+
+
+
+// test('can import collection', () => {
+//   render(<App />);
+//   const collectionElement = screen.getByText(/Collection/i);
+//   expect(collectionElement).toBeInTheDocument();
+//   act(()=>{collectionElement.click()});
+//   // console.log(screen);
+//   const importElement = screen.getByText(/Import Collection/i);
+//   expect(importElement).toBeInTheDocument();
+//   expect(fs.existsSync(("./exportedCards/jestTestFile.txt"))).toEqual(false);
+//   //Ideally this should be changed to reflect that prompt() was triggered, but for now I skip prompt() and hardcode a path
+//   act(()=>{exportElement.click()});
+//   expect(fs.existsSync(("./exportedCards/jestTestFile.txt"))).toEqual(true);
+//   expect(deckEquality(importCards(("./exportedCards/jestTestFile.txt"), []), cardArray)).toEqual(true);
+//   fs.unlinkSync((("./exportedCards/jestTestFile.txt")))
+// });

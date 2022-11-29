@@ -1,2 +1,0 @@
-Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20<|||>Red<|>Card2<|>The second card w/ highest accuracy<|>Hint Two<|>deck1,deck3,deck4<|>50<|||>Red<|>Card
- 3<|>3rd Card with worst accuracy<|>Hint Three<|>deck1,deck2,deck4<|>10

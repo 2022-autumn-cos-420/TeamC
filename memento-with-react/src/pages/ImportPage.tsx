@@ -1,6 +1,7 @@
 import React, {useState, Component} from "react";
 /*import './ImportPage.css';*/
 import ImportCard from './components/Importcard';
+// import { FileUploadField } from './components/Importcard';
 
 interface Props {
 }
@@ -16,8 +17,8 @@ class ImportPage extends Component<Props, State> {
 
     render() {
         return (
-            <div>
-                <ImportCard></ImportCard>
+            <div className= "importPage">
+                <ImportCard preview={""} />
             </div>
         )
     }

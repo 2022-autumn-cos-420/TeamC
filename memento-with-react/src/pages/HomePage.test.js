@@ -30,3 +30,51 @@ it("Flashcard Normal can be edited by the user", () => {
     expect(backTextInput.value).toBe("This is a changed back");
 })
 
+it("Flashcard will reset all fields if they press addCard", () => {
+    const {queryByTestId} = render(<HomePage
+        frontText={""}
+        backText={""}
+        cardHint={""}
+        cardDecks={""}
+        addCard={addCard}>
+    </HomePage>);
+
+    const frontTextInput = screen.getByTestId("FlashCardFrontText");
+    const backTextInput = screen.getByTestId("FlashCardBackText");
+    const decksInput = screen.getByTestId("FlashCardFrontDeck");
+    const addCardButton = screen.getByTestId("AddCardButton");
+
+    userEvent.type(frontTextInput, "This is the front");
+    userEvent.type(backTextInput, "This is the back");
+    userEvent.type(decksInput, "Deck 1");
+
+    userEvent.click(addCardButton);
+
+    expect(frontTextInput.value).toBe("");
+
+})
+
+
+it("Flashcard will NOT reset if not all appropriate fields are filled in (front, back and deck)", () => {
+    const {queryByTestId} = render(<HomePage
+        frontText={""}
+        backText={""}
+        cardHint={""}
+        cardDecks={""}
+        addCard={addCard}>
+    </HomePage>);
+
+    const frontTextInput = screen.getByTestId("FlashCardFrontText");
+    const backTextInput = screen.getByTestId("FlashCardBackText");
+    const decksInput = screen.getByTestId("FlashCardFrontDeck");
+    const addCardButton = screen.getByTestId("AddCardButton");
+
+    userEvent.type(frontTextInput, "This is the front");
+    userEvent.type(backTextInput, "This is the back");
+    userEvent.type(decksInput, "");
+
+    userEvent.click(addCardButton);
+
+    expect(frontTextInput.value).toBe("This is the front");
+
+}) 

@@ -33,15 +33,22 @@ class HomePage extends Component {
     }
 
     addCardHandler = (event) => {
+        //First we need to find out if the user put in all they should have.
+        //They do not need a hint, but they need everything else, frontText, backText, and the Deck
+        
+
+
+        //Now we have to call the page above, to app.js
+        let newDecksArray = [this.state.cardDecks];
+        this.props.addCard(this.state.frontText, this.state.backText, this.state.cardHint, newDecksArray)
+
         this.setState({frontText: "",
                         backText: "",
                         cardHint: "",
                         cardDecks: "",
                         flipState: false}, () => {console.log("New HomePage state frontText: ", this.state.frontText)});
                     
-        //Now we have to call the page above, to app.js
-        let newDecksArray = [this.state.cardDecks];
-        this.props.addCard(this.state.frontText, this.state.backText, this.state.cardHint, newDecksArray)
+
     }
 
     toggleCardType = () => {
@@ -71,7 +78,7 @@ class HomePage extends Component {
                         <input type="checkbox"></input>
                         <span className = "slider round" onClick={() => this.toggleCardType()}></span>
                     </label>
-                    <button className="AddCardButton" onClick={this.state.cardType === "FlashCard" ? () => this.addCardHandler() : () => this.parseCardHandler()}>&#43;</button>
+                    <button className="AddCardButton" data-testid="AddCardButton" onClick={this.state.cardType === "FlashCard" ? () => this.addCardHandler() : () => this.parseCardHandler()}>&#43;</button>
                 </div>
             </div>
 

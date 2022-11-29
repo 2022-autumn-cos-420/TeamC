@@ -54,7 +54,7 @@ class HomePage extends Component {
                 shakeButtonState: true
             });
             //Now we want to reset the animation so it actually plays it again for us
-            setTimeout(this.setState({
+            setTimeout(() => this.setState({
                     shakeButtonState: false
                 }), 500);
 
@@ -80,7 +80,7 @@ class HomePage extends Component {
         }
 
         //Now we have to call the page above, to app.js
-        let newDecksArray = [...this.state.cardDecks];
+        let newDecksArray = [this.state.cardDecks];
         this.props.addCard(this.state.frontText, this.state.backText, this.state.cardHint, newDecksArray)
 
         this.setState({frontText: "",

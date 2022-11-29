@@ -22,29 +22,22 @@ class DeckPage extends Component {
 
     nextPageHandler = (what) => {
         console.log("Time to go forward from page: ", this.state.page);
-        console.log("Contents of desksList", this.state.decksList);
-        console.log("Current deckOne", this.state.deckOne);
         if (((this.state.page * 4) + 5) < this.props.decksList.length) {
             //We can go to the next page
             console.log("Trying to go forward to the next page!");
-            let newDeckOne = this.props.decksList.length > ((this.state.page + 1) * 4 + 0) ? this.props.decksList[(this.state.page + 1) * 4 + 0].slice() : "Deck Name";
-            let newDeckTwo = this.props.decksList.length > ((this.state.page + 1) * 4 + 1) ? this.props.decksList[(this.state.page + 1) * 4 + 1].slice() : "Deck Name";
-            let newDeckThree = this.props.decksList.length > ((this.state.page + 1) * 4 + 2) ? this.props.decksList[(this.state.page + 1) * 4 + 2].slice() : "Deck Name";
-            let newDeckFour = this.props.decksList.length > ((this.state.page + 1) * 4 + 3) ? this.props.decksList[(this.state.page + 1) * 4 + 3].slice() : "Deck Name";
-            console.log("newDeckOne: ", newDeckOne);
-            console.log("newDeckTwo: ", newDeckTwo);
-            console.log("newDeckThree: ", newDeckThree);
-            console.log("newDeckFour: ", newDeckFour);
+            let newDeckOne = this.props.decksList.length > ((this.state.page + 1) * 4 + 0) ? this.props.decksList[(this.state.page + 1) * 4 + 0]: "Deck Name";
+            let newDeckTwo = this.props.decksList.length > ((this.state.page + 1) * 4 + 1) ? this.props.decksList[(this.state.page + 1) * 4 + 1]: "Deck Name";
+            let newDeckThree = this.props.decksList.length > ((this.state.page + 1) * 4 + 2) ? this.props.decksList[(this.state.page + 1) * 4 + 2]: "Deck Name";
+            let newDeckFour = this.props.decksList.length > ((this.state.page + 1) * 4 + 3) ? this.props.decksList[(this.state.page + 1) * 4 + 3]: "Deck Name";
             let newPage = this.state.page + 1;
             console.log("newPage should be: ", newPage);
             //I HAVE NO IDEA WHY THIS DOES NOT WORK
             this.setState({
-                deckOne: this.newDeckOne,
-                deckTwo: this.newDeckTwo,
-                deckThree: this.newDeckThree,
-                deckFour: this.newDeckFour,
-                page: 1,
-                numDecks: this.props.decksList.length,
+                deckOne: newDeckOne,
+                deckTwo: newDeckTwo,
+                deckThree: newDeckThree,
+                deckFour: newDeckFour,
+                page: newPage,
             });
         }
         else {
@@ -52,14 +45,32 @@ class DeckPage extends Component {
         }
     }
 
+    
     prevPageHandler = () => {
         console.log("Time to go back from page: ", this.state.page);
+        if (this.state.page > 0) {
+            console.log("Trying go backwards to the next page!");
+            let newDeckOne = this.props.decksList.length > ((this.state.page - 1) * 4 + 0) ? this.props.decksList[(this.state.page - 1) * 4 + 0]: "Deck Name";
+            let newDeckTwo = this.props.decksList.length > ((this.state.page - 1) * 4 + 1) ? this.props.decksList[(this.state.page - 1) * 4 + 1]: "Deck Name";
+            let newDeckThree = this.props.decksList.length > ((this.state.page - 1) * 4 + 2) ? this.props.decksList[(this.state.page - 1) * 4 + 2]: "Deck Name";
+            let newDeckFour = this.props.decksList.length > ((this.state.page - 1) * 4 + 3) ? this.props.decksList[(this.state.page - 1) * 4 + 3]: "Deck Name";
+            let newPage = this.state.page - 1;
+            this.setState({
+                deckOne: newDeckOne,
+                deckTwo: newDeckTwo,
+                deckThree: newDeckThree,
+                deckFour: newDeckFour,
+                page: newPage,
+            });
 
+        }
+        else {
+            console.log("We cannot go any further!");
+        }
     }
 
-    downloadHandler = (name) => {
-        console.log("Trying to download from deck: ", name, "onPage: ", this.state.page);
-        this.props.downloadDeck(name);
+    downloadHandler = (event) => {
+        console.log("Event: ", event, "onPage: ", this.state.page);
     }
 
     studyHandler = (name) => {

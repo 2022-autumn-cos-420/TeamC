@@ -48,6 +48,14 @@
     background-color: transparent;
 }
 
+.PageLeft:active {
+    transform: translateY(4px);
+}
+
+.PageRight:active {
+    transform: translateY(4px);
+}
+
 .DecksRow {
     padding-top: 6%;
     display: flex;

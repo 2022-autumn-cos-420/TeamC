@@ -23,12 +23,10 @@ class QuizPage extends Component {
 
 
     flipCardToggler = (event) => {
-        console.log("Toggling flipCard in QuizPage.js")
         this.setState({flipState: !this.state.flipState});
     }
 
     showHintToggler = (event) => {
-        console.log("Toggling showHint in QuizPage.js")
         this.setState({showHint: !this.state.showHint})
     }
 
@@ -40,7 +38,6 @@ class QuizPage extends Component {
         //Otherwise we want to flip the card over and THEN change the card values
         this.setState({flipState: false,
                         showHint: false});
-        //Now we want to reset the animation so it actually plays it again for us
         setTimeout(() => {
             this.nextCardHandler(rightOrWrong)
         }, 500);
@@ -57,7 +54,6 @@ class QuizPage extends Component {
             //Do relevant stats stuff
         }
         if (this.state.currentIndex + 1 < this.props.cardArray.length) {
-            console.log("Current Index: ", this.state.currentIndex, "arrayLength: ", this.props.cardArray.length, "Starting to display: ", this.props.cardArray[this.state.currentIndex + 1].frontText);
             this.setState({currentIndex: this.state.currentIndex + 1,
                             currentFrontText: this.props.cardArray[this.state.currentIndex + 1].frontText,
                             currentBackText: this.props.cardArray[this.state.currentIndex + 1].backText,

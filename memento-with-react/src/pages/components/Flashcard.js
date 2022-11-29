@@ -17,7 +17,6 @@ class FlashCard extends Component {
 
 
     flipCardHandler = (event) => {
-        console.log("Trying flipCardHandler");
         this.props.flipCard();
     }
 

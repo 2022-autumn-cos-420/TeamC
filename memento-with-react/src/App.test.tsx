@@ -37,21 +37,29 @@ let cardArray: Card[] =  [
 
 
 
-// test('can export collection', () => {
-//   render(<App />);
-//   const collectionElement = screen.getByText(/Collection/i);
-//   expect(collectionElement).toBeInTheDocument();
-//   act(()=>{collectionElement.click()});
-//   // console.log(screen);
-//   const exportElement = screen.getByText(/Export/i);
-//   expect(exportElement).toBeInTheDocument();
-//   expect(fs.existsSync(("./exportedCards/jestTestFile.txt"))).toEqual(false);
-//   //Ideally this should be changed to reflect that prompt() was triggered, but for now I skip prompt() and hardcode a path
-//   act(()=>{exportElement.click()});
-//   expect(fs.existsSync(("./exportedCards/jestTestFile.txt"))).toEqual(true);
-//   expect(deckEquality(importCards(("./exportedCards/jestTestFile.txt"), []), cardArray)).toEqual(true);
-//   fs.unlinkSync((("./exportedCards/jestTestFile.txt")))
-// });
+test('can export collection', async () => {
+  render(<App />);
+  const collectionElement = screen.getByText(/Collection/i);
+  expect(collectionElement).toBeInTheDocument();
+  act(()=>{collectionElement.click()});
+  // console.log(screen);
+  const exportElement = screen.getByText(/Export/i);
+  expect(exportElement).toBeInTheDocument();
+  act(()=>{exportElement.click()});
+  //Ideally this should be changed to reflect that prompt() was triggered, but for now I skip prompt() and hardcode a path
+  const typeElement = screen.getByTestId(/exportLocation/i);
+  expect(typeElement).toBeInTheDocument();
+  userEvent.type(typeElement, "jestTestExport.txt");
+  expect(typeElement).toHaveValue("jestTestExport.txt");
+
+  const downloadElement = screen.getByText(/Download/i);
+  expect(downloadElement).toBeInTheDocument();
+  act(()=>{exportElement.click()});
+  //This will probably need to be made asynchronous as well
+  // eslint-disable-next-line testing-library/prefer-find-by
+  await waitFor(() => expect(screen.getByText(/Exported Successfully/i)).toBeTruthy());
+  // expect(successElement).toBeInTheDocument();
+});
 
 
 test('can import collection', async () => {

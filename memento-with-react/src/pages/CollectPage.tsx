@@ -79,8 +79,6 @@ class CollectPage extends Component<Props, State> {
 
     //And some more magic!
     downloadCollection = (fileName: string) => {
-        console.log(fileName);
-        console.log(this.state.cardArray);
         const element = document.createElement("a");
         const collectionString: string = this.props.parseCardsToString(this.state.cardArray,"");
         console.log(collectionString.length);
@@ -133,7 +131,7 @@ class CollectPage extends Component<Props, State> {
                     <div className="ImportButton" onClick={() => this.importToggle()}> <IconFolderOpen 
                     src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`} 
                     />Import Cards</div>
-                    <div className="ExportButton" onClick={() => this.exportToggle()}><IconFolderOpen
+                    <div data-testid="exportToggle" className="ExportButton" onClick={() => this.exportToggle()}><IconFolderOpen
                         src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`}
                     />Export Collection</div>
                     <div className="DeleteButton" onClick={() => this.deleteAllHandler()}><IconTrash

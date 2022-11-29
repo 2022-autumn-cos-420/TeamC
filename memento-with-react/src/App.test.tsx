@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import App from './App';
@@ -43,7 +44,7 @@ test('can export collection', async () => {
   expect(collectionElement).toBeInTheDocument();
   act(()=>{collectionElement.click()});
   // console.log(screen);
-  const exportElement = screen.getByText(/Export/i);
+  const exportElement = screen.getByTestId(/exportToggle/i);
   expect(exportElement).toBeInTheDocument();
   act(()=>{exportElement.click()});
   //Ideally this should be changed to reflect that prompt() was triggered, but for now I skip prompt() and hardcode a path
@@ -51,11 +52,12 @@ test('can export collection', async () => {
   expect(typeElement).toBeInTheDocument();
   userEvent.type(typeElement, "jestTestExport.txt");
   expect(typeElement).toHaveValue("jestTestExport.txt");
+  global.URL.createObjectURL = jest.fn();
 
-  const downloadElement = screen.getByText(/Download/i);
+  expect(screen.queryByText(/Exported Successfully/i)).not.toBeInTheDocument();
+  const downloadElement = screen.getByTestId(/downloadButton/i);
   expect(downloadElement).toBeInTheDocument();
-  act(()=>{exportElement.click()});
-  //This will probably need to be made asynchronous as well
+  act(()=>{downloadElement.click()});
   // eslint-disable-next-line testing-library/prefer-find-by
   await waitFor(() => expect(screen.getByText(/Exported Successfully/i)).toBeTruthy());
   // expect(successElement).toBeInTheDocument();

@@ -13,12 +13,11 @@ class ImportCard extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            fileName: "jestTestFile.txt"
+            fileName: ""
         }
     };
 
-
-    updateFileName(event: React.ChangeEvent<HTMLInputElement>) {
+    updateFileName = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({fileName: event.target.value});
     }
 
@@ -26,17 +25,18 @@ class ImportCard extends Component<Props, State> {
         return (
             <div>
                 <div className="ExportCard">
-                    <Form.Group controlId="formDownload">
+                    {/* <Form.Group controlId="formDownload">
                         <Form.Label>Name:</Form.Label>
                         <Form.Control
                             value={this.state.fileName}
-                            onChange={this.updateFileName} />
-                        </Form.Group>
+                            onSubmit={this.updateFileName} />
+                        </Form.Group> */}
+                        <input data-testid="exportLocation" type="text" onChange={ this.updateFileName } value={ this.state.fileName } />
                         <div>
-                        The movie is "{this.state.fileName}".
-                    </div>
+                            The movie is "{this.state.fileName}".
+                        </div>
                     <div>
-                        <button onClick={() => {this.props.downloadCollection(this.state.fileName)}}>Download</button>
+                        <button data-testid="downloadButton" onClick={() => {this.props.downloadCollection(this.state.fileName)}}>Download</button>
                     </div> 
                 </div>
             </div>

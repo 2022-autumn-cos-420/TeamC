@@ -14,7 +14,8 @@ interface Props {
     deleteCard: (targetCard: Card) => void;
     updateCard: (targetCard: Card, newFront: string, newBack: string, newHint: string, newDecks: string[]) => void;
     exportCards: ( cards: Card[], fileName: string, deckID: string ) => boolean;
-    importCards: (filePath: string, collection: Card[], deckName: string ) => Card[];
+    parseInputs: (filePath: string, collection: Card[], deckName: string ) => Card[];
+    updateCollection: (childCollection: Card[]) => void;
   };
 interface State {
     cardArray: Card[],
@@ -56,11 +57,13 @@ class CollectPage extends Component<Props, State> {
         this.setState({importShow: !this.state.importShow});
     }
     //Now for some magic!
-    importHandler() {
-        console.log("Time to import!");
-        // let fileName = prompt("Please Enter a file name: ", "");
-        // let deckName = prompt("Please Enter the deck you would like to import to: ", "");
-        //Here is where the magic should begin
+    importHandler = (passedCollection: Card[]) => {
+        // console.log("Time to import!");
+        // console.log(passedCollection[0].frontText);
+        this.setState({cardArray: passedCollection}, () => {
+            console.log(passedCollection.length);
+            this.props.updateCollection(passedCollection)
+        });
     }
 
     //And some more magic!
@@ -99,15 +102,14 @@ class CollectPage extends Component<Props, State> {
     return (
         <div className= "collectionContainer">
             <div className = "title">
-                <p>
+                <div>
                     Collection
-                    {this.state.importShow && <ImportCard preview={""} />}
-                </p>
+                    {this.state.importShow && <ImportCard collection={this.state.cardArray} parseInputs={this.props.parseInputs} updateCollection={this.importHandler} />}
+                </div>
                 <div className="ButtonBox">
-                    <div className="ImportButton" onClick={() => this.importToggle()}>Import Cards</div>
-
-                    {/* // importHandler()}><IconFolderOpen */}
-                    {/* //     src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`} */}
+                    <div className="ImportButton" onClick={() => this.importToggle()}> <IconFolderOpen 
+                    src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`} 
+                    />Import Cards</div>
                     <div className="ExportButton" onClick={() => this.exportHandler()}><IconFolderOpen
                         src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`}
                     />Export Collection</div>

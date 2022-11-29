@@ -8,7 +8,7 @@ import React, {useState} from 'react';
 import { Card } from "./interfaces/card";
 import { equal } from "assert";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "./utils";
-import { exportCards, importCards } from './importExport';
+import { exportCards, importCards, parseInputs } from './importExport';
 
 
 //Just here for testing purposes. Each should have a different front from all the others
@@ -68,6 +68,14 @@ function updateCard(targetCard: Card, newFront: string, newBack: string, newHint
         }})
 }
 
+//! Changing this so that it doesn't assume a given order of the collection. Its marginally slower but more robust
+//Remember to always add an id, just use the last id in the cardArray
+function updateCollection(childCollection: Card[]): void {
+    // console.log("This child collection from app.tsx length: " + childCollection.length)
+    // console.log("Updating the collection to match a child component's state");
+    cardArray = childCollection;
+}
+
 
 function App() {
 
@@ -90,7 +98,7 @@ function App() {
             </nav>
         </div>
         {page === "HomePage" && <HomePage cardType = "FlashCard" addCard = {addCard}></HomePage>}
-        {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} exportCards = {exportCards} importCards = {importCards}></CollectPage>}
+        {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} exportCards = {exportCards} parseInputs = {parseInputs} updateCollection={updateCollection}></CollectPage>}
         {page === "QuizPage" && <QuizPage cardArray={cardArray}></QuizPage>}
         {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>

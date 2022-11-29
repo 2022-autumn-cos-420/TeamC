@@ -18,7 +18,7 @@ class ImportPage extends Component<Props, State> {
     render() {
         return (
             <div className= "importPage">
-                <ImportCard preview={""} />
+                {/* <ImportCard preview={""} /> */}
             </div>
         )
     }

@@ -5,6 +5,7 @@ import * as fs from "fs";
 import { Card } from "./interfaces/card";
 import { exportCards, importCards, loadCardsFromTxt} from "./importExport";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
+import userEvent from '@testing-library/user-event';
 //Have to make a mockup of the prompt function since it's not implemented
 // window.prompt = jest.fn()
 
@@ -53,7 +54,6 @@ let cardArray: Card[] =  [
 // });
 
 
-
 test('can import collection', async () => {
   render(<App />);
   const collectionElement = screen.getByText(/Collection/i);
@@ -69,20 +69,28 @@ test('can import collection', async () => {
   //Ideally this should be changed to reflect that prompt() was triggered, but for now I skip prompt() and hardcode a path
   act(()=>{importElement.click()});
 
-  const fakeFile = new File(["Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20"], 'newMockCards.txt', { type: 'txt' });
+  const fakeFile = new File(["Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20"], 'newMockCards.txt', { type: 'text/html' });
   const fakeFile2 = new File(
     ["Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20<|||>Red<|>Card2<|>The second card w/ highest accuracy<|>Hint Two<|>deck1,deck3,deck4<|>50<|||>Red<|>Card 3<|>3rd Card with worst accuracy<|>Hint Three<|>deck1,deck2,deck4<|>10"], 
     'newMockCards.txt', { type: 'txt' }
     );
 
   const uploadElement = screen.getByTestId(/fileUpload/i);
+  expect(uploadElement).toBeInTheDocument();
       // simulate ulpoad event and wait until finish
-    await waitFor(() =>
-    // eslint-disable-next-line testing-library/no-wait-for-side-effects
-    fireEvent.change(uploadElement, {
-      target: { files: [fakeFile] },
-    })
-  );
-  const postCardCountElement = screen.getByText(/Cards: 18/i);
-  expect(postCardCountElement).toBeInTheDocument();
+  // fireEvent.change(uploadElement, {
+  //     target: { files: [fakeFile2] },
+  // })
+  // userEvent.upload(uploadElement, fakeFile2)
+  // eslint-disable-next-line testing-library/no-unnecessary-act
+  await act(async () => {
+    await waitFor(() => {
+      // eslint-disable-next-line testing-library/no-wait-for-side-effects
+      userEvent.upload(uploadElement, fakeFile2);
+    });
+  });
+  // eslint-disable-next-line testing-library/prefer-find-by
+  await waitFor(() => expect(screen.getByText(/Cards: 18/i)).toBeTruthy());
+  // const postCardCountElement = screen.getByText(/Cards: 18/i);
+  // expect(postCardCountElement).toBeInTheDocument()
 });

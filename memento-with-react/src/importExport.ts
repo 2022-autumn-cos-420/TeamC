@@ -68,6 +68,21 @@ export function exportCards(
 
 /***
  * import cards from a given txt file path, returns the array of imported cards.
+ * If deckName is specified, cards will only be added to the specified deck
+ */
+ export function loadCardsFromString(
+    inputText: string,
+    deckName: string = ""
+): Card[] {
+    const importedIntermediateData: string[] = inputText.split("<|||>")
+    const importedCards: Card[] = importedIntermediateData.map((cardString: string): Card =>
+        stringToCard(cardString)
+    )
+    return importedCards;
+}
+
+/***
+ * import cards from a given txt file path, returns the array of imported cards.
  * Missing Functionality: Once integrated with React UI:
  *       If deckName is specified, cards will be added to the specified deck
  */
@@ -115,4 +130,55 @@ export function exportCards(
     })
     return collection;
 }
+
+/***
+ * import cards from a given txt file path, returns the array of imported cards.
+ * Missing Functionality: Once integrated with React UI:
+ *       If deckName is specified, cards will be added to the specified deck
+ */
+ export function parseInputs(
+    inputText: string,
+    collection: Card[],
+    deckName: string = ""
+): Card[] {
+    let maxId = -1;
+    collection.map((card: Card): void => {
+        if (card.id > maxId){maxId = card.id}
+    })
+    const importedCards: Card[] = loadCardsFromString(inputText, deckName)
+    importedCards.map((card: Card): void => {
+        let duplicate: boolean = false;
+        if ( collection.length !== 0 ){
+            collection.map((collectionCard: Card): void => {
+                if (cardEquality(collectionCard, card)) {
+                    duplicate = true;
+                }
+            })
+            if (duplicate === false){
+                maxId = maxId + 1
+                collection = [...collection, { 
+                    id: maxId, 
+                    cardColor: card.cardColor, 
+                    frontText: card.frontText, 
+                    backText: card.backText, 
+                    cardHint: card.cardHint, 
+                    cardDecks: card.cardDecks, 
+                    accuracy: card.accuracy }]
+            }
+        }
+        else {
+            maxId = maxId + 1
+            collection = [{ 
+                id: maxId, 
+                cardColor: card.cardColor, 
+                frontText: card.frontText, 
+                backText: card.backText, 
+                cardHint: card.cardHint, 
+                cardDecks: card.cardDecks, 
+                accuracy: card.accuracy }]
+        }
+    })
+    return collection;
+}
+
 

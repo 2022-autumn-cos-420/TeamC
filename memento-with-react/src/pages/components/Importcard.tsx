@@ -18,25 +18,25 @@ class ImportCard extends Component<Props, State> {
         }
     };
 
-    dragHandler = (event: React.DragEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
-        if (event.type === "dragenter" || event.type === "dragover") {
-            this.setState({dragActive: true});
-        } else if (event.type === "dragleave") {
-            this.setState({dragActive: false});
-        }
-    };
+    // dragHandler = (event: React.DragEvent) => {
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    //     if (event.type === "dragenter" || event.type === "dragover") {
+    //         this.setState({dragActive: true});
+    //     } else if (event.type === "dragleave") {
+    //         this.setState({dragActive: false});
+    //     }
+    // };
 
-    dropHandler = (event: React.ChangeEvent) => {
-        event.preventDefault();
-        event.stopPropagation();
-        this.setState({dragActive: false});
-        // if (event.dataTransfer.files && event.dataTransfer.files[0]) {
-        //     //Handle files event.dataTransfer.files
-        //     console.log("File drop!");
-        // }
-    }
+    // dropHandler = (event: React.ChangeEvent) => {
+    //     event.preventDefault();
+    //     event.stopPropagation();
+    //     this.setState({dragActive: false});
+    //     // if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+    //     //     //Handle files event.dataTransfer.files
+    //     //     console.log("File drop!");
+    //     // }
+    // }
 
     changeHandler = ( target: React.ChangeEvent<HTMLInputElement> ) => {
         if (!target.currentTarget.files){
@@ -55,10 +55,10 @@ class ImportCard extends Component<Props, State> {
     render() {
         return (
             <div>
-                <div className="ImportCard">
+                {/* <div className="ImportCard">
                     <form id="form-file-upload" onDragEnter={() => this.dragHandler} onSubmit={() => {}}></form>
                     <div>Eventually you will drag files here!</div>
-                </div>
+                </div> */}
                 <input type="file" id="fileUpload" onChange={this.changeHandler} />                
                 <div>
                     {this.state.preview}

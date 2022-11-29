@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { Card } from "../interfaces/card";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "../utils";
 // import { exportCards } from "../importExport";
+import ImportCard from './components/Importcard';
 
 
 interface Props {
@@ -17,6 +18,7 @@ interface Props {
   };
 interface State {
     cardArray: Card[],
+    importShow: boolean
 };
 
 class CollectPage extends Component<Props, State> {
@@ -24,7 +26,8 @@ class CollectPage extends Component<Props, State> {
     constructor(props: Props) {
         super(props)
         this.state = {
-            cardArray: this.props.cardArray
+            cardArray: this.props.cardArray,
+            importShow: false
         }
     }
 
@@ -48,6 +51,10 @@ class CollectPage extends Component<Props, State> {
         this.setState({cardArray: []});
     }
 
+    //I really gotta rethink how I am dealing with props and state, but for now I am deleting stuff in state AND deleting stuff in app.js's cardArray
+    importToggle() {
+        this.setState({importShow: !this.state.importShow});
+    }
     //Now for some magic!
     importHandler() {
         console.log("Time to import!");
@@ -92,14 +99,18 @@ class CollectPage extends Component<Props, State> {
     return (
         <div className= "collectionContainer">
             <div className = "title">
-                <p>Collection</p>
+                <p>
+                    Collection
+                    {this.state.importShow && <ImportCard preview={""} />}
+                </p>
                 <div className="ButtonBox">
-                    <div className="ImportButton" onClick={() => this.importHandler()}><IconFolderOpen
-                        src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`}
-                    />Import</div>
+                    <div className="ImportButton" onClick={() => this.importToggle()}>Import Cards</div>
+
+                    {/* // importHandler()}><IconFolderOpen */}
+                    {/* //     src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`} */}
                     <div className="ExportButton" onClick={() => this.exportHandler()}><IconFolderOpen
                         src={`https://file.rendit.io/n/WXCzH8U22m3EMPlLJJUe.svg`}
-                    />Export</div>
+                    />Export Collection</div>
                     <div className="DeleteButton" onClick={() => this.deleteAllHandler()}><IconTrash
                         src={`https://file.rendit.io/n/AWXeYQKewibNjaYdcviF.svg`}
                     />Delete All</div>

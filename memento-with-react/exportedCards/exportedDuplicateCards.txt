@@ -1,0 +1,1 @@
+Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20<|||>Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20<|||>Red<|>Card One<|>The first card<|>Hint One<|>deck1,deck2,deck3<|>20

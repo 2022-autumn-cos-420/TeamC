@@ -6,10 +6,8 @@ class CollTab extends Component{    //Still need to figure out how to pass chang
         super(props)
         this.state = {
             render: false,
-            localFrontText: this.props.frontText,
-            localBackText: this.props.backText,
-            localCardHint: this.props.cardHint,
-            localCardDecks: this.props.cardDecks,
+            localCard: this.props.card
+
         }
         this.toggleContent = this.toggleContent.bind(this);
     }
@@ -21,19 +19,19 @@ class CollTab extends Component{    //Still need to figure out how to pass chang
     }
 
     handleFrontChange = (event) => {
-        this.setState({localFrontText: event.target.value});
+        this.setState({localCard: {...this.state.localCard, frontText: event.currentTarget.value}});
     }
 
     handleBackChange = (event) => {
-        this.setState({localBackText: event.target.value});
+        this.setState({localCard: {...this.state.localCard, backText: event.currentTarget.value}});
     }
 
     handleHintChange = (event) => {
-        this.setState({localCardHint: event.target.value});
+        this.setState({localCard: {...this.state.localCard, cardHint: event.currentTarget.value}});
     }
     
     handleDecksChange = (event) => {
-        this.setState({localCardDecks: event.target.value});
+        this.setState({localCard: {...this.state.localCard, cardDecks: [event.currentTarget.value]}});
     }
 
 
@@ -47,34 +45,37 @@ class CollTab extends Component{    //Still need to figure out how to pass chang
         };
     return (
         <div className="CollTab">
-            <button type="button" onClick={this.toggleContent} className='collapsible'>{this.state.localFrontText}</button>
+            <button type="button" onClick={this.toggleContent} className='collapsible'>{this.state.localCard.frontText}</button>
             <div 
                 className="content"
                 style={{maxHeight: this.state.render ? '400px': '0px'}}>
                 <div className="row">
                     <div className="column">
+                        {/* <h>Current Card Values:</h> */}
                         <p>Current Card Values:</p>
-                        <p data-testid="CollTabFrontText">Front Text: {this.props.frontText}</p>
-                        <p data-testid="CollTabBackText">Back Text: {this.props.backText}</p>
-                        <p data-testid="CollTabCardHint">Card Hint: {this.props.cardHint} </p>
-                        <p data-testid="CollTabCardDecks">Card Decks: {this.props.cardDecks}</p>
+                        <p data-testid="CollTabFrontText">Front Text: {this.props.card.frontText}</p>
+                        <p data-testid="CollTabBackText">Back Text: {this.props.card.backText}</p>
+                        <p data-testid="CollTabCardHint">Card Hint: {this.props.card.cardHint} </p>
+                        <p data-testid="CollTabCardDecks">Card Decks: {this.props.card.cardDecks}</p>
+                        <p>Card Accuracy: {this.props.card.accuracy}</p>
                     </div>
                     <div className="column">
                         <p>Please enter new values:</p>
-                        <p><input type="text" onChange={this.handleFrontChange} value={this.state.localFrontText}></input></p>
-                        <p><input type="text" onChange={this.handleBackChange} value={this.state.localBackText}></input></p>
-                        <p><input type="text" onChange={this.handleHintChange} value={this.state.localCardHint}></input></p>
-                        <p><input type="text" onChange={this.handleDecksChange} value={this.state.localCardDecks}></input></p>
+                        {/* <h>Please enter new values:</h> */}
+                        <p><input type="text" onChange={this.handleFrontChange} value={this.state.localCard.frontText}></input></p>
+                        <p><input type="text" onChange={this.handleBackChange} value={this.state.localCard.backText}></input></p>
+                        <p><input type="text" onChange={this.handleHintChange} value={this.state.localCard.cardHint}></input></p>
+                        <p><input type="text" onChange={this.handleDecksChange} value={this.state.localCard.cardDecks}></input></p>
                     </div>
                 </div>
                 <div className="CollTabButtons">
                     <button
                         style={buttonStyle}
-                        onClick={() => this.props.updated(this.props.frontText, this.props.backText, this.props.cardHint, this.props.cardDecks, this.state.localFrontText, this.state.localBackText, this.state.localCardHint, this.state.localCardDecks)}>Update Card</button>
+                        onClick={() => this.props.updated(this.props.card, this.state.localCard.frontText, this.state.localCard.backText, this.state.localCard.cardHint, this.state.localCard.cardDecks)}>Update Card</button>
                     <button
                         className="deleteButton"
                         style={buttonStyle}
-                        onClick={() => this.props.deleted(this.props.frontText, this.props.backText, this.props.cardHint)}>Delete Card</button>
+                        onClick={() => this.props.deleted(this.props.card)}>Delete Card</button>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react-transition-group": "^4.4.5",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
@@ -25,6 +26,11 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
   },
   "browserslist": {
     "production": [

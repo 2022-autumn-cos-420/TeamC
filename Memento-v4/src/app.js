@@ -253,11 +253,20 @@ function parseNotes() {
     var parsetext = document.getElementById("flashcardTextInputTextBox").value;
     console.log(parsetext);
     var startIndex = parsetext.indexOf('{');
-    var separatorIndex = parsetext.indexOf(':');
+    var separator;
+    var separatorIndex;
     var endIndex = parsetext.indexOf('}');
+
+    if (startIndex != -1){
+        separator = parsetext.substring(startIndex);
+        console.log(separator);
+        separatorIndex = separator.indexOf(':')+startIndex;
+        console.log(startIndex,separatorIndex,endIndex);
+        console.log(parsetext.charAt(6),parsetext.charAt(326));
+    } else {separatorIndex = parsetext.indexOf(':');}
     //String that we need to add to flashcard
     var parsehit;
-
+    var instances = 0;
     // The line will be parsed if two requirements are met:
     // 1. All of the needed delimiters are present (not equal to -1 index)
      // 2. It's in the correct format: start char, separator, end char
@@ -277,12 +286,18 @@ function parseNotes() {
         //continue parsing for more occurances
         parsetext = parsetext.substring(endIndex+1);
         startIndex = parsetext.indexOf('{');
-        separatorIndex = parsetext.indexOf(':');
+        if (startIndex != -1){
+            separator = parsetext.substring(startIndex);
+            separatorIndex = separator.indexOf(':')+startIndex;
+        } else {separatorIndex = parsetext.indexOf(':');}
         endIndex = parsetext.indexOf('}');
+        instances++;
     }
-        //console.log("Invalid text field for parsing");
+    if (instances == 0) {
+        console.log("Invalid text field for parsing");
+        document.getElementById("addCardButton").style.animation = "horizontal-shaking .5s";
+    }
 }
-
 
 //Need to implement a way to see if one of the text fields is empty and not
 //allow the user to add a card to the deck
@@ -319,6 +334,7 @@ function addCard() {
         }
     }
     ///////
+
     //Check if all fields are entered
     if (cardDeck === "" || cardDetails === "" || backSideText === "" || frontSideText === "") {
         document.getElementById("addCardButton").style.animation = "horizontal-shaking .5s";

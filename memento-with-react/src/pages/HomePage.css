@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: newdefaultfont;
+    src: url(AnjaliOldLipi.ttf)
+}
+
+.errorMessageHomeContainer {
+    text-align: center;
+    display: none;
+    animation: fadeOut 2s;
+    animation-fill-mode: forwards;
+}
+
+
+.AddCardButton {
+    display: block;
+    position: relative;
+    height: 60px;
+    width: 60px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 50%;
+    border: none;
+    font-size: 45px;
+    text-align: center;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+
+}
+
+
+.AddCardButton:active {
+    transform: translateY(4px);
+}
+
+.navbar .logobtn {
+    font-size: 40px;
+    text-decoration: none;
+    color: #FFFFFF;
+    padding-right: 15px;
+}
+
+.navbar .signupbtn {
+    font-size: 20px;
+    text-decoration: none;
+    color: #FFFFFF;
+    float: right;
+    margin: 20px 20px;
+}
+
+input[type=cardDeck] {
+    border:none;
+    outline: none;
+}
+
+.cardDeck {
+    text-decoration: none;
+    border: none;
+    outline: none;
+    float: right;
+    margin: 10px 10px;
+    color: #4e4e4d;
+    text-align: right;
+}
+
+
+@keyframes horizontal-shaking {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(5px) }
+    50% { transform: translateX(-5px) }
+    75% { transform: translateX(5px) }
+    100% { transform: translateX(0) }
+}
+
+/*---This is for the bottom buttons underneath the flashcard on the homepage ---*/
+
+.HomeCardButtons {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding: 15px;
+}
+
+
+
+/*---This is for the toggle switch on the home page---*/
+/*Taken from: https://www.w3schools.com/howto/howto_css_switch.asp */
+.Switch {
+    margin: 0 auto;
+    position: relative;
+    display: inline-block;
+    top: -26;
+    width: 60px;
+    height: 34px;
+}
+
+.Switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+input:checked + .slider {
+    background-color: #3aa384;
+}
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #3aa384;
+}
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+  
+  /* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+  
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
+@keyframes horizontal-shaking {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(5px) }
+    50% { transform: translateX(-5px) }
+    75% { transform: translateX(5px) }
+    100% { transform: translateX(0) }
+}

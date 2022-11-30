@@ -1,0 +1,113 @@
+.collectionContainer {
+    margin: auto;
+    height: 80%;
+    width: 70%;
+}
+
+.title {
+    font: inherit;
+    color: white;
+    font-size: 35px;
+    display: flex;
+}
+
+
+.ButtonBox {
+    font: inherit;
+    position: absolute;
+    right: 18%;
+}
+
+.DeleteButton {
+    font: inherit;
+    height: 23px;
+    display: inline-block;
+    padding: 0px;
+    background-color: #bc4c4d;
+    border-radius:12px;
+    box-sizing: content-box;
+    border-width: 0px;
+    font-size: 15px;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+}
+
+.ExportButton {
+    font: inherit;
+    height: 23px;
+    display: inline-block;
+    padding: 0px;
+    background-color: green;
+    border-radius: 12px;
+    box-sizing: content-box;
+    border-width: 0px;
+    font-size: 15px;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    margin-right: 20px;
+}
+
+
+.ImportButton {
+    font: inherit;
+    height: 23px;
+    display: inline-block;
+    padding: 0px;
+    background-color: blue;
+    border-radius: 12px;
+    box-sizing: content-box;
+    border-width: 0px;
+    font-size: 15px;
+    cursor: pointer;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    margin-right: 20px;
+}
+
+.ImportButton:hover {
+    opacity: 70%;
+}
+
+.DeleteButton:hover {
+    opacity: 70%;
+}
+
+.ExportButton:hover {
+    opacity: 70%;
+}
+
+.DeleteButton:active {
+    transform: translateY(4px);
+}
+
+.ExportButton:active {
+    transform: translateY(4px);
+}
+
+.ImportButton:active {
+    transform: translateY(4px);
+}
+
+
+.collectionWindow {
+    margin: auto;
+    border-radius: 20px;
+    background-color: rgba(223, 223, 223, 0.4);
+    height: 90%;
+    width: 100%;
+    overflow: auto;
+}
+
+
+
+.NoCardMessage {
+    font-size: 30px;
+    color: grey;
+    text-align: center;
+    padding-top: 27%;
+}

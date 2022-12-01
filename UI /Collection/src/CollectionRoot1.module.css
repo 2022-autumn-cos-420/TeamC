@@ -1,0 +1,275 @@
+.collectionRootRoot {
+  width: 1393px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 29px 36px 777px 9px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000000;
+  background-image: linear-gradient(154deg, #78ca80 0%, #4293a4 149%);
+  overflow: hidden;
+}
+.flexColumn {
+  width: 350px;
+  height: 216px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.mementoLogo {
+  left: 21px;
+  top: 0px;
+  position: absolute;
+  color: #ffffff;
+  font-size: 53px;
+  font-family: Inter;
+  white-space: nowrap;
+}
+.collection2 {
+  width: 350px;
+  height: 160px;
+  position: relative;
+  color: #818181;
+  font-size: 32px;
+  font-family: Inter;
+  text-align: center;
+}
+.collection {
+  display: contents;
+  color: #ffffff;
+  font-size: 40px;
+  font-family: Inter;
+}
+.collection1 {
+  display: contents;
+  color: #818181;
+  font-size: 32px;
+  font-family: Inter;
+}
+.flexColumn1 {
+  width: 534px;
+  height: 178px;
+  position: relative;
+  gap: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 19px 0px;
+}
+.flexRow {
+  width: 534px;
+  gap: 41px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.collection3 {
+  align-self: center;
+  color: #ffffff;
+  font-size: 22px;
+  font-family: Inter;
+  text-align: center;
+  white-space: nowrap;
+}
+.flexRow1 {
+  width: 534px;
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flexColumn2 {
+  width: 30px;
+  height: 45px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0px 58px 0px 72px;
+}
+.editButton {
+  height: 23px;
+  left: 0px;
+  top: 16px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0px;
+  padding-top: 5px;
+  padding-right: 91px;
+  padding-bottom: 5px;
+  padding-left: 49px;
+  border-width: 0px;
+  border-radius: 12px;
+  box-sizing: content-box;
+  background-color: #78ca80;
+  cursor: pointer;
+}
+.editButton:hover {
+  opacity: 70%;
+}
+.iconPencil {
+  width: 20px;
+  height: 20px;
+}
+.flexColumn3 {
+  width: 52px;
+  height: 45px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0px 45px 0px 63px;
+}
+.assignButton {
+  left: 0px;
+  top: 16px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0px;
+  padding-top: 9px;
+  padding-right: 103px;
+  padding-bottom: 11px;
+  padding-left: 41px;
+  border-width: 0px;
+  border-radius: 12px;
+  box-sizing: content-box;
+  background-color: #44c4b6;
+  cursor: pointer;
+}
+.assignButton:hover {
+  opacity: 70%;
+}
+.iconFolderOpen {
+  width: 16px;
+  height: 13px;
+}
+.flexColumn4 {
+  width: 54px;
+  height: 45px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0px 45px 0px 61px;
+}
+.deleteButton {
+  left: 0px;
+  top: 16px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0px;
+  padding-top: 9px;
+  padding-right: 104px;
+  padding-bottom: 10px;
+  padding-left: 45px;
+  border-width: 0px;
+  border-radius: 12px;
+  box-sizing: content-box;
+  background-color: #bc4c4d;
+  cursor: pointer;
+}
+.deleteButton:hover {
+  opacity: 70%;
+}
+.iconTrash {
+  width: 11.2px;
+  height: 14px;
+}
+.outterMenu {
+  width: 1198px;
+  height: 742px;
+  left: 89px;
+  top: 193px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 32px 42px 32px 40px;
+  border-radius: 16px;
+  background-color: rgba(223, 223, 223, 0.4);
+  backdrop-filter: blur(0px);
+}
+.flexRow2 {
+  width: 1198px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px 0px 16px 0px;
+}
+.name1 {
+  position: relative;
+  color: #ffffff;
+  font-size: 24px;
+  font-family: Inter;
+  text-align: center;
+  white-space: nowrap;
+}
+.flexColumn5 {
+  width: 838px;
+  height: 69px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 9px 0px;
+}
+.front {
+  left: 0px;
+  top: 0px;
+  position: absolute;
+  color: #ffffff;
+  font-size: 24px;
+  font-family: Inter;
+  text-align: center;
+  white-space: nowrap;
+}
+.cos {
+  width: 838px;
+  height: 29px;
+  left: 0px;
+  top: 55px;
+  position: absolute;
+  color: #ffffff;
+  font-size: 24px;
+  font-family: Inter;
+}
+.flexColumn6 {
+  width: 838px;
+  height: 35px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0px 0px 21px 0px;
+  padding: 0px 0px 0px 360px;
+}
+.flexColumn7 {
+  width: 838px;
+  height: 35px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0px 0px 0px 360px;
+}
+.image1 {
+  width: 1227px;
+  height: 668px;
+  left: 20px;
+  top: 68.5px;
+  position: absolute;
+}

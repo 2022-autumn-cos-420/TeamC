@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    height: 100vh;
+    width: 100%;
+    background-image: url(background.jpg);
+    background-position: center;
+    background-size: cover;
+    padding-left: 2%;
+    padding-right: 2%;
+    box-sizing: border-box;
+    position: relative;
+}
+
+@font-face {
+    font-family: newdefaultfont;
+    src: url(AnjaliOldLipi.ttf)
+}
+
+.navbar{
+    width: 100%;
+    height: 15vh;
+    margin: auto;
+    font-family: newdefaultfont;
+    dislplay: flex;
+    align-items: center;
+}
+
+.flashcard{
+    width: 700px;
+    height: 400px;
+    align-items: center;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+}
+
+input[type=text] {
+    width: 700px;
+    height: 400px;
+    margin-right 0 auto;
+    margin-left 0 auto;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.navbar .logobtn {
+    font-size: 40px;
+    text-decoration: none;
+    color: #FFFFFF;
+    padding-right: 15px;
+}
+
+.navbar .signupbtn {
+    font-size: 20px;
+    text-decoration: none;
+    color: #FFFFFF;
+    float: right;
+    margin: 20px 20px;
+}
+
+nav{
+    flex: 1;
+    padding-left: 0px;
+}
+
+nav ul li{
+    display: inline-block;
+    list-style: none;
+    margin: 5px 20px;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: #FFFFFF
+}
+

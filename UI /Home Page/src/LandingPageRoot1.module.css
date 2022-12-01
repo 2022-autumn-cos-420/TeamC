@@ -1,0 +1,197 @@
+.landingPageRootRoot {
+  width: 1382px;
+  height: 968px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 29px 26.4px 25px 30px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000000;
+  background-image: linear-gradient(154deg, #78ca80 0%, #4293a4 149%);
+  overflow: hidden;
+}
+.flexRow {
+  width: 1372px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 9.59px 0px 0px;
+}
+.mementoLogo {
+  align-self: flex-start;
+  color: #ffffff;
+  font-size: 53px;
+  font-family: Inter;
+  white-space: nowrap;
+}
+.flexRow1 {
+  width: 422px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 19px 0px 0px 0px;
+}
+.collection {
+  align-self: center;
+  color: #ffffff;
+  font-size: 22px;
+  font-family: Inter;
+  text-align: center;
+  white-space: nowrap;
+}
+.flexRow2 {
+  width: 1140px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 0px 0px 242px;
+}
+.flexColumn {
+  width: 964px;
+  height: 746px;
+  gap: 61px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.flexColumn1 {
+  width: 964px;
+  gap: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.flashcard1 {
+  width: 908px;
+  height: 197px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-self: stretch;
+  align-items: flex-start;
+  padding: 0px 0px 313px 56px;
+}
+.flashcard {
+  width: 837px;
+  height: 452px;
+  left: 0px;
+  top: 9px;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 30px 22.8px 19px 34px;
+  border-radius: 21px;
+  background-color: #f9f9f9;
+}
+.markerCircle {
+  width: 14px;
+  height: 14px;
+  margin: 0px 249px 0px 0px;
+}
+.write2 {
+  width: 300px;
+  height: 155px;
+  margin: 143px 244px 0px 0px;
+  color: #818181;
+  font-size: 32px;
+  font-family: Inter;
+  text-align: center;
+}
+.write {
+  display: contents;
+  color: #7b7979;
+  font-size: 64px;
+  font-family: Inter;
+}
+.iconLoop {
+  width: 30.2px;
+  height: 27px;
+  align-self: flex-end;
+}
+.class4 {
+  width: 265px;
+  position: relative;
+  color: #818181;
+  font-size: 32px;
+  font-family: Inter;
+}
+.deck3 {
+  width: 141px;
+  position: relative;
+  align-self: flex-end;
+  color: #818181;
+  font-size: 32px;
+  font-family: Inter;
+}
+.component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px 0px 0px 427px;
+}
+.silverFlexColumn {
+  height: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0px 1.18px 0px 27.1px;
+  border-radius: 30px;
+  background-color: #bfbfbf;
+}
+.ellipse {
+  width: 11.8px;
+  height: 11.7px;
+}
+.flexColumn2 {
+  width: 60px;
+  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0px 487px 0px 417px;
+}
+.addButtonCircle {
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
+  padding: 0px;
+  padding-right: 15px;
+  padding-left: 15px;
+  border-width: 0px;
+  box-sizing: content-box;
+  background-color: transparent;
+  background-size: cover;
+  background-image: url("https://file.rendit.io/n/mcdTH6hqFzuawSSYm8si.svg");
+  cursor: pointer;
+}
+.addButtonCircle:hover {
+  opacity: 70%;
+}
+.iconPlus {
+  width: 30px;
+  height: 30px;
+}
+.text4 {
+  margin: 0px 14px 0px 0px;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: Inter;
+  text-align: center;
+  white-space: nowrap;
+}
+.iconSettings {
+  width: 41.6px;
+  height: 44px;
+  align-self: flex-end;
+}

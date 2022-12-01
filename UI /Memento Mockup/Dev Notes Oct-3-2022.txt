@@ -1,0 +1,12 @@
+Because this is a simple mockup, the basics in this page was gotten from a tutorial and modified to fit our use case
+
+Top nav bar is added - no links
+Flashcard middle is added - Does nothing at the moment except take in text
+Basic font is added - To eventually be changed
+
+
+Tutorial used:
+https://www.youtube.com/watch?v=qXXknB5bePU
+
+Background image used:
+https://www.freepik.com/free-vector/gradient-background-green-tones_6193311.htm#query=green%20gradient%20background&position=2&from_view=keyword

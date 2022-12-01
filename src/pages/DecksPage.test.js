@@ -23,6 +23,7 @@ let cardArray =  [
 ]
 
 //Comment that doesn't break anything
+//Comment that doesn't break anything new
 it("Decks page can go to the next page", () => {
     const {queryByTestId} = render(<DecksPage cardArray={cardArray}></DecksPage>);
 

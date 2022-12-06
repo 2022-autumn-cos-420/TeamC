@@ -79,7 +79,11 @@ class DeckPage extends Component {
     }
 
     deleteHandler = (name) => {
-        console.log("Trying to delete deck from DeckPage: ", name);
+        console.log("Trying to delete deck from DecksPage: ", name);
+    }
+
+    editHandler = (name) => {
+        console.log("Trying to edit from DecksPage: ", name);
     }
 
 
@@ -100,12 +104,12 @@ class DeckPage extends Component {
                 </div>
                 <div className = "DecksWindow">
                     <row className = "DecksRow">
-                        <DeckCard deckName={this.state.deckOne} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler}></DeckCard>
-                        <DeckCard deckName={this.state.deckTwo} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckOne} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler} edit={this.editHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckTwo} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler} edit={this.editHandler}></DeckCard>
                     </row>
                     <row className = "DecksRow">
-                        <DeckCard deckName={this.state.deckThree} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler}></DeckCard>
-                        <DeckCard deckName={this.state.deckFour} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckThree} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler} edit={this.editHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckFour} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler} edit={this.editHandler}></DeckCard>
                     </row>
                 </div>
             </div>

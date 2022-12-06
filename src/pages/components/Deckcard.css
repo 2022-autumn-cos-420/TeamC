@@ -21,9 +21,11 @@
 }
 
 .DeckDot {
+    position: absolute;
     height: 11px;
     width: 11px;
-    margin: 15px 15px;
+    top: 20px;
+    left: 20px;
     background-color: #d43a19;
     border-radius: 50%;
 }
@@ -36,7 +38,7 @@
     text-align: center;
     font-size: 150%;
     color: #5f5f5e;
-    padding-top: 15%;
+    padding-top: 25%;
     padding-bottom: 10%;
     cursor: pointer;
 }
@@ -48,7 +50,7 @@
     height: 30px;
     position: absolute;
     background-color: transparent;
-    right: 20px;
+    right: 22px;
     bottom: 20px;
     background-image: url(DownloadButton.png);
     background-position: center;
@@ -67,7 +69,7 @@
     height: 30px;
     position: absolute;
     background-color: transparent;
-    left: 20px;
+    left: 22px;
     bottom: 20px;
     background-image: url(DeleteButton.svg);
     background-position: center;
@@ -76,5 +78,24 @@
 }
 
 .DeleteDeckButton:active {
+    transform: translateY(4px);
+}
+
+.EditDeckButton {
+    cursor: pointer;
+    border: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: transparent;
+    right: 20px;
+    top: 20px;
+    background-image: url(EditDeckButton.svg);
+    background-position: center;
+    background-size: 25px;
+    background-repeat: no-repeat;
+}
+
+.EditDeckButton:active {
     transform: translateY(4px);
 }

@@ -32,6 +32,22 @@ let cardArray =  [
   {id: 14, cardColor: "Red", frontText: "front THeREE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."], accuracy: 30}
 ]
 
+function updateDecksList() {
+  //So here we want to go through each and every card in the ENTIRE collection, get a list of the Decks and make tempDecksList into that new list
+  //A little inefficient, so best to only use this when deleting cards
+  console.log("Updating Deck List!");
+  let newDecksList = [];
+  for (let i = 0; i < cardArray.length; i++) {
+    for (let j = 0; j < cardArray[i].cardDecks.length; j++) {
+      if (!newDecksList.includes(cardArray[i].cardDecks[j])) {
+        newDecksList.push(cardArray[i].cardDecks[j].slice());
+      }
+    }
+  }
+  tempDecksList = newDecksList;
+
+}
+
 let tempDecksList = ["Apples", "Bananas", "Pears", "Pineabpples", "Grapes", "Cherries"];
 
 function getDeckList() {
@@ -48,6 +64,8 @@ function downloadDeck(deckName) {
   console.log("Trying to download from app.js!");
 }
 
+
+
 //Remember to always add an id, just use the last id in the cardArray
 function addCard(cFrontText, cBackText, cCardHint, cCardDecks) {
   console.log("Adding card in App.js. Got", cFrontText, " as front text");
@@ -61,6 +79,14 @@ function addCard(cFrontText, cBackText, cCardHint, cCardDecks) {
   console.log("New Id is: ", newId);
   let newCard = {id: newId, cardColor: "Red", frontText: cFrontText, backText: cBackText, cardHint: cCardHint, cardDecks: cCardDecks};
   cardArray.push(newCard);
+  //Probably should update the deckList!
+  console.log("Here is the current decks list: ", tempDecksList);
+  for (let i = 0; i < newCard.cardDecks.length; i++) {
+    console.log("Checking deck: ", newCard.cardDecks[i]);
+    if (!tempDecksList.includes(newCard.cardDecks[i])) {
+      tempDecksList.push(newCard.cardDecks[i]);
+    }   
+  }
 }
 
 
@@ -68,6 +94,8 @@ function addCard(cFrontText, cBackText, cCardHint, cCardDecks) {
 function deleteCard(cFrontText, cBackText, cCardHint, cCardDecks) {
   console.log("Deleting card from the array!");
   cardArray = cardArray.filter((card) => !(card.frontText === cFrontText && card.backText === cBackText && card.cardHint === cCardHint))
+  //Now we should delete the deck if the number of cards is zero
+  updateDecksList();
 }
 
 

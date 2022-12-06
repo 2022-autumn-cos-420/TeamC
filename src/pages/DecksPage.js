@@ -31,7 +31,6 @@ class DeckPage extends Component {
             let newDeckFour = this.props.decksList.length > ((this.state.page + 1) * 4 + 3) ? this.props.decksList[(this.state.page + 1) * 4 + 3]: "Deck Name";
             let newPage = this.state.page + 1;
             console.log("newPage should be: ", newPage);
-            //I HAVE NO IDEA WHY THIS DOES NOT WORK
             this.setState({
                 deckOne: newDeckOne,
                 deckTwo: newDeckTwo,

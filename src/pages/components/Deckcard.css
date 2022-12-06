@@ -55,3 +55,26 @@
     background-size: 30px;
     background-repeat: no-repeat;
 }
+
+.DownloadButton:active {
+    transform: translateY(4px);
+}
+
+.DeleteDeckButton {
+    cursor: pointer;
+    border: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-color: transparent;
+    left: 20px;
+    bottom: 20px;
+    background-image: url(DeleteButton.svg);
+    background-position: center;
+    background-size: 25px;
+    background-repeat: no-repeat;
+}
+
+.DeleteDeckButton:active {
+    transform: translateY(4px);
+}

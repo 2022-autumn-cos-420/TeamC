@@ -78,6 +78,10 @@ class DeckPage extends Component {
         console.log("currentState:", this.state);
     }
 
+    deleteHandler = (name) => {
+        console.log("Trying to delete deck from DeckPage: ", name);
+    }
+
 
     render() {
         return (
@@ -96,12 +100,12 @@ class DeckPage extends Component {
                 </div>
                 <div className = "DecksWindow">
                     <row className = "DecksRow">
-                        <DeckCard deckName={this.state.deckOne} download={this.downloadHandler} study={this.studyHandler}></DeckCard>
-                        <DeckCard deckName={this.state.deckTwo} download={this.downloadHandler} study={this.studyHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckOne} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckTwo} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler}></DeckCard>
                     </row>
                     <row className = "DecksRow">
-                        <DeckCard deckName={this.state.deckThree} download={this.downloadHandler} study={this.studyHandler}></DeckCard>
-                        <DeckCard deckName={this.state.deckFour} download={this.downloadHandler} study={this.studyHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckThree} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckFour} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler}></DeckCard>
                     </row>
                 </div>
             </div>

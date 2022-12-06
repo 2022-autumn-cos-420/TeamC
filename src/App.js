@@ -121,6 +121,7 @@ function updateCollection(childCollection) {
   // console.log("This child collection from app.tsx length: " + childCollection.length)
   // console.log("Updating the collection to match a child component's state");
   cardArray = childCollection;
+  updateDecksList();
 }
 
 

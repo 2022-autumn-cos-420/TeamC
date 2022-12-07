@@ -172,7 +172,8 @@ function updateCard(card) {
   cardArray[index].cardHint = card.cardHint;
   cardArray[index].cardDecks = card.cardDecks;
   console.log("New card:", cardArray[index]);
-  
+  updateDecksList();
+
 }
 
 function updateCollection(childCollection) {

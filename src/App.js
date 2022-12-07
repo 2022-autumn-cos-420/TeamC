@@ -13,7 +13,8 @@ import { parseInputs, parseCardsToString } from './importExport';
 
 
 
-//Just here for testing purposes. Each should have a different front from all the others
+//This is here to hold the entire collection. We will use the workingCardArray for various other things
+
 let cardArray =  [
   {id: 0, cardColor: "Red", frontText: "front On2e!", backText: "back Onsdae!", cardHint: "cardHint One!", cardDecks: ["Apples...", "Bananas"], accuracy: 0},
   {id: 1, cardColor: "Red", frontText: "front TW4o!", backText: "back TWo!", cardHint: "cardHint TWO!", cardDecks: ["Apples..."], accuracy: 100},
@@ -31,6 +32,31 @@ let cardArray =  [
   {id: 13, cardColor: "Red", frontText: "front TbWo!", backText: "back TWo!", cardHint: "cardHint TWO!", cardDecks: ["Apples..."], accuracy: 10},
   {id: 14, cardColor: "Red", frontText: "front THeREE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."], accuracy: 30}
 ]
+
+
+//Here we want to take filter the cardArray based on the currentFilterOptions and return it
+function filterCardArray() {
+  if (this.currentFilterOptions[0] === "All") {
+    return cardArray;
+  }
+  else if (this.currentFilterOptions[1] === "DeckName") {
+    return filterByDeck(this.currentFilterOptions[1]);
+  }
+}
+
+
+//Takes in a string that is the name of the deck we are searching for
+//and returns an array of cards matching that description.
+function filterByDeck(deckName) {
+  let returnDeck = [];
+  for (let i = 0; i < cardArray.length; i++) {
+    if (cardArray[i].decksList.includes(deckName)) {
+      returnDeck.push(...cardArray[i])
+    }
+  }
+  return returnDeck;
+}
+
 
 function updateDecksList() {
   //So here we want to go through each and every card in the ENTIRE collection, get a list of the Decks and make tempDecksList into that new list
@@ -99,6 +125,12 @@ function deleteCard(cFrontText, cBackText, cCardHint, cCardDecks) {
 }
 
 
+
+function studyByDeckHandler(deckName) {
+  //Here we need to take in the name and send us over to the quiz page with a different working deck
+  this.setCurrentPage("QuizPage");
+}
+
 //Also done before Ids!
 function updateCard(oldFront, oldBack, oldHint, oldDecks, newFront, newBack, newHint, newDecks) {
   console.log("Finding and updating card from App.js: oldFront: ", oldFront, " oldBack: ", oldBack, " oldHint: ", oldHint);
@@ -127,7 +159,7 @@ function updateCollection(childCollection) {
 
 function App() {
   const [page, setCurrentPage] = useState("HomePage");
-
+  const [currentFilterOptions, setCurrentFilterOptions] = useState(["All", ""]);
   
   return (
     <div className="App">
@@ -145,10 +177,10 @@ function App() {
             </nav>
         </div>
         {page === "HomePage" && <HomePage cardType="FlashCard" addCard = {addCard}></HomePage>}
-        {page === "DecksPage" && <DecksPage cardArray={cardArray} decksList={tempDecksList} downloadDeck={downloadDeck}></DecksPage>}
+        {page === "DecksPage" && <DecksPage cardArray={cardArray} decksList={tempDecksList} downloadDeck={downloadDeck} setFilterOptions={setCurrentFilterOptions} setPage={setCurrentPage}></DecksPage>}
         {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} 
                                                 parseInputs = {parseInputs} updateCollection={updateCollection}
-                                                parseCardsToString={parseCardsToString}></CollectPage>}
+                                                parseCardsToString={parseCardsToString} filters={["All"]}></CollectPage>}
         {page === "QuizPage" && <QuizPage cardArray={cardArray}></QuizPage>}
         {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>

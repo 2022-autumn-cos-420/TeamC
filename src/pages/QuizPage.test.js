@@ -5,14 +5,33 @@ import userEvent from '@testing-library/user-event'
 import FlashCard from "./components/Flashcard.js";
 import QuizPage from "./QuizPage.js";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "../utils";
-
-
+import App from '../App.js';
+import { shallow } from 'enzyme';
+import card from "../interfaces/card"
 
 
 function addCard(front, back, hint, deck) {
     //Not supposed to do anything but prevent this all from crashing
 }
 
+function updateCard(card) {
+    let index = 0;
+    for (let i = 0; i < cardArray.length; i++) {
+      if (cardArray[i].id === card.id) {
+        index = i;
+        console.log("Found Card to update!");
+        break;
+      }
+    }
+    cardArray[index].frontText = card.frontText;
+    cardArray[index].backText = card.backText;
+    cardArray[index].cardHint = card.cardHint;
+    cardArray[index].cardDecks = card.cardDecks;
+    cardArray[index].accuracy = card.accuracy;
+    console.log("New card:", cardArray[index]);
+    updateDecksList();
+  }
+  
 
 let cardArray1 =  [
     {id: 0, cardColor: "Red", frontText: "First One", backText: "First One Back", cardHint: "cardHint One!", cardDecks: ["Apples...", "Bananas"], accuracy: 1000},
@@ -87,20 +106,22 @@ describe("QuizPage State Tests", () => {
             });
         test("Passing an empty deck to the quiz page works correctly.", () => {
             const quiz = new QuizPage({cardArray: []}); 
-            const X = quiz.state.cardArray;
-            console.log(X);
-            console.log([]);
-            expect(deckEquality(X,[])).toEqual(true)
+            expect(deckEquality(quiz.state.cardArray,[])).toEqual(true)
         });
         test("Passing a non-empty deck to the quiz page works correctly.", () => {
             const quiz = new QuizPage({cardArray: cardArray1}); 
-            const X = quiz.state.cardArray;
-            expect(deckEquality(X,cardArray1)).toEqual(true)
+            expect(deckEquality(quiz.state.cardArray,cardArray1)).toEqual(true)
         });
         test("The initial index of the quizpage is 0", () => {
             const quiz = new QuizPage({cardArray: cardArray1}); 
-            //calling the sch
             expect(quiz.state.currentIndex === 0).toEqual(true)
+        }); 
+        test("The initial card text matches the expected first card of cardArray1", () => {
+            const quiz = new QuizPage({cardArray: cardArray1}); 
+            expect(quiz.state.currentFrontText === cardArray1[0].frontText).toEqual(true);
+            expect(quiz.state.currentBackText === cardArray1[0].backText).toEqual(true);
+            expect(quiz.state.currentCardHint === cardArray1[0].cardHint).toEqual(true);
+            expect(quiz.state.currentCardDecks === cardArray1[0].cardDecks).toEqual(true);
         });  
 });
 
@@ -114,23 +135,38 @@ describe("Accuracy Tests", () => {
             });
             test("Calling scheduler returns the index of the lowest-accuracy card", () => {
                 const quiz = new QuizPage({cardArray: cardArray1}); 
-                const X = quiz.state.cardArray;
-                expect(deckEquality(X,cardArray1)).toEqual(true)
+                const nextIndex = quiz.callScheduler();
+                expect(nextIndex === applesByAccuracy[0]).toEqual(true)
             });
             test("Succeeding on the card increments its accuracy", () => {
                 const quiz = new QuizPage({cardArray: cardArray1}); 
-                const X = quiz.state.cardArray;
-                expect(deckEquality(X,cardArray1)).toEqual(true)
+                const currentIndex = quiz.state.currentIndex;
+                const initialAcc = quiz.state.currentAcc;
+                expect(quiz.state.cardArray[currentIndex] === initialAcc).toEqual(true);
+                const nextButton = screen.queryByTestId("CorrectButton");
+                userEvent.click(nextButton);
+                expect(quiz.state.cardArray[currentIndex] !== initialAcc).toEqual(true);
+                expect(quiz.state.cardArray[currentIndex] === (initialAcc + 1)).toEqual(true);
             });
             test("Failing on a card doesn't increment its accuracy", () => {
                 const quiz = new QuizPage({cardArray: cardArray1}); 
-                const X = quiz.state.cardArray;
-                expect(deckEquality(X,cardArray1)).toEqual(true)
+                const currentIndex = quiz.state.currentIndex;
+                const initialAcc = quiz.state.currentAcc;
+                expect(quiz.state.cardArray[currentIndex] === initialAcc).toEqual(true);
+                const nextButton = screen.queryByTestId("IncorrectButton");
+                userEvent.click(nextButton);
+                expect(quiz.state.cardArray[currentIndex] === initialAcc).toEqual(true);
+                expect(quiz.state.cardArray[currentIndex] !== (initialAcc + 1)).toEqual(true);
             });
+            
             test("Succeeding on the card increments its accuracy within the parent class in App.jsx", () => {
-                const quiz = new QuizPage({cardArray: cardArray1}); 
-                const X = quiz.state.cardArray;
-                expect(deckEquality(X,cardArray1)).toEqual(true)
+                let tempArray = cardArray1;    
+                const quiz = new QuizPage({cardArray: tempArray, updateParentCard: updateCard}); 
+                const initialAcc = tempArray[0].accuracy;
+                expect(initialAcc === 1).toEqual(true);
+                const nextButton = screen.queryByTestId("CorrectButton");
+                userEvent.click(nextButton);
+                expect(tempArray[0].accuracy === 2).toEqual(true);
             });
 });
 
@@ -144,17 +180,49 @@ describe("Scheduler Tests", () => {
             });
             test("After studying a card its added to the recentCards state array", () => {
                 const quiz = new QuizPage({cardArray: cardArray1}); 
-                const X = quiz.state.cardArray;
-                expect(deckEquality(X,cardArray1)).toEqual(true)
+                const recentCards = quiz.state.recentCards;
+                const currentIndex = quiz.state.currentIndex;
+                expect(recentCards === []).toEqual(true);
+                const nextButton = screen.queryByTestId("CorrectButton");
+                userEvent.click(nextButton);
+                expect(quiz.state.recentCards === [{currentIndex}]).toEqual(true);
             });
-            test("After studying a card its added to the recentCards state array and can't reappear for at least 5 more iterations if other cards are available", () => {
+            test("After studying a card its added to the recentCards state array and can't reappear for at least 3 more iterations if other cards are available", () => {
                 const quiz = new QuizPage({cardArray: cardArray1}); 
-                const X = quiz.state.cardArray;
-                expect(deckEquality(X,cardArray1)).toEqual(true)
+                const recentCards = quiz.state.recentCards;
+                expect(recentCards === []).toEqual(true);
+                const nextButton0 = screen.queryByTestId("IncorrectButton");
+                userEvent.click(nextButton0);
+                const nextButton1 = screen.queryByTestId("IncorrectButton");
+                userEvent.click(nextButton1);
+                const nextButton2 = screen.queryByTestId("IncorrectButton");
+                userEvent.click(nextButton2);
+                const nextButton3 = screen.queryByTestId("IncorrectButton");
+                userEvent.click(nextButton3);
+                const nextButton4 = screen.queryByTestId("IncorrectButton");
+                userEvent.click(nextButton4);
+                expect(quiz.state.recentCards[0] !== quiz.state.recentCards[1]).toEqual(true);
+                expect(quiz.state.recentCards[0] !== quiz.state.recentCards[2]).toEqual(true);
+                expect(quiz.state.recentCards[0] !== quiz.state.recentCards[3]).toEqual(true);
+                expect(quiz.state.recentCards[0] === quiz.state.recentCards[4]).toEqual(true);
             });
             test("After studying a card if fewer than 5 cards are available then cards are repeated from within recentCards as needed", () => {
-                const quiz = new QuizPage({cardArray: cardArray1}); 
-                const X = quiz.state.cardArray;
-                expect(deckEquality(X,cardArray1)).toEqual(true)
+                const quiz = new QuizPage({cardArray: [cardArray1[0]]}); 
+                const recentCards = quiz.state.recentCards;
+                expect(recentCards === []).toEqual(true);
+                const nextButton0 = screen.queryByTestId("CorrectButton");
+                userEvent.click(nextButton0);
+                const nextButton1 = screen.queryByTestId("CorrectButton");
+                userEvent.click(nextButton1);
+                const nextButton2 = screen.queryByTestId("CorrectButton");
+                userEvent.click(nextButton2);
+                const nextButton3 = screen.queryByTestId("CorrectButton");
+                userEvent.click(nextButton3);
+                const nextButton4 = screen.queryByTestId("CorrectButton");
+                userEvent.click(nextButton4);
+                expect(quiz.state.recentCards[0] === quiz.state.recentCards[1]).toEqual(true);
+                expect(quiz.state.recentCards[0] === quiz.state.recentCards[2]).toEqual(true);
+                expect(quiz.state.recentCards[0] === quiz.state.recentCards[3]).toEqual(true);
+                expect(quiz.state.recentCards[0] === quiz.state.recentCards[4]).toEqual(true);
             });
 });

@@ -87,7 +87,7 @@ test('can import collection', async () => {
 
   const uploadElement = screen.getByTestId(/fileUpload/i);
   expect(uploadElement).toBeInTheDocument();
-      // simulate ulpoad event and wait until finish
+      // simulate upload event and wait until finish
   // fireEvent.change(uploadElement, {
   //     target: { files: [fakeFile2] },
   // })

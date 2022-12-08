@@ -2,11 +2,11 @@ import React, {useState, Component} from "react";
 import './QuizPage.css';
 import FlashCard from './components/Flashcard.js'
 
-
 class QuizPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            //The filtered cards in the current deck
             cardArray: this.props.cardArray,
             currentFrontText: this.props.cardArray.length > 0 ? this.props.cardArray[0].frontText: "",
             currentBackText: this.props.cardArray.length > 0 ? this.props.cardArray[0].backText: "",
@@ -14,6 +14,7 @@ class QuizPage extends Component {
             currentCardDecks: this.props.cardArray.length > 0 ? this.props.cardArray[0].cardDecks: "",
             cardType: "QuizCard",
             currentIndex: 0,
+            recentCards: [],
             done: false,
             showHint: false,
             flipState: false
@@ -44,10 +45,13 @@ class QuizPage extends Component {
     }
 
     nextCardHandler = (rightOrWrong) => {
-        this.setState({flipState: false});
+        // this.setState({flipState: false});
+        // Add the current index to the "Recent cards" state array
         if (rightOrWrong === "Correct") {
             console.log("The user was correct!");
             //Do relevant stats stuff
+            //Call a prop function from app.jsx to update the accuracy of the card
+            //Update the accuracy of the card in the local state
         }
         else {
             console.log("The user was Incorrect!");
@@ -64,7 +68,7 @@ class QuizPage extends Component {
             });
         }
         else {
-            //We have gone through all the cards and should now display a message to the user about how many they god right...
+            //We have gone through all the cards and should now display a message to the user about how many they got right...
             this.setState({done: true});
         }
     }

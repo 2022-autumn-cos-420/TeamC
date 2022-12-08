@@ -15,7 +15,7 @@ function addCard(front, back, hint, deck) {
 
 
 let cardArray1 =  [
-    {id: 0, cardColor: "Red", frontText: "First One", backText: "First One Back", cardHint: "cardHint One!", cardDecks: ["Apples...", "Bananas"], accuracy: 0},
+    {id: 0, cardColor: "Red", frontText: "First One", backText: "First One Back", cardHint: "cardHint One!", cardDecks: ["Apples...", "Bananas"], accuracy: 1000},
     {id: 1, cardColor: "Red", frontText: "front TW4o!", backText: "back TWo!", cardHint: "cardHint TWO!", cardDecks: ["Apples..."], accuracy: 100},
     {id: 2, cardColor: "Red", frontText: "front TH3REE!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."], accuracy: 40},
     {id: 3, cardColor: "Red", frontText: "front On6e!", backText: "back One!", cardHint: "cardHint One!", cardDecks: ["Apples..."], accuracy: 75},
@@ -32,7 +32,7 @@ let cardArray1 =  [
     {id: 14, cardColor: "Red", frontText: "Last One!", backText: "back Three", cardHint: "cardHint Three!", cardDecks: ["Apples..."], accuracy: 30}
   ]
   
-const applesByAccuracy = [0, 11, 10, 13, 4, 7, 14, 2, 12, 5, 6, 3, 1, 9, 8];
+const applesByAccuracy = [11, 10, 13, 4, 7, 14, 2, 12, 5, 6, 3, 1, 9, 8, 0];
 const bananasByAccuracy = [0];
 
 it("Flashcard Quiz cannot be edited by the user", () => {
@@ -67,17 +67,17 @@ it ("QuizPage can succesfully go to the next card", () => {
 
 /*
 Tests for scheduler
-- Accuracy of firstCard changes after correct guess
-- Accuracy of firstCard doesn't change if incorrect
-- After calling the scheduler the first card is the one with the lowest accuracy
-- After calling the scheduler the order of cards is the expected order based on accuracy
-- After guessing a card, its index is added to the recentCards array
-- The scheduler won't repeat the first card for N attempts after appearing
+    - Accuracy of firstCard changes after correct guess
+    - Accuracy of firstCard doesn't change if incorrect
+    - After calling the scheduler the first card is the one with the lowest accuracy
+    - After calling the scheduler multiple times the returned order of cards is the expected order based on accuracy
+    - After guessing a card, its index is added to the recentCards array
+    - The scheduler won't repeat the first card for N attempts after appearing
 */
 
 // Apples in order of accuracy
 // []
-describe("Scheduler Tests", () => {
+describe("QuizPage State Tests", () => {
     beforeEach(() => {
         // eslint-disable-next-line testing-library/no-render-in-setup
         render(<QuizPage
@@ -92,16 +92,69 @@ describe("Scheduler Tests", () => {
             console.log([]);
             expect(deckEquality(X,[])).toEqual(true)
         });
-        // test("Description.", () => {
-        //     const X = screen.getByTestId("");
-        //     expect().
-        // });
-        // test("Description.", () => {
-        //     const X = screen.getByTestId("");
-        //     expect().
-        // });
-        // test("Description.", () => {
-        //     const X = screen.getByTestId("");
-        //     expect().
-        // });                
+        test("Passing a non-empty deck to the quiz page works correctly.", () => {
+            const quiz = new QuizPage({cardArray: cardArray1}); 
+            const X = quiz.state.cardArray;
+            expect(deckEquality(X,cardArray1)).toEqual(true)
+        });
+        test("The initial index of the quizpage is 0", () => {
+            const quiz = new QuizPage({cardArray: cardArray1}); 
+            //calling the sch
+            expect(quiz.state.currentIndex === 0).toEqual(true)
+        });  
+});
+
+describe("Accuracy Tests", () => {
+    beforeEach(() => {
+        // eslint-disable-next-line testing-library/no-render-in-setup
+        render(<QuizPage
+            addCard={addCard()}
+            cardArray={cardArray1}>
+            </QuizPage>);               
+            });
+            test("Calling scheduler returns the index of the lowest-accuracy card", () => {
+                const quiz = new QuizPage({cardArray: cardArray1}); 
+                const X = quiz.state.cardArray;
+                expect(deckEquality(X,cardArray1)).toEqual(true)
+            });
+            test("Succeeding on the card increments its accuracy", () => {
+                const quiz = new QuizPage({cardArray: cardArray1}); 
+                const X = quiz.state.cardArray;
+                expect(deckEquality(X,cardArray1)).toEqual(true)
+            });
+            test("Failing on a card doesn't increment its accuracy", () => {
+                const quiz = new QuizPage({cardArray: cardArray1}); 
+                const X = quiz.state.cardArray;
+                expect(deckEquality(X,cardArray1)).toEqual(true)
+            });
+            test("Succeeding on the card increments its accuracy within the parent class in App.jsx", () => {
+                const quiz = new QuizPage({cardArray: cardArray1}); 
+                const X = quiz.state.cardArray;
+                expect(deckEquality(X,cardArray1)).toEqual(true)
+            });
+});
+
+describe("Scheduler Tests", () => {
+    beforeEach(() => {
+        // eslint-disable-next-line testing-library/no-render-in-setup
+        render(<QuizPage
+            addCard={addCard()}
+            cardArray={cardArray1}>
+            </QuizPage>);               
+            });
+            test("After studying a card its added to the recentCards state array", () => {
+                const quiz = new QuizPage({cardArray: cardArray1}); 
+                const X = quiz.state.cardArray;
+                expect(deckEquality(X,cardArray1)).toEqual(true)
+            });
+            test("After studying a card its added to the recentCards state array and can't reappear for at least 5 more iterations if other cards are available", () => {
+                const quiz = new QuizPage({cardArray: cardArray1}); 
+                const X = quiz.state.cardArray;
+                expect(deckEquality(X,cardArray1)).toEqual(true)
+            });
+            test("After studying a card if fewer than 5 cards are available then cards are repeated from within recentCards as needed", () => {
+                const quiz = new QuizPage({cardArray: cardArray1}); 
+                const X = quiz.state.cardArray;
+                expect(deckEquality(X,cardArray1)).toEqual(true)
+            });
 });

@@ -38,6 +38,7 @@ let cardArray: Card[] =  [
 
 
 
+
 test('can export collection', async () => {
   render(<App />);
   const collectionElement = screen.getByText(/Collection/i);
@@ -140,3 +141,63 @@ test('duplicate cards are not imported', async () => {
   await waitFor(() => expect(screen.getByText(/Cards: 18/i)).toBeTruthy());
 
 });
+
+
+//Here we need to write some tests for the deck page:
+//We need to click on the Decks Page, try to go from one page to another
+//Then test going to the quiz page from the deck page,
+//Test going to the collection page from the deck page,
+
+test("The user can add a card with a deck, and see the new deck in the deckspage", () => {
+  const {queryByTestId} = render(<App />);
+  const decksButton = screen.getByTestId("goDecksButton");
+  let newCard = {
+    id: 100,
+    cardColor: "Red",
+    frontText: "This is some front text",
+    backText: "This is some back text",
+    cardHint: "This is some hint text",
+    cardDecks: ["TotallydifferentDeck"],
+  }
+  const frontTextInput = screen.getByTestId("FlashCardFrontText");
+  const backTextInput = screen.getByTestId("FlashCardBackText");
+  const decksInput = screen.getByTestId("FlashCardFrontDeck");
+  const addCardButton = screen.getByTestId("AddCardButton");
+
+  userEvent.type(frontTextInput,newCard.frontText);
+  userEvent.type(backTextInput, newCard.backText);
+  userEvent.type(decksInput, newCard.cardDecks[0]);
+  userEvent.click(addCardButton);
+  userEvent.click(decksButton);
+  const goNextPageButton = screen.getByTestId("NextPageButton");
+  userEvent.click(goNextPageButton);
+  
+
+  const deckCard3Name = screen.getByTestId(newCard.cardDecks[0]);
+
+  expect(deckCard3Name.textContent).toBe(newCard.cardDecks[0]);
+
+});
+
+test("The user can delete a deck and have it be removed from the DecksPage", () => {
+  const {queryByTestId} = render(<App />);
+  const decksButton = screen.getByTestId("goDecksButton");
+  userEvent.click(decksButton);
+  const applesDeleteButton = screen.getByTestId("DeleteDeckButton:Apples");
+  userEvent.click(applesDeleteButton);
+  const applesDeckName = screen.queryByTestId("Apples");
+  expect(applesDeckName).toBeNull();
+
+})
+
+test("The user can click on the edit button from the deck page and it will take them to the collection page", () => {
+  const {queryByTestId} = render(<App />);
+  const decksButton = screen.getByTestId("goDecksButton");
+  userEvent.click(decksButton);
+  const bananasEditButton = screen.getByTestId("EditDeckButton:Bananas");
+  userEvent.click(bananasEditButton);
+
+  const collectBanner = screen.getByTestId("CollectionBanner");
+  expect(collectBanner.textContent).toBe("Collection");
+
+})

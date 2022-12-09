@@ -183,6 +183,18 @@ function updateCollection(childCollection) {
   updateDecksList();
 }
 
+export function updateAccuracy(card) {
+  let index = 0;
+  for (let i = 0; i < cardArray.length; i++) {
+    if (cardArray[i].id === card.id) {
+      index = i;
+      console.log("Found Card to update!");
+      break;
+    }
+  }
+  cardArray[index].accuracy = cardArray[index].accuracy + 1;
+}
+
 
 function App() {
   const [page, setCurrentPage] = useState("HomePage");
@@ -208,7 +220,7 @@ function App() {
         {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} 
                                                 parseInputs = {parseInputs} updateCollection={updateCollection}
                                                 parseCardsToString={parseCardsToString} filters={["All"]}></CollectPage>}
-        {page === "QuizPage" && <QuizPage cardArray={cardArray}></QuizPage>}
+        {page === "QuizPage" && <QuizPage cardArray={cardArray} updateAccuracy={updateAccuracy}></QuizPage>}
         {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>
       </div>

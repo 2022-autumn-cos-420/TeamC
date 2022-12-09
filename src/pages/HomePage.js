@@ -20,7 +20,8 @@ class HomePage extends Component {
             ParseCardEndDelimiter: "}",
             ParseCardStartDelimiter: "{",
             ParseCardSeparator: ":",
-            ParseCardTextArea: "Please Type Here{term1:def1}fasdf\nzcvzcv{term2:def2}fz"
+            ParseCardTextArea: "Please Type Here{term1:def1}fasdf\nzcvzcv{term2:def2}fz",
+            showSettings: false  
         }
         this.toggleCardType = this.toggleCardType.bind(this);
     }
@@ -119,6 +120,11 @@ class HomePage extends Component {
         else {
             this.setState({cardType: "FlashCard"});
         }
+    }
+
+    toggleSettings = () => {
+        this.setState({showSettings: !this.state.showSettings});
+        console.log(this.state.showSettings);
     }
 
     parseCardHandler = (event) => {
@@ -257,6 +263,12 @@ class HomePage extends Component {
                     </label>
                     <button className="AddCardButton" data-testid="AddCardButton" style={{animation: this.state.shakeButtonState === false ? 'none' : 'horizontal-shaking .5s'}} onClick={this.state.cardType === "FlashCard" ? () => this.addCardHandler() : () => this.parseCardHandler()}>&#43;</button>
                 </div>
+                <div className="SettingsBox" style={{animation: this.state.showSettings === false ? 'rollOut 1s forwards': 'rollIn 1s forwards'}}>
+                    <d className="SettingsHeader">Settings:</d>
+                    <button className="EmailButton">Email Notifications</button>
+                    <button className="TemplatesButton">Templates</button>
+                </div>
+                <button className = "SettingsButton" onClick={() => this.toggleSettings()}></button>
             </div>
 
 

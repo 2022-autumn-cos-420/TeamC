@@ -22,16 +22,15 @@ class DeckPage extends Component {
 
     nextPageHandler = (what) => {
         console.log("Time to go forward from page: ", this.state.page);
-        if (((this.state.page * 4) + 5) < this.props.decksList.length) {
+        if (((this.state.page * 4) + 5) < this.state.decksList.length) {
             //We can go to the next page
             console.log("Trying to go forward to the next page!");
-            let newDeckOne = this.props.decksList.length > ((this.state.page + 1) * 4 + 0) ? this.props.decksList[(this.state.page + 1) * 4 + 0]: "Deck Name";
-            let newDeckTwo = this.props.decksList.length > ((this.state.page + 1) * 4 + 1) ? this.props.decksList[(this.state.page + 1) * 4 + 1]: "Deck Name";
-            let newDeckThree = this.props.decksList.length > ((this.state.page + 1) * 4 + 2) ? this.props.decksList[(this.state.page + 1) * 4 + 2]: "Deck Name";
-            let newDeckFour = this.props.decksList.length > ((this.state.page + 1) * 4 + 3) ? this.props.decksList[(this.state.page + 1) * 4 + 3]: "Deck Name";
+            let newDeckOne = this.state.decksList.length > ((this.state.page + 1) * 4 + 0) ? this.state.decksList[(this.state.page + 1) * 4 + 0]: "Deck Name";
+            let newDeckTwo = this.state.decksList.length > ((this.state.page + 1) * 4 + 1) ? this.state.decksList[(this.state.page + 1) * 4 + 1]: "Deck Name";
+            let newDeckThree = this.state.decksList.length > ((this.state.page + 1) * 4 + 2) ? this.state.decksList[(this.state.page + 1) * 4 + 2]: "Deck Name";
+            let newDeckFour = this.state.decksList.length > ((this.state.page + 1) * 4 + 3) ? this.state.decksList[(this.state.page + 1) * 4 + 3]: "Deck Name";
             let newPage = this.state.page + 1;
             console.log("newPage should be: ", newPage);
-            //I HAVE NO IDEA WHY THIS DOES NOT WORK
             this.setState({
                 deckOne: newDeckOne,
                 deckTwo: newDeckTwo,
@@ -50,10 +49,10 @@ class DeckPage extends Component {
         console.log("Time to go back from page: ", this.state.page);
         if (this.state.page > 0) {
             console.log("Trying go backwards to the next page!");
-            let newDeckOne = this.props.decksList.length > ((this.state.page - 1) * 4 + 0) ? this.props.decksList[(this.state.page - 1) * 4 + 0]: "Deck Name";
-            let newDeckTwo = this.props.decksList.length > ((this.state.page - 1) * 4 + 1) ? this.props.decksList[(this.state.page - 1) * 4 + 1]: "Deck Name";
-            let newDeckThree = this.props.decksList.length > ((this.state.page - 1) * 4 + 2) ? this.props.decksList[(this.state.page - 1) * 4 + 2]: "Deck Name";
-            let newDeckFour = this.props.decksList.length > ((this.state.page - 1) * 4 + 3) ? this.props.decksList[(this.state.page - 1) * 4 + 3]: "Deck Name";
+            let newDeckOne = this.state.decksList.length > ((this.state.page - 1) * 4 + 0) ? this.state.decksList[(this.state.page - 1) * 4 + 0]: "Deck Name";
+            let newDeckTwo = this.state.decksList.length > ((this.state.page - 1) * 4 + 1) ? this.state.decksList[(this.state.page - 1) * 4 + 1]: "Deck Name";
+            let newDeckThree = this.state.decksList.length > ((this.state.page - 1) * 4 + 2) ? this.state.decksList[(this.state.page - 1) * 4 + 2]: "Deck Name";
+            let newDeckFour = this.state.decksList.length > ((this.state.page - 1) * 4 + 3) ? this.state.decksList[(this.state.page - 1) * 4 + 3]: "Deck Name";
             let newPage = this.state.page - 1;
             this.setState({
                 deckOne: newDeckOne,
@@ -69,6 +68,21 @@ class DeckPage extends Component {
         }
     }
 
+    refreshSubPage = (event) => {
+        console.log("Refreshing Page!");
+        console.log("DeckList: ", this.state.decksList);
+        let newDeckOne = this.state.decksList.length > ((this.state.page) * 4 + 0) ? this.state.decksList[(this.state.page) * 4 + 0]: "Deck Name";
+        let newDeckTwo = this.state.decksList.length > ((this.state.page) * 4 + 1) ? this.state.decksList[(this.state.page) * 4 + 1]: "Deck Name";
+        let newDeckThree = this.state.decksList.length > ((this.state.page) * 4 + 2) ? this.state.decksList[(this.state.page) * 4 + 2]: "Deck Name";
+        let newDeckFour = this.state.decksList.length > ((this.state.page) * 4 + 3) ? this.state.decksList[(this.state.page) * 4 + 3]: "Deck Name";
+        this.setState({
+            deckOne: newDeckOne,
+            deckTwo: newDeckTwo,
+            deckThree: newDeckThree,
+            deckFour: newDeckFour,
+        });
+    }
+
     downloadHandler = (event) => {
         console.log("Event: ", event, "onPage: ", this.state.page);
     }
@@ -76,6 +90,22 @@ class DeckPage extends Component {
     studyHandler = (name) => {
         console.log("Trying to study from deckpage at index: ", name, "onPage: ", this.state.page);
         console.log("currentState:", this.state);
+        this.props.setFilterOptions(["Deck", name]);
+        this.props.setPage("QuizPage");
+    }
+
+    deleteHandler = (name) => {
+        console.log("Trying to delete deck from DecksPage: ", name);
+        this.setState({decksList: this.state.decksList.filter((deck) => (deck !== name))}, this.refreshSubPage);
+        //Pass it up also!
+        this.props.deleteDeck(name);
+        console.log("New Decks list in decksPage: ", this.state.decksList);
+    }
+
+    editHandler = (name) => {
+        console.log("Trying to edit from DecksPage: ", name);
+        this.props.setFilterOptions(["Deck", name]);
+        this.props.setPage("CollectionPage");
     }
 
 
@@ -96,12 +126,12 @@ class DeckPage extends Component {
                 </div>
                 <div className = "DecksWindow">
                     <row className = "DecksRow">
-                        <DeckCard deckName={this.state.deckOne} download={this.downloadHandler} study={this.studyHandler}></DeckCard>
-                        <DeckCard deckName={this.state.deckTwo} download={this.downloadHandler} study={this.studyHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckOne} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler} edit={this.editHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckTwo} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler} edit={this.editHandler}></DeckCard>
                     </row>
                     <row className = "DecksRow">
-                        <DeckCard deckName={this.state.deckThree} download={this.downloadHandler} study={this.studyHandler}></DeckCard>
-                        <DeckCard deckName={this.state.deckFour} download={this.downloadHandler} study={this.studyHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckThree} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler} edit={this.editHandler}></DeckCard>
+                        <DeckCard deckName={this.state.deckFour} download={this.downloadHandler} study={this.studyHandler} delete={this.deleteHandler} edit={this.editHandler}></DeckCard>
                     </row>
                 </div>
             </div>

@@ -13,7 +13,7 @@ class CollTab extends Component{    //Still need to figure out how to pass chang
     }
 
 
-    toggleContent() { //This currently works although it is quite ugly and doesn't do any animation
+    toggleContent() { //This currently works and does animation
         this.setState({render: !this.state.render});
         console.log("Changing the render!", this.state.render);
     }
@@ -71,7 +71,7 @@ class CollTab extends Component{    //Still need to figure out how to pass chang
                 <div className="CollTabButtons">
                     <button
                         style={buttonStyle}
-                        onClick={() => this.props.updated(this.props.card, this.state.localCard.frontText, this.state.localCard.backText, this.state.localCard.cardHint, this.state.localCard.cardDecks)}>Update Card</button>
+                        onClick={() => this.props.updated(this.state.localCard)}>Update Card</button>
                     <button
                         className="deleteButton"
                         style={buttonStyle}

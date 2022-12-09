@@ -27,18 +27,18 @@ class CollectPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            cardArray: this.props.cardArray,
+            cardArray: this.props.filters[0] === "All" ? this.props.cardArray: this.props.cardArray.filter((card) => card.cardDecks.includes(this.props.filters[1])),
             importShow: false,
             exportShow: false,
             exportSuccess: false
         }
     }
 
-
-    
-
-    deleteHandler = (frontText, backText, cardHint) => {
-        console.log("Time to delete card!");
+    deleteHandler = (card) => {
+        let frontText = card.frontText;
+        let backText = card.backText;
+        let cardHint = card.cardHint;
+        console.log("Time to delete card: ", frontText, backText, cardHint);
         this.setState({cardArray: this.state.cardArray.filter((card) => (card.frontText !== frontText) || (card.backText !== backText))}
         );
         this.props.deleteCard(frontText, backText, cardHint);
@@ -93,38 +93,36 @@ class CollectPage extends Component {
     };
     
 
-    updateHandler = (oldFront, oldBack, oldHint, oldDecks, newFront, newBack, newHint, newDecks) => {
-        this.props.updateCard(oldFront, oldBack, oldHint, oldDecks, newFront, newBack, newHint, newDecks);
-        console.log("Finding and upating card from CollectPage.js: oldFront: ", oldFront, " oldBack: ", oldBack, " oldHint: ", oldHint);
-
-        
+    updateHandler = (card) => {
+        this.props.updateCard(card);
+        console.log("Finding and upating card from CollectPage.js ID: ", card.id);
 
         let tempCardArray = [...this.state.cardArray];
         let cardIndex = 0;
         for (let i = 0; i < tempCardArray.length; i++) {
-            if (tempCardArray[i].front === oldFront && tempCardArray[i].back === oldBack) {
+            if (tempCardArray[i].id === card.id) {
                 cardIndex = i;
                 break;
             }
         }
 
         let cardToChange = {...tempCardArray[cardIndex]};
-        cardToChange.frontText = newFront;
-        cardToChange.backText = newBack;
-        cardToChange.cardHint = newHint;
-        cardToChange.cardDecks = newDecks;
+        cardToChange.frontText = card.frontText;
+        cardToChange.backText = card.backText;
+        cardToChange.cardHint = card.cardHint;
+        cardToChange.cardDecks = card.cardDecks;
 
         tempCardArray[cardIndex] = cardToChange;
         this.setState({cardArray: tempCardArray});
 
-        console.log("Time to update: ", oldFront);
+        console.log("Time to update: ", card.id);
     }
 
     render() {
     return (
         <div className= "collectionContainer">
             <p className = "title">
-                <div>
+                <div data-testid="CollectionBanner">
                     Collection
                     {this.state.importShow && <ImportCard propCollection={this.state.cardArray} parseInputs={this.props.parseInputs} updateCollection={this.importHandler} />}
                     {this.state.exportShow && <ExportCard downloadCollection={this.downloadCollection} />}

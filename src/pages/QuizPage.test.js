@@ -35,7 +35,9 @@ let cardArray1 =  [
 it("Flashcard Quiz cannot be edited by the user", () => {
     const {queryByTestId} = render(<QuizPage
                                     addCard={addCard()}
-                                    cardArray={cardArray1}>
+                                    cardArray={cardArray1}
+                                    filters={["All", ""]}>
+                                    
                                 </QuizPage>);
     //Now we want to try to change the values in these boxes.
     const frontTextInput = screen.queryByTestId("FlashCardFrontText");
@@ -49,7 +51,8 @@ it("Flashcard Quiz cannot be edited by the user", () => {
 
 
 it ("QuizPage can succesfully go to the next card", () => {
-    const {queryByTestId} = render(<QuizPage cardArray={cardArray1}>
+    const {queryByTestId} = render(<QuizPage cardArray={cardArray1}
+                                                filters={["All", ""]}>
                                 </QuizPage>)
         const frontText = screen.queryByTestId("FlashCardFrontText");
         const nextButton = screen.queryByTestId("CorrectButton");

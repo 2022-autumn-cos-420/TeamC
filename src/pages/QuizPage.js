@@ -58,11 +58,11 @@ class QuizPage extends Component {
         if (rightOrWrong === "Correct") {
             console.log("The user was correct!");
             //Call a prop function from app.jsx to update the accuracy of the card
-            // this.props.updateAccuracy(this.state.cardArray[this.state.currentIndex]);
+            this.props.updateAccuracy(this.state.cardArray[this.state.currentIndex]);
             //Incement the local accuracy. This might double increment it on accident if it's being rendered after updateAccuracy is called. If so just delete it
             const newCardArray = this.state.cardArray.map((card, index) => {
                                     // If this is the card we want to update, increment its accuracy
-                                    if (index, this.state.currentIndex) {
+                                    if (index === this.state.currentIndex) {
                                         return {...card, accuracy: card.accuracy + 1};
                                     } 
                                     else {
@@ -86,8 +86,8 @@ class QuizPage extends Component {
 
         // If the you've just repeated a recentCard (due to deckArray.length < wait) or you have stored more indices in recent cards than you need to, then shift off the first
         //     element of recentCards and append the newly-finished card before moving to the next
-        console.log("before:", this.state.recentCards);
-        console.log("updatedCards:", updatedRecentCards);
+        // console.log("before:", this.state.recentCards);
+        // console.log("updatedCards:", updatedRecentCards);
         if (this.state.recentCards.length === 0) {
             this.setState({recentCards: [this.state.currentIndex]});
         }
@@ -105,7 +105,7 @@ class QuizPage extends Component {
         
         // Move to the next card while avoiding repeating a recent card and going in the sortCriteria order
         const nextCardIndex = getNextCard(this.state.cardArray, updatedRecentCards, this.state.sortCriteria, this.state.sortDirection);
-        console.log("Next card:", nextCardIndex);
+        // console.log("Next card:", nextCardIndex);
         this.setState({currentIndex: nextCardIndex,
                         currentFrontText: this.props.cardArray[nextCardIndex].frontText,
                         currentBackText: this.props.cardArray[nextCardIndex].backText,

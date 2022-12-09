@@ -83,6 +83,6 @@ export function getNextCard(cardArray, recentCards, criteria="Accuracy", directi
     let sortedCardArray = sortCardArray(cardArray, criteria, direction);
     let index = avoidRecentCards(sortedCardArray, cardArray, recentCards);
     // console.log("equal: ", deckEquality(sortedCardArray, cardArray));
-    console.log("index picked: ", index);
+    // console.log("index picked: ", index);
     return index;
 }

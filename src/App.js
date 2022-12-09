@@ -99,9 +99,9 @@ function getDeckList() {
   let tempList = [];
   for (let i = 0; i < cardArray.length; i++) {
     for (let j = 0; j < cardArray[i].cardDecks.length; j++) {
-      console.log("Checking: ", cardArray[i].cardDecks[j]);
+      // console.log("Checking: ", cardArray[i].cardDecks[j]);
         if (!tempList.includes(cardArray[i].cardDecks[j])) {
-            console.log("Pushing!");
+            // console.log("Pushing!");
             tempList.push(cardArray[i].cardDecks[j].slice())
         }
     }

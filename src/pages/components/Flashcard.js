@@ -70,8 +70,8 @@ class FlashCard extends Component {
                         <div>
                             <ul>
                                 <li><span className="Dot" onClick={this.toggleShowHintHandler}></span></li>
-                                <li><input type="CardHint" data-testid="FlashCardFrontHint" placeholder="Notes/Hints" onChange={this.props.cardHintHandler} value={this.props.cardHint} style={this.props.type === "Quiz" ? (this.props.showHint === false ? hintHiddenStyle : hintShownStyle) : hintAlwaysShow}></input></li>
-                                <li><input type="CardDeck" data-testid="FlashCardFrontDeck" placeholder="Deck" onChange={this.props.cardDecksHandler} className="CardDeck" value={this.props.cardDecks}></input></li>
+                                <li><input type="CardHint" data-testid="FlashCardFrontHint" placeholder="Notes/Hints" onChange={this.props.type === "Normal" ? this.props.cardHintHandler : this.doNothing} value={this.props.cardHint} style={this.props.type === "Quiz" ? (this.props.showHint === false ? hintHiddenStyle : hintShownStyle) : hintAlwaysShow}></input></li>
+                                <li><input type="CardDeck" data-testid="FlashCardFrontDeck" placeholder="Deck" onChange={this.props.type === "Normal" ? this.props.cardDecksHandler : this.doNothing} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </div>
                         <input type="CardFrontText" data-testid="FlashCardFrontText" placeholder="Write" onChange = {this.props.type === "Normal" ? this.props.frontTextHandler : this.doNothing} value={this.props.frontText}></input>
@@ -81,11 +81,11 @@ class FlashCard extends Component {
                         <div>
                             <ul>
                                 <li><span className="Dot"></span></li>
-                                <li><input type="CardHint" data-testid="FlashCardBackHint" placeholder="Notes/Hints" onChange={this.props.cardHintHandler} value={this.props.cardHint}></input></li>
-                                <li><input type="CardDeck" data-testid="FlashCardBackDeck" placeholder="Deck" onChange={this.props.cardDecksHandler} className="CardDeck" value={this.props.cardDecks}></input></li>
+                                <li><input type="CardHint" data-testid="FlashCardBackHint" placeholder="Notes/Hints" onChange={this.props.type === "Normal" ? this.props.cardHintHandler : this.doNothing} value={this.props.cardHint}></input></li>
+                                <li><input type="CardDeck" data-testid="FlashCardBackDeck" placeholder="Deck" onChange={this.props.type === "Normal" ? this.props.cardDecksHandler : this.doNothing} className="CardDeck" value={this.props.cardDecks}></input></li>
                             </ul>
                         </div>
-                        <input type="CardFrontText" data-testid="FlashCardBackText" placeholder="Write Back" onChange = {this.props.backTextHandler} value={this.props.backText}></input>
+                        <input type="CardFrontText" data-testid="FlashCardBackText" placeholder="Write Back" onChange = {this.props.type === "Normal" ? this.props.backTextHandler : this.doNothing} value={this.props.backText}></input>
                         <button className="FlipCardButton" onClick={this.flipCardHandler}></button>
                     </div>
                 </div>

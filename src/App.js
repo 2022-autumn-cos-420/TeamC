@@ -99,9 +99,9 @@ function getDeckList() {
   let tempList = [];
   for (let i = 0; i < cardArray.length; i++) {
     for (let j = 0; j < cardArray[i].cardDecks.length; j++) {
-      console.log("Checking: ", cardArray[i].cardDecks[j]);
+      // console.log("Checking: ", cardArray[i].cardDecks[j]);
         if (!tempList.includes(cardArray[i].cardDecks[j])) {
-            console.log("Pushing!");
+            // console.log("Pushing!");
             tempList.push(cardArray[i].cardDecks[j].slice())
         }
     }
@@ -183,6 +183,18 @@ function updateCollection(childCollection) {
   updateDecksList();
 }
 
+export function updateAccuracy(card) {
+  let index = 0;
+  for (let i = 0; i < cardArray.length; i++) {
+    if (cardArray[i].id === card.id) {
+      index = i;
+      console.log("Found Card to update!");
+      break;
+    }
+  }
+  cardArray[index].accuracy = cardArray[index].accuracy + 1;
+}
+
 
 function App() {
   const [page, setCurrentPage] = useState("HomePage");
@@ -208,7 +220,8 @@ function App() {
         {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} 
                                                 parseInputs = {parseInputs} updateCollection={updateCollection}
                                                 parseCardsToString={parseCardsToString} filters={currentFilterOptions}></CollectPage>}
-        {page === "QuizPage" && <QuizPage cardArray={cardArray} filters={currentFilterOptions}></QuizPage>}
+        {page === "QuizPage" && <QuizPage cardArray={cardArray} filters={currentFilterOptions} updateAccuracy={updateAccuracy}></QuizPage>}
+
         {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>
       </div>

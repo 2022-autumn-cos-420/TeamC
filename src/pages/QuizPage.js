@@ -6,10 +6,10 @@ import { cardEquality } from "../utils";
 
 class QuizPage extends Component {
     constructor(props) {
-        super(props)
         this.state = {
             cardArray: this.props.filters[0] === "All" ? this.props.cardArray: this.props.cardArray.filter((card) => card.cardDecks.includes(this.props.filters[1]))
         }
+        super(props)
         this.state = {
             cardArray: this.state.cardArray,
             currentFrontText: this.state.cardArray.length > 0 ? this.state.cardArray[0].frontText: "",

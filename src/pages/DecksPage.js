@@ -90,7 +90,8 @@ class DeckPage extends Component {
     studyHandler = (name) => {
         console.log("Trying to study from deckpage at index: ", name, "onPage: ", this.state.page);
         console.log("currentState:", this.state);
-        this.props.setCurrentFilterOptions("Deck", name);
+        this.props.setFilterOptions(["Deck", name]);
+        this.props.setPage("QuizPage");
     }
 
     deleteHandler = (name) => {

@@ -208,7 +208,7 @@ function App() {
         {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} 
                                                 parseInputs = {parseInputs} updateCollection={updateCollection}
                                                 parseCardsToString={parseCardsToString} filters={currentFilterOptions}></CollectPage>}
-        {page === "QuizPage" && <QuizPage cardArray={cardArray}></QuizPage>}
+        {page === "QuizPage" && <QuizPage cardArray={cardArray} filters={currentFilterOptions}></QuizPage>}
         {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>
       </div>

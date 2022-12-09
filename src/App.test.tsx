@@ -226,7 +226,7 @@ test("The user can navigate off of the quiz page and back on to get quizzed on a
   userEvent.click(quizButton);
   userEvent.click(correctButton);
 
-  expect(currentCardDeck).toHaveValue("Bananas"); //We are back to the full collection!
+  expect(currentCardDeck).toHaveValue("Apples");
 })
 
 test("The user can delete a deck and have it be removed from the DecksPage", () => {

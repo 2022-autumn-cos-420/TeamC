@@ -16,11 +16,11 @@ class HomePage extends Component {
             flipState: false,
             addCard: this.props.addCard,
             shakeButtonState: false,
-            ParseCardDeck: "ffasdf",
-            ParseCardEndDelimiter: "endf",
-            ParseCardStartDelimiter: "startasdf",
-            ParseCardSeparator: "separatorasf",
-            ParseCardTextArea: "textareaasdf"
+            ParseCardDeck: "",
+            ParseCardEndDelimiter: "",
+            ParseCardStartDelimiter: "",
+            ParseCardSeparator: "",
+            ParseCardTextArea: ""
         }
         this.toggleCardType = this.toggleCardType.bind(this);
     }
@@ -125,7 +125,7 @@ class HomePage extends Component {
         console.log("Trying to parse cards!");
         
         console.log(this.state.ParseCardStartDelimiter,this.state.ParseCardEndDelimiter);
-        console.log(this.state.ParseCardSeparator, this.ParseCardTextArea, this.ParseCardDeck);
+        console.log(this.state.ParseCardSeparator, this.state.ParseCardTextArea, this.state.ParseCardDeck);
         //Here we want to get the value of the text area, and parse the cards one by one using: this.props.addCard()
         //Might be a good idea to set the new value of the text area to the new cards to be parsed? We shall see what happens
         
@@ -143,10 +143,13 @@ class HomePage extends Component {
             setTimeout(() => this.setState({
                     shakeButtonState: false
                 }), 500);
-
-    
             return;
         }
+        //Begin parsing!
+
+
+
+        
         //Now we have to call the page above, to app.js
         let newDecksArray = [this.state.ParseCardDeck];
         this.props.addCard(this.state.frontText, this.state.backText, "", newDecksArray)
@@ -186,7 +189,9 @@ class HomePage extends Component {
                                                             ParseCardDeck = {this.state.ParseCardDeck}
                                                             ParseCardStartDelimiterHandler={this.ParseCardStartDelimiterHandler} 
                                                             ParseCardEndDelimiterHandler={this.ParseCardEndDelimiterHandler} 
-                                                            cardHintHandler={this.cardHintHandler}></ParseCard>}
+                                                            ParseCardTextAreaHandler={this.ParseCardTextAreaHandler}
+                                                            ParseCardSeparatorHandler={this.ParseCardSeparatorHandler}
+                                                            ParseCardDecksHandler={this.ParseCardDecksHandler}></ParseCard>}
                 <div className="HomeCardButtons">
                     <label className="Switch">
                         <input type="checkbox"></input>

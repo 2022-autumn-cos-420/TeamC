@@ -32,6 +32,7 @@ class ParseCard extends Component {
     handleDeckChange = (event) => {
       this.setState({ localParseCardDeck: event.target.value });
       this.props.ParseCardDecksHandler(event);
+
     };
   
     handleParseCardTextAreaChange = (event) => {
@@ -46,13 +47,13 @@ class ParseCard extends Component {
                     <top>
                         <ul>
                             <li><span className="Dot"></span></li>
-                            <li><input type="CardHint" data-testid="ParseCardStartDelimiter" onChange={this.handleStartDelimiterChange} placeholder="Start Delimiter" value={this.props.localParseCardStartDelimiter}></input></li>
-                            <li><input type="CardHint" data-testid="ParseCardSeparator" onChange={this.handleSeparatorChange} placeholder="Separator"value={this.props.ParseCardSeparator}></input></li>
-                            <li><input type="CardHint" data-testid="ParseCardEndDelimiter" onChange={this.handleEndDelimiterChange} placeholder="End Delimiter" value={this.props.localParseCardEndDelimiter}></input></li>
-                            <li><input type="CardDeck" data-testid="ParseCardDeck" onChange={this.handleDeckChange} className="CardDeck" placeholder="Deck" value={this.props.ParseCardDeck}></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardStartDelimiter" onChange={this.props.ParseCardStartDelimiterHandler} placeholder="Start Delimiter" value={this.props.ParseCardStartDelimiter}></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardSeparator" onChange={this.props.ParseCardSeparatorHandler} placeholder="Separator"value={this.props.ParseCardSeparator}></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardEndDelimiter" onChange={this.props.ParseCardEndDelimiterHandler} placeholder="End Delimiter" value={this.props.ParseCardEndDelimiter}></input></li>
+                            <li><input type="CardDeck" data-testid="ParseCardDeck" onChange={this.props.ParseCardDecksHandler} className="CardDeck" placeholder="Deck" value={this.props.ParseCardDeck}></input></li>
                         </ul>
                     </top>
-                    <textarea data-testid="ParseCardTextArea" onChange={this.handleParseCardTextAreaChange} placeholder={"Please Type Here:"}value={this.props.ParseCardTextArea}></textarea>
+                    <textarea data-testid="ParseCardTextArea" onChange={this.props.ParseCardTextAreaHandler} placeholder={"Please Type Here:"}value={this.props.ParseCardTextArea}></textarea>
                 </div>
             </div>
         );

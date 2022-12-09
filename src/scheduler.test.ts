@@ -37,7 +37,6 @@ let trivialCardArray =  [
 
 
 describe("Tests for passing data in and out of scheduler functions", () => {
-  
     test("Check that sortCards returns a list sorted by accuracy", () => {
         expect(deckEquality(sortedCardArray, sortCardArray(cardArray, "Accuracy", "Ascending"))).toEqual(true);
     });
@@ -45,16 +44,17 @@ describe("Tests for passing data in and out of scheduler functions", () => {
     test("Check that avoidRecentCards will avoid repeating for 3 cards after appearing when there are >3 cards", () => {
         const recentCards = [1,0,3];
         // The lowest-accuracy card which isn't in recent cards by index should be returned
-        expect(avoidRecentCards(sortedCardArray, recentCards) === 4).toEqual(true);
+        // console.log("Expected value of 4 got ", avoidRecentCards(sortedCardArray, cardArray, recentCards));
+        expect(avoidRecentCards(sortedCardArray, cardArray, recentCards) === 4).toEqual(true);
         // 3 cards after studying the lowest-accuracy card at index 1, that card should be made available for study again
         const recentCardsTwo = [1,0,3,4];
-        expect(avoidRecentCards(sortedCardArray, recentCards) === 1).toEqual(true);
+        expect(avoidRecentCards(sortedCardArray, cardArray,  recentCardsTwo) === 1).toEqual(true);
     });
 
     test("Check that avoidRecentCards will still repeat earlier when there are <4 cards", () => {
         const recentCards = [0,0,0];
         // Since there aren't enough cards to allow for spaced repetition, the same card should be selected again
-        expect(avoidRecentCards(trivialCardArray, recentCards) === 0).toEqual(true);
+        expect(avoidRecentCards(trivialCardArray, trivialCardArray, recentCards) === 0).toEqual(true);
     });
 
     test("Check that getNextCard will return the correct next card in the array while sorting and avoiding recent cards", () => {

@@ -3,85 +3,68 @@
 // import * as fs from "fs";
 // import * as path from "path";
 // import { equal } from "assert";
-
+import { cardEquality } from "./utils";
 export const exportPath = "./exportedCards/";
 
 
-/*
-Needed functions:
-- Sort card[]
-return index of 1st sorted card in array
-Something to check if a card is in the recentCards array
-*/
 
+//Sort function produced by ChatGPT
 export function sortCardArray(cardArray, criteria="Accuracy", direction="Ascending") {
-    return sortedCards;
+    let sortedCards = cardArray;
+    if (criteria === "Accuracy") {
+        sortedCards.sort((a, b) => {
+            if (a.accuracy < b.accuracy) {
+              return -1;
+            } else if (a.accuracy > b.accuracy) {
+              return 1;
+            } else {
+              return 0;
+            }
+          });    
+    }
+    if (direction === "Descending")
+        return sortedCards.reverse();
+    else if (direction === "Ascending"){
+        return sortedCards
+    }
+    else {
+        console.log("Sorting direction not implemented yet!")
+    }
 }
 
-export function avoidRecentCards(cardArray, recentCards, wait=3) {
-    
-    return nextIndex;
+export function avoidRecentCards(sortedCardArray, recentCards, wait=3) {
+    let avoidedIndices = [];
+    if (recentCards.length > wait) {
+        // Based on the wait value for spacing of repetition, determine which cards to avoid repeating for the current iteration 
+        avoidedIndices = recentCards.slice(recentCards.length - wait, recentCards.length);
+    }
+    else {
+        // If the array is too short for the requested spacing of wait, then just avoid all but the least recently presented card
+        avoidedIndices = recentCards.slice(1, recentCards.length);
+    }
+
+    // Look through the sortedCardArray, finding the highest-priority card that is ready to be shown again 
+    //    returning its index within the sorted array
+    for (let i = 0; i < sortedCardArray.length; i++) {
+        if (avoidedIndices.includes(i)) {
+        }
+        else {
+            return i;
+        }
+      }
+    return -1;
 }
 
 
 export function getNextCard(cardArray, recentCards, criteria="Accuracy", direction="Ascending") {
-    return nextIndex;
+    let sortedCardArray = sortCardArray(cardArray, criteria, direction);
+    let index = avoidRecentCards(sortedCardArray, recentCards);
+    if (index === -1) {
+        return null;
+    }
+    else {
+        const nextCard = sortedCardArray[index];
+        const nextIndex = cardArray.findIndex(card => cardEquality(card, nextCard));
+        return nextIndex;
+    }
 }
-
-// export function arrayEquality(arrayOne, arrayTwo) {
-//     if (arrayOne.length !== arrayTwo.length) {
-//         return false;
-//     };
-//     let isEqual = true;
-//     arrayOne.map((string, index) => {
-//         if (string !== arrayTwo[index]) {
-//             isEqual = false;
-//         }
-//     });
-//     return isEqual;
-// }
-
-// export function cardEquality(cardOne, cardTwo) {
-//     const isEqual =
-//         cardOne.frontText === cardTwo.frontText &&
-//         cardOne.backText === cardTwo.backText &&
-//         arrayEquality(cardOne.cardDecks, cardTwo.cardDecks) &&
-//         cardOne.cardHint === cardTwo.cardHint &&
-//         cardOne.cardColor === cardTwo.cardColor &&
-//         cardOne.accuracy === cardTwo.accuracy;
-//     return isEqual;
-// }
-
-// export function deckEquality(deckOne, deckTwo) {
-//     let isEqual = true;
-//     if (deckOne.length !== deckTwo.length) {
-//         isEqual = false;
-//     }
-//     else if (deckOne.length === 0){
-//         isEqual = true;
-//     }
-//     else {
-//         deckOne.map((card, index) => {
-//             if (cardEquality(card, deckTwo[index]) !== true) {
-//                 isEqual = false;
-//             }
-//         });
-//     }
-//     return isEqual;
-// }
-
-
-// export function stringToCard(string) {
-//     const cardArray = string.split("<|>")
-//     const card = {
-//         // The ID of imported cards needs to be assigned at the time of import based on the collection
-//         id: -1,
-//         cardColor: cardArray[0],
-//         frontText: cardArray[1],
-//         backText: cardArray[2],
-//         cardHint: cardArray[3],
-//         cardDecks: cardArray[4].split(","),
-//         accuracy: Number(cardArray[5])
-//     }
-//     return card;
-// }  

@@ -39,7 +39,7 @@ let trivialCardArray =  [
 describe("Tests for passing data in and out of scheduler functions", () => {
   
     test("Check that sortCards returns a list sorted by accuracy", () => {
-        expect(deckEquality(sortedCardArray, sortedCardArray(cardArray, "Accuracy", "Ascending"))).toEqual(true);
+        expect(deckEquality(sortedCardArray, sortCardArray(cardArray, "Accuracy", "Ascending"))).toEqual(true);
     });
 
     test("Check that avoidRecentCards will avoid repeating for 3 cards after appearing when there are >3 cards", () => {

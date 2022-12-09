@@ -14,23 +14,6 @@ function addCard(front, back, hint, deck) {
     //Not supposed to do anything but prevent this all from crashing
 }
 
-function updateCard(card) {
-    let index = 0;
-    for (let i = 0; i < cardArray.length; i++) {
-      if (cardArray[i].id === card.id) {
-        index = i;
-        console.log("Found Card to update!");
-        break;
-      }
-    }
-    cardArray[index].frontText = card.frontText;
-    cardArray[index].backText = card.backText;
-    cardArray[index].cardHint = card.cardHint;
-    cardArray[index].cardDecks = card.cardDecks;
-    cardArray[index].accuracy = card.accuracy;
-    console.log("New card:", cardArray[index]);
-    updateDecksList();
-  }
   
 
 let cardArray1 =  [
@@ -53,6 +36,24 @@ let cardArray1 =  [
   
 const applesByAccuracy = [11, 10, 13, 4, 7, 14, 2, 12, 5, 6, 3, 1, 9, 8, 0];
 const bananasByAccuracy = [0];
+
+
+
+function updateCard(card) {
+    let index = 0;
+    for (let i = 0; i < cardArray1.length; i++) {
+      if (cardArray1[i].id === card.id) {
+        index = i;
+        console.log("Found Card to update!");
+        break;
+      }
+    }
+    cardArray1[index].frontText = card.frontText;
+    cardArray1[index].backText = card.backText;
+    cardArray1[index].cardHint = card.cardHint;
+    cardArray1[index].cardDecks = card.cardDecks;
+    cardArray1[index].accuracy = card.accuracy;
+  }
 
 it("Flashcard Quiz cannot be edited by the user", () => {
     const {queryByTestId} = render(<QuizPage

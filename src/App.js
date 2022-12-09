@@ -219,7 +219,7 @@ function App() {
         {page === "DecksPage" && <DecksPage cardArray={cardArray} decksList={tempDecksList} downloadDeck={downloadDeck} setFilterOptions={setCurrentFilterOptions} setPage={setCurrentPage} deleteDeck={deleteDeck}></DecksPage>}
         {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} 
                                                 parseInputs = {parseInputs} updateCollection={updateCollection}
-                                                parseCardsToString={parseCardsToString}  filters={currentFilterOptions}}></CollectPage>}
+                                                parseCardsToString={parseCardsToString} filters={currentFilterOptions}></CollectPage>}
         {page === "QuizPage" && <QuizPage cardArray={cardArray} filters={currentFilterOptions} updateAccuracy={updateAccuracy}></QuizPage>}
 
         {page === "ImportPage" && <ImportPage></ImportPage>}

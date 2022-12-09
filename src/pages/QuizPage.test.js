@@ -120,6 +120,7 @@ Tests for scheduler
 describe("QuizPage State Tests", () => {
     beforeEach(() => {
         // eslint-disable-next-line testing-library/no-render-in-setup
+        console.log("Rendering QuizPage");
         render(<QuizPage
             addCard={addCard()}
             cardArray={cardArray1}
@@ -130,22 +131,26 @@ describe("QuizPage State Tests", () => {
     });
     test("Passing an empty deck to the quiz page works correctly.", () => {
         const filter = ["All", ""];
+        console.log("Creating QuizPage with Filter: ", filter);
         const quiz = new QuizPage({cardArray: [], updateAccuracy: {updateAccuracy}, filters: {filter} }); 
         expect(deckEquality(quiz.state.cardArray,[])).toEqual(true)
     });
     test("Passing a non-empty deck to the quiz page works correctly.", () => {
         const filter = ["All", ""];
+        console.log("Creating QuizPage with Filter: ", filter);
         const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
         expect(deckEquality(quiz.state.cardArray,cardArray1)).toEqual(true)
     });
     // Because the initial index is determined by the scheduler based on accuracy, and card#11 has the lowest accuracy
     test("The initial index of the quizpage is 11", () => {
         const filter = ["All", ""];
+        console.log("Creating QuizPage with Filter: ", filter);
         const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
         expect(quiz.state.currentIndex).toEqual(11)
     }); 
     test("The initial card text matches the expected first card of cardArray1", () => {
         const filter = ["All", ""];
+        console.log("Creating QuizPage with Filter: ", filter);
         const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
         expect(quiz.state.currentFrontText).toEqual(cardArray1[0].frontText);
         expect(quiz.state.currentBackText).toEqual(cardArray1[0].backText);

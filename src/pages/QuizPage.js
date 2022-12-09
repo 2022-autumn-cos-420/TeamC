@@ -6,12 +6,12 @@ import { cardEquality } from "../utils";
 
 class QuizPage extends Component {
     constructor(props) {
+        super(props)
         console.log("Filter is: ", this.props.filters);
         console.log("Filter is All: ", this.props.filters[0] === "All");
         this.state = {
             cardArray: this.props.filters[0] === "All" ? this.props.cardArray: this.props.cardArray.filter((card) => card.cardDecks.includes(this.props.filters[1]))
         }
-        super(props)
         console.log("Card Array props is: ", this.props.cardArray);
         console.log("Card Array is: ", this.state.cardArray);
 

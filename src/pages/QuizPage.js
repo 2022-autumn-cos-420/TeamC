@@ -6,10 +6,15 @@ import { cardEquality } from "../utils";
 
 class QuizPage extends Component {
     constructor(props) {
+        console.log("Filter is: ", this.props.filters);
+        console.log("Filter is All: ", this.props.filters[0] === "All");
         this.state = {
             cardArray: this.props.filters[0] === "All" ? this.props.cardArray: this.props.cardArray.filter((card) => card.cardDecks.includes(this.props.filters[1]))
         }
         super(props)
+        console.log("Card Array props is: ", this.props.cardArray);
+        console.log("Card Array is: ", this.state.cardArray);
+
         this.state = {
             cardArray: this.state.cardArray,
             currentFrontText: this.state.cardArray.length > 0 ? this.state.cardArray[0].frontText: "",
@@ -17,7 +22,7 @@ class QuizPage extends Component {
             currentCardHint: this.state.cardArray.length > 0 ? this.state.cardArray[0].cardHint: "",
             currentCardDecks: this.state.cardArray.length > 0 ? this.state.cardArray[0].cardDecks: "",
             cardType: "QuizCard",
-            currentIndex: this.props.cardArray.length > 0 ? getNextCard(this.props.cardArray, [], "Accuracy", "Ascending"): 0,
+            currentIndex: this.state.cardArray.length > 0 ? getNextCard(this.state.cardArray, [], "Accuracy", "Ascending"): 0,
             recentCards: [],
             done: false,
             showHint: false,

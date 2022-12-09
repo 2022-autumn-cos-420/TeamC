@@ -51,17 +51,20 @@ describe("Tests for passing data in and out of scheduler functions", () => {
         expect(avoidRecentCards(sortedCardArray, cardArray,  recentCardsTwo) === 1).toEqual(true);
     });
 
+    //Note: originally this test used [0,0,0] as its recentCards. In order for the code to work I've had to make it so QuizPage pops cards off the front of the array
+    //    when they get repeated, so having a duplicate index in repeatedCards is impossible now. The test failed since 0 was both in the 1st index and the avoided indices
+    //    which can never happen if it gets popped off of the array after being found on the 1st index of repeatedCards.
     test("Check that avoidRecentCards will still repeat earlier when there are <4 cards", () => {
-        const recentCards = [0,0,0];
+        const recentCards = [];
         // Since there aren't enough cards to allow for spaced repetition, the same card should be selected again
         expect(avoidRecentCards(trivialCardArray, trivialCardArray, recentCards) === 0).toEqual(true);
     });
 
     test("Check that getNextCard will return the correct next card in the array while sorting and avoiding recent cards", () => {
         const recentCards = [1,0,3];
-        expect(getNextCard(cardArray, recentCards, "Accuracy", "Ascending") === 4).toEqual(true);
+        expect(getNextCard(cardArray, recentCards, "Accuracy", "Ascending")).toEqual(4);
         const recentCardsTwo = [1,0,3,4];
-        expect(getNextCard(cardArray, recentCardsTwo, "Accuracy", "Ascending") === 1).toEqual(true);
+        expect(getNextCard(cardArray, recentCardsTwo, "Accuracy", "Ascending")).toEqual(1);
     });
 
 });

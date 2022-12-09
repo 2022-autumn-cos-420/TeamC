@@ -60,7 +60,7 @@ export function avoidRecentCards(sortedCardArray, cardArray, recentCards=[], wai
         let nextCard = sortedCardArray[i];
         let unsortedIndex = cardArray.findIndex(card => cardEquality(card, nextCard));
 
-        console.log("Index of card in cardArray: " , unsortedIndex);
+        // console.log("Index of card in cardArray: " , unsortedIndex);
         if (avoidedIndices.includes(unsortedIndex)) {
         }
         else {
@@ -74,12 +74,11 @@ export function avoidRecentCards(sortedCardArray, cardArray, recentCards=[], wai
 export function getNextCard(cardArray, recentCards, criteria="Accuracy", direction="Ascending") {
     let sortedCardArray = sortCardArray(cardArray, criteria, direction);
     let index = avoidRecentCards(sortedCardArray, cardArray, recentCards);
+    console.log("equal: ", deckEquality(sortedCardArray, cardArray));
     if (index === -1) {
         return null;
     }
     else {
-        const nextCard = sortedCardArray[index];
-        const nextIndex = cardArray.findIndex(card => cardEquality(card, nextCard));
-        return nextIndex;
+        return index;
     }
 }

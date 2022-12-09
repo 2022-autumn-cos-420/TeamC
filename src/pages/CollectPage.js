@@ -27,7 +27,7 @@ class CollectPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            cardArray: this.props.cardArray,
+            cardArray: this.props.filters[0] === "All" ? this.props.cardArray: this.props.cardArray.filter((card) => card.cardDecks.includes(this.props.filters[1])),
             importShow: false,
             exportShow: false,
             exportSuccess: false
@@ -122,7 +122,7 @@ class CollectPage extends Component {
     return (
         <div className= "collectionContainer">
             <p className = "title">
-                <div>
+                <div data-testid="CollectionBanner">
                     Collection
                     {this.state.importShow && <ImportCard propCollection={this.state.cardArray} parseInputs={this.props.parseInputs} updateCollection={this.importHandler} />}
                     {this.state.exportShow && <ExportCard downloadCollection={this.downloadCollection} />}

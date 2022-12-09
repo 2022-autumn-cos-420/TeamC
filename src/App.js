@@ -206,10 +206,10 @@ function App() {
       <div className="navbar">
             <nav>
                 <ul>
-                    <a href="#" className="logobtn" onClick={() => setCurrentPage("HomePage")} id="goHomeButton">momento</a>
-                    <li><a href = "#" onClick={() => setCurrentPage("DecksPage")} id="goDecksButton">Decks</a></li>
-                    <li><a href = "#" onClick={() => setCurrentPage("QuizPage")} id="goQuizButton">Quiz</a></li>
-                    <li><a href = "#" id="goCollectionButton" onClick={() => setCurrentPage("CollectionPage")}>Collection</a></li>
+                    <a href="#" className="logobtn" onClick={() => setCurrentPage("HomePage")} id="goHomeButton" data-testid="goHomeButton">momento</a>
+                    <li><a href = "#" onClick={() => setCurrentPage("DecksPage")} id="goDecksButton" data-testid="goDecksButton">Decks</a></li>
+                    <li><a href = "#" onClick={() => {setCurrentFilterOptions(["All", ""]); setCurrentPage("QuizPage")}} id="goQuizButton" data-testid="goQuizButton">Quiz</a></li>
+                    <li><a href = "#" id="goCollectionButton" onClick={() => {setCurrentFilterOptions(["All", ""]); setCurrentPage("CollectionPage")}} id="goCollectionButton" data-testid="goCollectionButton">Collection</a></li>
                     <li><a href="#" onClick={() => setCurrentPage("ImportPage")}>Import</a></li>
                     <a href="" className="signupbtn">Sign Up</a>
                 </ul>
@@ -219,8 +219,9 @@ function App() {
         {page === "DecksPage" && <DecksPage cardArray={cardArray} decksList={tempDecksList} downloadDeck={downloadDeck} setFilterOptions={setCurrentFilterOptions} setPage={setCurrentPage} deleteDeck={deleteDeck}></DecksPage>}
         {page === "CollectionPage" && <CollectPage cardArray ={cardArray} deleteCard = {deleteCard} updateCard = {updateCard} 
                                                 parseInputs = {parseInputs} updateCollection={updateCollection}
-                                                parseCardsToString={parseCardsToString} filters={["All"]}></CollectPage>}
-        {page === "QuizPage" && <QuizPage cardArray={cardArray} updateAccuracy={updateAccuracy}></QuizPage>}
+                                                parseCardsToString={parseCardsToString}  filters={currentFilterOptions}}></CollectPage>}
+        {page === "QuizPage" && <QuizPage cardArray={cardArray} filters={currentFilterOptions} updateAccuracy={updateAccuracy}></QuizPage>}
+
         {page === "ImportPage" && <ImportPage></ImportPage>}
       </div>
       </div>

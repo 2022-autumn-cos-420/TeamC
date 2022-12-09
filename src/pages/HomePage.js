@@ -15,13 +15,35 @@ class HomePage extends Component {
             cardDecks: "",
             flipState: false,
             addCard: this.props.addCard,
-            shakeButtonState: false
+            shakeButtonState: false,
+            ParseCardDeck: "Deck",
+            ParseCardEndDelimiter: "}",
+            ParseCardStartDelimiter: "{",
+            ParseCardSeparator: ":",
+            ParseCardTextArea: "Please Type Here{term1:def1}fasdf\nzcvzcv{term2:def2}fz",
+            showSettings: false  
         }
         this.toggleCardType = this.toggleCardType.bind(this);
     }
+    /////Parameters for ParseCard/////
+    ParseCardEndDelimiterHandler = (event) => {
+        this.setState({ParseCardEndDelimiter: event.target.value});
+    }
+    ParseCardStartDelimiterHandler = (event) => {
+        this.setState({ParseCardStartDelimiter: event.target.value});
+    }
+    ParseCardSeparatorHandler = (event) => {
+        this.setState({ParseCardSeparator: event.target.value});
+    }
+    ParseCardTextAreaHandler = (event) => {
+        this.setState({ParseCardTextArea: event.target.value});
+    }
+    ParseCardDecksHandler = (event) => {
+        this.setState({ParseCardDeck: event.target.value});
+    }
+    ///////////////////////////////////
+
     
-
-
     frontTextHandler = (event) => {
         this.setState({frontText: event.target.value});
     }
@@ -100,10 +122,108 @@ class HomePage extends Component {
         }
     }
 
+    toggleSettings = () => {
+        this.setState({showSettings: !this.state.showSettings});
+        console.log(this.state.showSettings);
+    }
+
     parseCardHandler = (event) => {
         console.log("Trying to parse cards!");
+        
+        console.log(this.state.ParseCardStartDelimiter,this.state.ParseCardEndDelimiter);
+        console.log(this.state.ParseCardSeparator, this.state.ParseCardTextArea, this.state.ParseCardDeck);
         //Here we want to get the value of the text area, and parse the cards one by one using: this.props.addCard()
         //Might be a good idea to set the new value of the text area to the new cards to be parsed? We shall see what happens
+        
+        if ((this.state.ParseCardStartDelimiter === "" || this.state.ParseCardEndDelimiter === "" || this.state.ParseCardSeparator === "" ||
+            this.state.ParseCardTextArea === "")) {
+
+            console.log("User did not input all that they needed to for parsing!");
+            
+            //So now we might want to do something about it
+            //Lets shake a button:
+            this.setState({
+                shakeButtonState: true
+            });
+            //Now we want to reset the animation so it actually plays it again for us
+            setTimeout(() => this.setState({
+                    shakeButtonState: false
+                }), 500);
+            return;
+        }
+        //Begin parsing!
+        let parsetext = this.state.ParseCardTextArea;
+        console.log(parsetext);
+        let startIndex = parsetext.indexOf('{');
+        let separator;
+        let separatorIndex;
+        let endIndex = parsetext.indexOf('}');
+    
+        //Need to account for premature separator characters. 
+        if (startIndex !== -1){
+            separator = parsetext.substring(startIndex);
+            console.log(separator);
+            separatorIndex = separator.indexOf(':')+startIndex;
+            console.log(startIndex,separatorIndex,endIndex);
+        } else {separatorIndex = parsetext.indexOf(':');}
+        //String that we need to add to flashcard
+        let parsehit;
+        //Amount of times a string in substring in parsing format has been discovered
+        let instances = 0;
+        //We'll need somewnere to put the parsecard deck
+        let newDecksArrayp;
+
+        // The line will be parsed if two requirements are met:
+        // 1. All of the needed delimiters are present (not equal to -1 index)
+         // 2. It's in the correct format: start char, separator, end char
+        while ((startIndex !== -1 || endIndex !== -1 || separatorIndex !== -1)
+                && (startIndex < separatorIndex && separatorIndex < endIndex)) { 
+            parsehit = parsetext.substring(startIndex+1, endIndex);
+            console.log(parsehit,"Shall be added to the flashcard deck in front:back format");
+            console.log(startIndex,endIndex,separatorIndex);
+            //split parsehit string between front and back
+            let front = parsehit.substring(0,parsehit.indexOf(':'));
+            let back = parsehit.substring(parsehit.indexOf(':')+1);
+            console.log(front,back);
+
+            //On the first successful instance of parsing, we know we'll need a new deck. Don't want to create it more than once. 
+            if(instances ===0){ newDecksArrayp = [this.state.ParseCardDeck];}
+            //Now we'll add the card. 
+            this.props.addCard(front, back, "", this.state.ParseCardDeck)
+
+            //continue parsing for more occurances
+            parsetext = parsetext.substring(endIndex+1);
+            startIndex = parsetext.indexOf('{');
+            endIndex = parsetext.indexOf('}');
+            if (startIndex !== -1){
+                separator = parsetext.substring(startIndex);
+                separatorIndex = separator.indexOf(':')+startIndex;
+            } else {separatorIndex = parsetext.indexOf(':');}
+            
+            instances++;
+        }
+        if (instances === 0) {
+            console.log("Invalid text field for parsing");
+            //So now we might want to do something about it
+            //Lets shake a button:
+            this.setState({
+                shakeButtonState: true
+            });
+            //Now we want to reset the animation so it actually plays it again for us
+            setTimeout(() => this.setState({
+                    shakeButtonState: false
+                }), 500);
+            return false;
+        } else{
+            //Some parsing has been done successfully. Clear any input boxes
+            this.setState({ParseCardTextArea: "",
+                            ParseCardDeck: "",
+                            ParseCardEndDelimiter: "",
+                            ParseCardStartDelimiter: "",
+                            ParseCardSeparator: "",
+                        shakeButtonState: false}, () => {console.log("New HomePage state Parsing text: ", this.state.ParseCardTextArea, "Parsing deck: ", this.state.ParseCardDeck)});
+            return true;
+        }   
 
     }
 
@@ -124,7 +244,18 @@ class HomePage extends Component {
                                                             backTextHandler={this.backTextHandler} 
                                                             cardDecksHandler={this.cardDecksHandler} 
                                                             cardHintHandler={this.cardHintHandler}></FlashCard>}
-                {this.state.cardType === "ParseCard" && <ParseCard></ParseCard>}
+                {this.state.cardType === "ParseCard" && <ParseCard
+                                                            type={"Normal"} 
+                                                            ParseCardStartDelimiter={this.state.ParseCardStartDelimiter}
+                                                            ParseCardEndDelimiter={this.state.ParseCardEndDelimiter}
+                                                            ParseCardTextArea={this.state.ParseCardTextArea}
+                                                            ParseCardSeparator={this.state.ParseCardSeparator}
+                                                            ParseCardDeck = {this.state.ParseCardDeck}
+                                                            ParseCardStartDelimiterHandler={this.ParseCardStartDelimiterHandler} 
+                                                            ParseCardEndDelimiterHandler={this.ParseCardEndDelimiterHandler} 
+                                                            ParseCardTextAreaHandler={this.ParseCardTextAreaHandler}
+                                                            ParseCardSeparatorHandler={this.ParseCardSeparatorHandler}
+                                                            ParseCardDecksHandler={this.ParseCardDecksHandler}></ParseCard>}
                 <div className="HomeCardButtons">
                     <label className="Switch">
                         <input type="checkbox"></input>
@@ -132,6 +263,12 @@ class HomePage extends Component {
                     </label>
                     <button className="AddCardButton" data-testid="AddCardButton" style={{animation: this.state.shakeButtonState === false ? 'none' : 'horizontal-shaking .5s'}} onClick={this.state.cardType === "FlashCard" ? () => this.addCardHandler() : () => this.parseCardHandler()}>&#43;</button>
                 </div>
+                <div className="SettingsBox" style={{animation: this.state.showSettings === false ? 'rollOut 1s forwards': 'rollIn 1s forwards'}}>
+                    <d className="SettingsHeader">Settings:</d>
+                    <button className="EmailButton">Email Notifications</button>
+                    <button className="TemplatesButton">Templates</button>
+                </div>
+                <button className = "SettingsButton" onClick={() => this.toggleSettings()}></button>
             </div>
 
 

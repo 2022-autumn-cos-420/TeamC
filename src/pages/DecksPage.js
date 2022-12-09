@@ -90,6 +90,8 @@ class DeckPage extends Component {
     studyHandler = (name) => {
         console.log("Trying to study from deckpage at index: ", name, "onPage: ", this.state.page);
         console.log("currentState:", this.state);
+        this.props.setFilterOptions(["Deck", name]);
+        this.props.setPage("QuizPage");
     }
 
     deleteHandler = (name) => {
@@ -102,6 +104,8 @@ class DeckPage extends Component {
 
     editHandler = (name) => {
         console.log("Trying to edit from DecksPage: ", name);
+        this.props.setFilterOptions(["Deck", name]);
+        this.props.setPage("CollectionPage");
     }
 
 

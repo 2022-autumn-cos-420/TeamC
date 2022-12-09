@@ -8,12 +8,14 @@ class QuizPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            //The filtered cards in the current deck
-            cardArray: this.props.cardArray,
-            currentFrontText: this.props.cardArray.length > 0 ? this.props.cardArray[0].frontText: "",
-            currentBackText: this.props.cardArray.length > 0 ? this.props.cardArray[0].backText: "",
-            currentCardHint: this.props.cardArray.length > 0 ? this.props.cardArray[0].cardHint: "",
-            currentCardDecks: this.props.cardArray.length > 0 ? this.props.cardArray[0].cardDecks: "",
+            cardArray: this.props.filters[0] === "All" ? this.props.cardArray: this.props.cardArray.filter((card) => card.cardDecks.includes(this.props.filters[1]))
+        }
+        this.state = {
+            cardArray: this.state.cardArray,
+            currentFrontText: this.state.cardArray.length > 0 ? this.state.cardArray[0].frontText: "",
+            currentBackText: this.state.cardArray.length > 0 ? this.state.cardArray[0].backText: "",
+            currentCardHint: this.state.cardArray.length > 0 ? this.state.cardArray[0].cardHint: "",
+            currentCardDecks: this.state.cardArray.length > 0 ? this.state.cardArray[0].cardDecks: "",
             cardType: "QuizCard",
             currentIndex: this.props.cardArray.length > 0 ? getNextCard(this.props.cardArray, [], "Accuracy", "Ascending"): 0,
             recentCards: [],
@@ -118,11 +120,12 @@ class QuizPage extends Component {
         /* I'm leaving this code in, it's a snippet representing how we would handle a proper quiz. Currently though this class implements an indefinite study loop instead
         
         if (this.state.currentIndex + 1 < this.props.cardArray.length) {
+
             this.setState({currentIndex: this.state.currentIndex + 1,
-                            currentFrontText: this.props.cardArray[this.state.currentIndex + 1].frontText,
-                            currentBackText: this.props.cardArray[this.state.currentIndex + 1].backText,
-                            currentCardHint: this.props.cardArray[this.state.currentIndex + 1].cardHint,
-                            currentCardDecks: this.props.cardArray[this.state.currentIndex + 1].cardDecks,
+                            currentFrontText: this.state.cardArray[this.state.currentIndex + 1].frontText,
+                            currentBackText: this.state.cardArray[this.state.currentIndex + 1].backText,
+                            currentCardHint: this.state.cardArray[this.state.currentIndex + 1].cardHint,
+                            currentCardDecks: this.state.cardArray[this.state.currentIndex + 1].cardDecks,
                             showHint: false,
                             flipState: false
             });
@@ -137,7 +140,7 @@ class QuizPage extends Component {
     render() {
         return (
             <div>
-                {(this.state.done !== true && this.props.cardArray.length > 0) && <div>
+                {(this.state.done !== true && this.state.cardArray.length > 0) && <div>
                     <FlashCard type={"Quiz"} 
                         frontText={this.state.currentFrontText} 
                         backText={this.state.currentBackText} 
@@ -145,7 +148,8 @@ class QuizPage extends Component {
                         cardDecks={this.state.currentCardDecks} 
                         showHint={this.state.showHint} 
                         flipState={this.state.flipState} 
-                        flipCard={this.flipCardToggler} showHintToggler={this.showHintToggler}></FlashCard>
+                        flipCard={this.flipCardToggler} 
+                        showHintToggler={this.showHintToggler}></FlashCard>
                     <div className="QuizPageButtons">
                         <button className="CorrectButton" data-testid="CorrectButton" onClick={() => this.flipThenNext("Correct")}>Correct</button>
                         <button className="IncorrectButton" data-testid="IncorrectButton" onClick={() => this.flipThenNext("Incorrect")}>Incorrect</button>

@@ -129,7 +129,8 @@ describe("QuizPage State Tests", () => {
         cardArray1 = [...backupArray1];               
     });
     test("Passing an empty deck to the quiz page works correctly.", () => {
-        const quiz = new QuizPage({cardArray: [], updateAccuracy: {updateAccuracy}, filters: {["All", ""]}}); 
+        const filter = {["All", ""]};
+        const quiz = new QuizPage({cardArray: [], updateAccuracy: {updateAccuracy}, filters: filter}); 
         expect(deckEquality(quiz.state.cardArray,[])).toEqual(true)
     });
     test("Passing a non-empty deck to the quiz page works correctly.", () => {

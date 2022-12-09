@@ -134,16 +134,19 @@ describe("QuizPage State Tests", () => {
         expect(deckEquality(quiz.state.cardArray,[])).toEqual(true)
     });
     test("Passing a non-empty deck to the quiz page works correctly.", () => {
-        const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {["All", ""]}}); 
+        const filter = ["All", ""];
+        const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
         expect(deckEquality(quiz.state.cardArray,cardArray1)).toEqual(true)
     });
     // Because the initial index is determined by the scheduler based on accuracy, and card#11 has the lowest accuracy
     test("The initial index of the quizpage is 11", () => {
-        const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {["All", ""]}}); 
+        const filter = ["All", ""];
+        const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
         expect(quiz.state.currentIndex).toEqual(11)
     }); 
     test("The initial card text matches the expected first card of cardArray1", () => {
-        const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {["All", ""]}}); 
+        const filter = ["All", ""];
+        const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
         expect(quiz.state.currentFrontText).toEqual(cardArray1[0].frontText);
         expect(quiz.state.currentBackText).toEqual(cardArray1[0].backText);
         expect(quiz.state.currentCardHint).toEqual(cardArray1[0].cardHint);
@@ -163,12 +166,14 @@ describe("Accuracy Tests", () => {
         cardArray1 = [...backupArray1];               
     });
         test("Calling scheduler returns the index of the lowest-accuracy card", () => {
-            const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {["All", ""]}}); 
+            const filter = ["All", ""];
+            const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
             const nextIndex = getNextCard(quiz.state.cardArray, quiz.state.recentCards);
             expect(nextIndex).toEqual(applesByAccuracy[0])
         });
         test("Succeeding on the card increments its accuracy", () => {
-            const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {["All", ""]}}); 
+            const filter = ["All", ""];
+            const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
             const currentIndex = quiz.state.currentIndex;
             const initialAcc = quiz.state.cardArray[currentIndex].accuracy;
             expect(quiz.state.cardArray[currentIndex].accuracy).toEqual(initialAcc);
@@ -178,7 +183,8 @@ describe("Accuracy Tests", () => {
             expect(quiz.state.cardArray[currentIndex].accuracy).toEqual((initialAcc + 1));
         });
         test("Failing on a card doesn't increment its accuracy", () => {
-            const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {["All", ""]}}); 
+            const filter = ["All", ""];
+            const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
             const currentIndex = quiz.state.currentIndex;
             const initialAcc = quiz.state.cardArray[currentIndex].accuracy;
             expect(quiz.state.cardArray[currentIndex].accuracy).toEqual(initialAcc);
@@ -192,7 +198,8 @@ describe("Accuracy Tests", () => {
             // console.log("Before acc ", cardArray1[0].accuracy);
             // updateAccuracy(cardArray1[0]);
             // console.log("After acc ", cardArray1[0].accuracy);
-            const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {["All", ""]}}); 
+            const filter = ["All", ""];
+            const quiz = new QuizPage({cardArray: cardArray1, updateAccuracy: {updateAccuracy}, filters: {filter} }); 
             const currentIndex = quiz.state.currentIndex;
             const initialAcc = cardArray1[currentIndex].accuracy;
             expect(initialAcc).toEqual(initialAcc);

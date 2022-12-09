@@ -4,51 +4,56 @@ import './Parsecard.css';
 
 class ParseCard extends Component {
     constructor(props) {
-        super(props);
-        this.state = {
-            localCardDecks: this.props.cardDecks
-        }
+      super(props);
+      this.state = {
+        localParseCardDeck: props.ParseCardDeck,
+        localParseCardStartDelimiter: props.ParseCardStartDelimiter,
+        localParseCardEndDelimiter: props.ParseCardEndDelimiter,
+        localParseCardSeparator: props.ParseCardSeparator,
+        localParseCardTextarea: props.ParseCardTextArea,
+      };
     }
-
-
-
-
-
+  
     handleStartDelimiterChange = (event) => {
-        console.log("Changing the start delimiter!");
-
-    }
-
+      this.setState({ localParseCardStartDelimiter: event.target.value });
+      this.props.ParseCardStartDelimiterHandler(event);
+    };
+  
     handleSeparatorChange = (event) => {
-        console.log("Changing the separator!");
-    }
-
+      this.setState({ localParseCardSeparator: event.target.value });
+      this.props.ParseCardSeparatorHandler(event);
+    };
+  
     handleEndDelimiterChange = (event) => {
-        console.log("Changing the end delimiter!");
-    }
-
+      this.setState({ localParseCardEndDelimiter: event.target.value });
+      this.props.ParseCardEndDelimiterHandler(event);
+    };
+  
     handleDeckChange = (event) => {
-        console.log("Changing the deck!");
-    }
+      this.setState({ localParseCardDeck: event.target.value });
+      this.props.ParseCardDecksHandler(event);
 
+    };
+  
     handleParseCardTextAreaChange = (event) => {
-        console.log("Changing the ParseCardTextArea")
-    }
+      this.setState({ localParseCardTextarea: event.target.value });
+      this.props.ParseCardTextAreaHandler(event);
+    };
 
     render() {
         return (
-            <div className="ParseCard">
+            <div className="ParseCard" data-testid="parsecard"> 
                 <div className="ParseCardInner">
                     <top>
                         <ul>
                             <li><span className="Dot"></span></li>
-                            <li><input type="CardHint" data-testid="ParseCardStartDelimiter" onChange={this.handleStartDelimiterChange} placeholder="Start Delimiter"></input></li>
-                            <li><input type="CardHint" data-testid="ParseCardSeparator" onChange={this.handleSeparatorChange} placeholder="Separator"></input></li>
-                            <li><input type="CardHint" data-testid="ParseCardEndDelimiter" onChange={this.handleEndDelimiterChange} placeholder="End Delimiter"></input></li>
-                            <li><input type="CardDeck" data-testid="ParseCardDeck" onChange={this.handleDeckChange} className="CardDeck" placeholder="Deck"></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardStartDelimiter" onChange={this.props.ParseCardStartDelimiterHandler} placeholder="Start Delimiter" value={this.props.ParseCardStartDelimiter}></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardSeparator" onChange={this.props.ParseCardSeparatorHandler} placeholder="Separator"value={this.props.ParseCardSeparator}></input></li>
+                            <li><input type="CardHint" data-testid="ParseCardEndDelimiter" onChange={this.props.ParseCardEndDelimiterHandler} placeholder="End Delimiter" value={this.props.ParseCardEndDelimiter}></input></li>
+                            <li><input type="CardDeck" data-testid="ParseCardDeck" onChange={this.props.ParseCardDecksHandler} className="CardDeck" placeholder="Deck" value={this.props.ParseCardDeck}></input></li>
                         </ul>
                     </top>
-                    <textarea data-testid="ParseCardTextArea" onChange={this.handleParseCardTextAreaChange} placeholder={"Please Type Here:"}></textarea>
+                    <textarea data-testid="ParseCardTextArea" onChange={this.props.ParseCardTextAreaHandler} placeholder={"Please Type Here:"}value={this.props.ParseCardTextArea}></textarea>
                 </div>
             </div>
         );

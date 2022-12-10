@@ -94,6 +94,15 @@ class CollectPage extends Component {
     
 
     updateHandler = (card) => {
+         card = {
+            id: card.id,
+            color: card.color,
+            frontText: card.frontText,
+            backText: card.backText,
+            cardHint: card.cardHint,
+            cardDecks: card.cardDecks.toString().split(','),
+            accuracy: card.accuracy
+        }
         this.props.updateCard(card);
         console.log("Finding and upating card from CollectPage.js ID: ", card.id);
 
@@ -149,7 +158,7 @@ class CollectPage extends Component {
                 </div>}
                 {this.state.cardArray.length === 0 && <div className="NoCardMessage">Looks like you have no cards... <br></br>Add cards on the Home Page, or import them here!</div>}
             </div>
-            <div> {"Cards: " + this.state.cardArray.length} </div>
+            <div className="CardCount"> {"Cards: " + this.state.cardArray.length} </div>
         </div>
     )};
 }

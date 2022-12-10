@@ -114,10 +114,10 @@ class QuizPage extends Component {
         const nextCardIndex = getNextCard(this.state.cardArray, updatedRecentCards, this.state.sortCriteria, this.state.sortDirection);
         // console.log("Next card:", nextCardIndex);
         this.setState({currentIndex: nextCardIndex,
-                        currentFrontText: this.props.cardArray[nextCardIndex].frontText,
-                        currentBackText: this.props.cardArray[nextCardIndex].backText,
-                        currentCardHint: this.props.cardArray[nextCardIndex].cardHint,
-                        currentCardDecks: this.props.cardArray[nextCardIndex].cardDecks,
+                        currentFrontText: this.state.cardArray[nextCardIndex].frontText,
+                        currentBackText: this.state.cardArray[nextCardIndex].backText,
+                        currentCardHint: this.state.cardArray[nextCardIndex].cardHint,
+                        currentCardDecks: this.state.cardArray[nextCardIndex].cardDecks,
                         showHint: false,
                         flipState: false
                     });

@@ -127,7 +127,7 @@ function addCard(cFrontText, cBackText, cCardHint, cCardDecks) {
     newId = cardArray[cardArray.length - 1].id + 1;
   }
   console.log("New Id is: ", newId);
-  let newCard = {id: newId, cardColor: "Red", frontText: cFrontText, backText: cBackText, cardHint: cCardHint, cardDecks: cCardDecks};
+  let newCard = {id: newId, cardColor: "Red", frontText: cFrontText, backText: cBackText, cardHint: cCardHint, cardDecks: cCardDecks, accuracy: 0};
   cardArray.push(newCard);
   //Probably should update the deckList!
   console.log("Here is the current decks list: ", tempDecksList);

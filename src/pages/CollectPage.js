@@ -94,6 +94,15 @@ class CollectPage extends Component {
     
 
     updateHandler = (card) => {
+         card = {
+            id: card.id,
+            color: card.color,
+            frontText: card.frontText,
+            backText: card.backText,
+            cardHint: card.cardHint,
+            cardDecks: card.cardDecks.toString.split(','),
+            accuracy: card.accuracy
+        }
         this.props.updateCard(card);
         console.log("Finding and upating card from CollectPage.js ID: ", card.id);
 

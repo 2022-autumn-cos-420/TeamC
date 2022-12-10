@@ -19,6 +19,7 @@
   font-family: newdefaultfont;
   box-sizing: border-box;
   position: relative;
+  overflow: hidden;
 }
 
 .navbar{

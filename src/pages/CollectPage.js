@@ -100,7 +100,7 @@ class CollectPage extends Component {
             frontText: card.frontText,
             backText: card.backText,
             cardHint: card.cardHint,
-            cardDecks: card.cardDecks.toString.split(','),
+            cardDecks: card.cardDecks.toString().split(','),
             accuracy: card.accuracy
         }
         this.props.updateCard(card);

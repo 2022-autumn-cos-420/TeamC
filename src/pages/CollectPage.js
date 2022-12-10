@@ -158,7 +158,7 @@ class CollectPage extends Component {
                 </div>}
                 {this.state.cardArray.length === 0 && <div className="NoCardMessage">Looks like you have no cards... <br></br>Add cards on the Home Page, or import them here!</div>}
             </div>
-            <div> {"Cards: " + this.state.cardArray.length} </div>
+            <div className="CardCount"> {"Cards: " + this.state.cardArray.length} </div>
         </div>
     )};
 }

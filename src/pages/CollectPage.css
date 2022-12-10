@@ -34,6 +34,12 @@
     padding-top: 10px;
 }
 
+.CardCount {
+    font: inherit;
+    padding: 10px;
+    color: white;
+}
+
 .ExportButton {
     font: inherit;
     height: 23px;

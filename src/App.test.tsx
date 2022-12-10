@@ -88,7 +88,7 @@ test('can import collection', async () => {
 
   const uploadElement = screen.getByTestId(/fileUpload/i);
   expect(uploadElement).toBeInTheDocument();
-      // simulate ulpoad event and wait until finish
+      // simulate upload event and wait until finish
   // fireEvent.change(uploadElement, {
   //     target: { files: [fakeFile2] },
   // })
@@ -141,7 +141,6 @@ test('duplicate cards are not imported', async () => {
   await waitFor(() => expect(screen.getByText(/Cards: 18/i)).toBeTruthy());
 
 });
-
 
 //Here we need to write some tests for the deck page:
 //We need to click on the Decks Page, try to go from one page to another
@@ -252,5 +251,3 @@ test("The user can click on the edit button from the deck page and it will take 
   const collectBanner = screen.getByTestId("CollectionBanner");
   expect(collectBanner.textContent).toBe("Collection");
 })
-
-

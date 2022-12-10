@@ -32,8 +32,11 @@ export function cardEquality(cardOne, cardTwo) {
 
 export function deckEquality(deckOne, deckTwo) {
     let isEqual = true;
-    if (deckOne.length === 0 || deckOne.length !== deckTwo.length){
+    if (deckOne.length !== deckTwo.length) {
         isEqual = false;
+    }
+    else if (deckOne.length === 0){
+        isEqual = true;
     }
     else {
         deckOne.map((card, index) => {

@@ -47,9 +47,28 @@ class ParseCard extends Component {
                     <top>
                         <ul>
                             <li><span className="Dot"></span></li>
-                            <li><input type="CardHint" data-testid="ParseCardStartDelimiter" onChange={this.props.ParseCardStartDelimiterHandler} placeholder="Start Delimiter" value={this.props.ParseCardStartDelimiter}></input></li>
-                            <li><input type="CardHint" data-testid="ParseCardSeparator" onChange={this.props.ParseCardSeparatorHandler} placeholder="Separator"value={this.props.ParseCardSeparator}></input></li>
-                            <li><input type="CardHint" data-testid="ParseCardEndDelimiter" onChange={this.props.ParseCardEndDelimiterHandler} placeholder="End Delimiter" value={this.props.ParseCardEndDelimiter}></input></li>
+                            <li>
+                              <select data-testid="ParseCardStartDelimiter" onChange={this.props.ParseCardStartDelimiterHandler} value={this.props.ParseCardStartDelimiter}>
+                              <option value="Start Delimiter">{'Start Delimiter'}</option>
+                              <option value="{">{'{'}</option>
+                              <option value="[">{'['}</option>
+                              </select>
+                            </li>      
+                            <li>
+                              <select data-testid="ParseCardEndDelimiter" onChange={this.props.ParseCardEndDelimiterHandler} value={this.props.ParseCardEndDelimiter}>
+                              <option value="End Delimiter">{'End Delimiter'}</option>
+                              <option value="}">{'}'}</option>
+                              <option value="]">{']'}</option>
+                              </select>
+                            </li>
+                            <li>
+                              <select data-testid="ParseCardSeparator" onChange={this.props.ParseCardSeparatorHandler} value={this.props.ParseCardSeparator}>
+                              <option value="Separator">{'Separator'}</option>
+                              <option value=":">{':'}</option>
+                              <option value="-">{'-'}</option>
+                              </select>
+                            </li>
+                            
                             <li><input type="CardDeck" data-testid="ParseCardDeck" onChange={this.props.ParseCardDecksHandler} className="CardDeck" placeholder="Deck" value={this.props.ParseCardDeck}></input></li>
                         </ul>
                     </top>

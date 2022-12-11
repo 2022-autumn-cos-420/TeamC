@@ -15,9 +15,7 @@ const ParseCardTextAreaHandler = jest.fn();
 describe('ParseCard', () => {
     test('renders input fields with correct placeholder text', () => {
       const { getByPlaceholderText } = render(<ParseCard />);
-      expect(screen.getByPlaceholderText('Start Delimiter')).toBeInTheDocument();
-      expect(screen.getByPlaceholderText('Separator')).toBeInTheDocument();
-      expect(screen.getByPlaceholderText('End Delimiter')).toBeInTheDocument();
+
       expect(screen.getByPlaceholderText('Deck')).toBeInTheDocument();
       expect(screen.getByPlaceholderText('Please Type Here:')).toBeInTheDocument();
     });

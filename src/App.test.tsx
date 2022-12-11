@@ -4,7 +4,6 @@ import React from 'react';
 import App from './App';
 import * as fs from "fs";
 import { Card } from "./interfaces/card";
-import { exportCards, importCards, loadCardsFromTxt} from "./importExport";
 import { cardEquality, arrayEquality, exportPath, deckEquality } from "./utils";
 import userEvent from '@testing-library/user-event';
 //Have to make a mockup of the prompt function since it's not implemented

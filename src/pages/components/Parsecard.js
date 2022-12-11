@@ -55,24 +55,23 @@ class ParseCard extends Component {
                               </select>
                             </li>      
                             <li>
-                              <select data-testid="ParseCardEndDelimiter" onChange={this.props.ParseCardEndDelimiterHandler} value={this.props.ParseCardEndDelimiter}>
-                              <option value="End Delimiter">{'End Delimiter'}</option>
-                              <option value="}">{'}'}</option>
-                              <option value="]">{']'}</option>
-                              </select>
-                            </li>
-                            <li>
                               <select data-testid="ParseCardSeparator" onChange={this.props.ParseCardSeparatorHandler} value={this.props.ParseCardSeparator}>
                               <option value="Separator">{'Separator'}</option>
                               <option value=":">{':'}</option>
                               <option value="-">{'-'}</option>
                               </select>
                             </li>
-                            
+                            <li>
+                              <select data-testid="ParseCardEndDelimiter" onChange={this.props.ParseCardEndDelimiterHandler} value={this.props.ParseCardEndDelimiter}>
+                              <option value="End Delimiter">{'End Delimiter'}</option>
+                              <option value="}">{'}'}</option>
+                              <option value="]">{']'}</option>
+                              </select>
+                            </li>
                             <li><input type="CardDeck" data-testid="ParseCardDeck" onChange={this.props.ParseCardDecksHandler} className="CardDeck" placeholder="Deck" value={this.props.ParseCardDeck}></input></li>
                         </ul>
                     </top>
-                    <textarea data-testid="ParseCardTextArea" onChange={this.props.ParseCardTextAreaHandler} placeholder={"Please Type Here:"}value={this.props.ParseCardTextArea}></textarea>
+                    <textarea data-testid="ParseCardTextArea" onChange={this.props.ParseCardTextAreaHandler} placeholder={"Please Type Here:\n\n    Ex. {Term:Definition}"}value={this.props.ParseCardTextArea}></textarea>
                 </div>
             </div>
         );

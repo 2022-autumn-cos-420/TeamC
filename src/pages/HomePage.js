@@ -20,7 +20,7 @@ class HomePage extends Component {
             ParseCardEndDelimiter: "End Delimiter",
             ParseCardStartDelimiter: "Start Delimiter",
             ParseCardSeparator: "Separator",
-            ParseCardTextArea: "Please Type Here{term1:def1}fasdf\nzcvzcv{term2:def2}fz",
+            ParseCardTextArea: "",
             showSettings: false  
         }
         this.toggleCardType = this.toggleCardType.bind(this);
@@ -171,7 +171,6 @@ class HomePage extends Component {
         let instances = 0;
         //We'll need somewnere to put the parsecard deck
         let newDecksArrayp;
-        console.log("maiyahaha",startIndex,endIndex,separatorIndex)
         // The line will be parsed if two requirements are met:
         // 1. All of the needed delimiters are present (not equal to -1 index)
          // 2. It's in the correct format: start char, separator, end char
@@ -188,7 +187,7 @@ class HomePage extends Component {
             //On the first successful instance of parsing, we know we'll need a new deck. Don't want to create it more than once. 
             if(instances ===0){ newDecksArrayp = [this.state.ParseCardDeck];}
             //Now we'll add the card. 
-            this.props.addCard(front, back, "", this.state.ParseCardDeck)
+            this.props.addCard(front, back, "", newDecksArrayp)
 
             //continue parsing for more occurances
             parsetext = parsetext.substring(endIndex+1);

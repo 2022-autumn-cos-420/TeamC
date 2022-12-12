@@ -6,6 +6,9 @@ import QuizPage from "./pages/QuizPage.js";
 import ImportPage from "./pages/ImportPage.js";
 import DecksPage from "./pages/DecksPage.js";
 import React, {useState} from 'react';
+import {auth} from './firebase-config.tsx';
+import {useSignInWithGoogle} from 'react-firebase-hooks/auth';
+
 // import { Card } from "./interfaces/card";
 import { cardEquality, arrayEquality, exportPath, deckEquality, stringToCard } from "./utils";
 import { parseInputs, parseCardsToString } from './importExport';
@@ -199,7 +202,7 @@ export function updateAccuracy(card) {
 function App() {
   const [page, setCurrentPage] = useState("HomePage");
   const [currentFilterOptions, setCurrentFilterOptions] = useState(["All", ""]);
-  
+  const [SignInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
   return (
     <div className="App">
       <div className="container" id="Home">
@@ -210,9 +213,13 @@ function App() {
                     <li><a href = "#" onClick={() => setCurrentPage("DecksPage")} id="goDecksButton" data-testid="goDecksButton">Decks</a></li>
                     <li><a href = "#" onClick={() => {setCurrentFilterOptions(["All", ""]); setCurrentPage("QuizPage")}} id="goQuizButton" data-testid="goQuizButton">Quiz</a></li>
                     <li><a href = "#" id="goCollectionButton" onClick={() => {setCurrentFilterOptions(["All", ""]); setCurrentPage("CollectionPage")}} id="goCollectionButton" data-testid="goCollectionButton">Collection</a></li>
-                    <li><a href="#" onClick={() => setCurrentPage("ImportPage")}>Import</a></li>
-                    <a href="" className="signupbtn">Sign Up</a>
+                    <li><a href = "#" onClick={() => setCurrentPage("ImportPage")}>Import</a></li>
+                    <a href="#" className="signupbtn" onClick={() => {SignInWithGoogle(); }}>Sign Up</a>
+
+                    <li>{(user)?<div>Welcome, {user.user.displayName}</div>:<div>[Not Logged In]</div>}</li>
+
                 </ul>
+
             </nav>
         </div>
         {page === "HomePage" && <HomePage cardType="FlashCard" addCard = {addCard}></HomePage>}

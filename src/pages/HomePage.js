@@ -16,11 +16,11 @@ class HomePage extends Component {
             flipState: false,
             addCard: this.props.addCard,
             shakeButtonState: false,
-            ParseCardDeck: "Deck",
-            ParseCardEndDelimiter: "}",
-            ParseCardStartDelimiter: "{",
-            ParseCardSeparator: ":",
-            ParseCardTextArea: "Please Type Here{term1:def1}fasdf\nzcvzcv{term2:def2}fz",
+            ParseCardDeck: "",
+            ParseCardEndDelimiter: "End Delimiter",
+            ParseCardStartDelimiter: "Start Delimiter",
+            ParseCardSeparator: "Separator",
+            ParseCardTextArea: "",
             showSettings: false  
         }
         this.toggleCardType = this.toggleCardType.bind(this);
@@ -135,8 +135,8 @@ class HomePage extends Component {
         //Here we want to get the value of the text area, and parse the cards one by one using: this.props.addCard()
         //Might be a good idea to set the new value of the text area to the new cards to be parsed? We shall see what happens
         
-        if ((this.state.ParseCardStartDelimiter === "" || this.state.ParseCardEndDelimiter === "" || this.state.ParseCardSeparator === "" ||
-            this.state.ParseCardTextArea === "")) {
+        if ((this.state.ParseCardStartDelimiter === "Start Delimiter" || this.state.ParseCardEndDelimiter === "End Delimiter" || this.state.ParseCardSeparator === "Separator" ||
+            this.state.ParseCardTextArea === "") || this.state.ParseCardDeck === "") {
 
             console.log("User did not input all that they needed to for parsing!");
             
@@ -154,25 +154,23 @@ class HomePage extends Component {
         //Begin parsing!
         let parsetext = this.state.ParseCardTextArea;
         console.log(parsetext);
-        let startIndex = parsetext.indexOf('{');
+        let startIndex = parsetext.indexOf(this.state.ParseCardStartDelimiter);
         let separator;
         let separatorIndex;
-        let endIndex = parsetext.indexOf('}');
+        let endIndex = parsetext.indexOf(this.state.ParseCardEndDelimiter);
     
+
         //Need to account for premature separator characters. 
         if (startIndex !== -1){
             separator = parsetext.substring(startIndex);
-            console.log(separator);
-            separatorIndex = separator.indexOf(':')+startIndex;
-            console.log(startIndex,separatorIndex,endIndex);
-        } else {separatorIndex = parsetext.indexOf(':');}
+            separatorIndex = separator.indexOf(this.state.ParseCardSeparator)+startIndex;
+        } else {separatorIndex = parsetext.indexOf(this.state.ParseCardSeparator);}
         //String that we need to add to flashcard
         let parsehit;
         //Amount of times a string in substring in parsing format has been discovered
         let instances = 0;
         //We'll need somewnere to put the parsecard deck
         let newDecksArrayp;
-
         // The line will be parsed if two requirements are met:
         // 1. All of the needed delimiters are present (not equal to -1 index)
          // 2. It's in the correct format: start char, separator, end char
@@ -182,23 +180,23 @@ class HomePage extends Component {
             console.log(parsehit,"Shall be added to the flashcard deck in front:back format");
             console.log(startIndex,endIndex,separatorIndex);
             //split parsehit string between front and back
-            let front = parsehit.substring(0,parsehit.indexOf(':'));
-            let back = parsehit.substring(parsehit.indexOf(':')+1);
-            console.log(front,back);
+            let front = parsehit.substring(0,parsehit.indexOf(this.state.ParseCardSeparator));
+            let back = parsehit.substring(parsehit.indexOf(this.state.ParseCardSeparator)+1);
+            console.log("FRONT:",front,"BACK:",back);
 
             //On the first successful instance of parsing, we know we'll need a new deck. Don't want to create it more than once. 
             if(instances ===0){ newDecksArrayp = [this.state.ParseCardDeck];}
             //Now we'll add the card. 
-            this.props.addCard(front, back, "", this.state.ParseCardDeck)
+            this.props.addCard(front, back, "", newDecksArrayp)
 
             //continue parsing for more occurances
             parsetext = parsetext.substring(endIndex+1);
-            startIndex = parsetext.indexOf('{');
-            endIndex = parsetext.indexOf('}');
+            startIndex = parsetext.indexOf(this.state.ParseCardStartDelimiter);
+            endIndex = parsetext.indexOf(this.state.ParseCardEndDelimiter);
             if (startIndex !== -1){
                 separator = parsetext.substring(startIndex);
-                separatorIndex = separator.indexOf(':')+startIndex;
-            } else {separatorIndex = parsetext.indexOf(':');}
+                separatorIndex = separator.indexOf(this.state.ParseCardSeparator)+startIndex;
+            } else {separatorIndex = parsetext.indexOf(this.state.ParseCardSeparator);}
             
             instances++;
         }
@@ -217,10 +215,14 @@ class HomePage extends Component {
         } else{
             //Some parsing has been done successfully. Clear any input boxes
             this.setState({ParseCardTextArea: "",
+           
+            
                             ParseCardDeck: "",
-                            ParseCardEndDelimiter: "",
+            
+                        /*  ParseCardEndDelimiter: "",
                             ParseCardStartDelimiter: "",
                             ParseCardSeparator: "",
+                         */ //User probably wants to keep their delimiters!
                         shakeButtonState: false}, () => {console.log("New HomePage state Parsing text: ", this.state.ParseCardTextArea, "Parsing deck: ", this.state.ParseCardDeck)});
             return true;
         }   
